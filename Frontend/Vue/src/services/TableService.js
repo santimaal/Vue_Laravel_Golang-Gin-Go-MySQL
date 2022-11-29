@@ -6,7 +6,7 @@ export default {
     return Api(secret.GO_APP_URL).get(`table`)
   },
   getTableById(id) {
-    return Api(secret.LARAVEL_APP_URL).get(`table/${id}`)
+    return Api(secret.GO_APP_URL).get(`table/${id}`)
   },
   createTable(data) {
     return Api(secret.LARAVEL_APP_URL).post('table', data)

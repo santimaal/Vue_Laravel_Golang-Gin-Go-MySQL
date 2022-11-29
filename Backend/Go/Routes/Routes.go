@@ -20,8 +20,6 @@ func CORS(c *gin.Context) {
 	// Second, we handle the OPTIONS problem
 	if c.Request.Method != "OPTIONS" {
 		c.Next()
-	} else if c.Request.Response.StatusCode == 301 {
-		c.Next()
 	} else {
 		// Everytime we receive an OPTIONS request,
 		// we just return an HTTP 200 Status Code

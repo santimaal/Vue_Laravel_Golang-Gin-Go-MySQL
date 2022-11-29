@@ -1,56 +1,51 @@
 import Constant from "../../Constant";
-import TableService from "@/services/TableService";
+import ThematicService from "@/services/ThematicService";
 
 
-export const table = {
+export const thematic = {
     state: {
-        tablelist: [],
+        thematiclist: []
     },
     namespaced: true,
     mutations: {
-        [Constant.ADD_TABLE]: (state, payload) => {
-            state.tablelist.push({ ...payload });
+        [Constant.ADD_THEMATIC]: (state, payload) => {
+            state.thematiclist.push({ ...payload });
         },
-        [Constant.DELETE_TABLE]: (state, payload) => {
-            let index = state.tablelist.findIndex(
+        [Constant.DELETE_THEMATIC]: (state, payload) => {
+            let index = state.thematiclist.findIndex(
                 (item) => item.id === payload
             );
-            state.tablelist.splice(index, 1);
+            state.thematiclist.splice(index, 1);
         },
-        [Constant.INITIALIZE_TABLE]: (state, payload) => {
-            state.tablelist = payload;
+        [Constant.INITIALIZE_THEMATIC]: (state, payload) => {
+            state.thematiclist = payload;
         }
     },
     actions: {
-        [Constant.ADD_TABLE]: (store, payload) => {
-            TableService.createTable(payload.table)
+        [Constant.ADD_THEMATIC]: (store, payload) => {
+            ThematicService.createThematic(payload.thematic)
                 .then(function (res) {
-                    console.log(res.data.data);
-                    store.commit(Constant.ADD_TABLE, res.data.data);
+                    store.commit(Constant.ADD_THEMATIC, res.data.data);
                 })
                 .catch(function (error) {
                     console.log(error);
                 });
         },
-        [Constant.DELETE_TABLE]: (store, payload) => {
-            TableService.deleteTableById(payload.id)
+        [Constant.DELETE_THEMATIC]: (store, payload) => {
+            ThematicService.deleteThematicById(payload.id)
                 .then(function (res) {
-                    if (res.statusText !== "OK") {
-                        throw Error("Ha habido algun problema al eliminar la mesa");
-                    }else {
-                        store.commit(Constant.DELETE_TABLE, payload.id);
-                    }
-                    
+                    console.log(res);
+                    store.commit(Constant.DELETE_THEMATIC, payload.id);
                 })
                 .catch(function (error) {
                     console.log(error);
                 });
         },
-        [Constant.INITIALIZE_TABLE]: (store) => {
-            TableService.getAllTable()
+        [Constant.INITIALIZE_THEMATIC]: (store /* payload */) => {
+            ThematicService.getAllThematic()
                 .then(function (res) {
                     console.log(res.data);
-                    store.commit(Constant.INITIALIZE_TABLE, res.data);
+                    store.commit(Constant.INITIALIZE_THEMATIC, res.data);
                 })
                 .catch(function (error) {
                     console.log(error);
@@ -59,7 +54,7 @@ export const table = {
     },
     getters: {
         getTable(state) {
-            return state.tablelist;
+            return state.thematiclist;
         },
         // getOrder(state) {
         //     if (state.tablelist) {

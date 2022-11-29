@@ -16,6 +16,7 @@ Route::get('/thematic', [ThematicController::class, 'index']);
 Route::get('/thematic/{id}', [ThematicController::class, 'show']);
 Route::post('/thematic', [ThematicController::class, 'store']);
 Route::put('/thematic/{id}', [ThematicController::class, 'update']);
+Route::delete('/thematic/{id}', [ThematicController::class, 'destroy']);
 // Route::resource('table', TableController::class);
 // Route::resource('thematic', ThematicController::class);
 Route::resource('user', UserController::class);

@@ -24,9 +24,9 @@ class StoreThematicRequest extends FormRequest
     public function rules()
     {
         return [
-            "id_table" => ["required"],
-            "id_user" => ["required"],
-            "is_confirmed" => ["required"],
+            "name" => ["required"],
+            "location" => ["required"],
+            "img" => ["required"],
         ];
     }
 }

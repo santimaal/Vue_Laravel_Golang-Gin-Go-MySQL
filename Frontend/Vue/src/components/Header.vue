@@ -16,6 +16,12 @@
                 <li class="nav-item">
                     <router-link class="nav-link" to="/atable">TablelistAdmin</router-link>
                 </li>
+                <li class="nav-item">
+                    <router-link class="nav-link" to="/thematic">ThematicList</router-link>
+                </li>
+                <li class="nav-item">
+                    <router-link class="nav-link" to="/athematic">ThematicAdmin</router-link>
+                </li>
             </ul>
         </div>
     </nav>

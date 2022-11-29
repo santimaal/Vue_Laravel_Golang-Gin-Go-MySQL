@@ -1,10 +1,9 @@
 <template>
-    <li class="li">{{tableitem}}
-        <div class="float-right">
-            <span class="badge badge-secondary pointer ml-1" @click.stop="editTable(tableitem.id)">Edit</span>
-            <span class="badge badge-secondary pointer ml-1" @click.stop="deleteTable(tableitem.id)">Delete</span>
-        </div>
-    </li>
+    <li>{{ thematicitem }}</li>
+    <div class="float-right">
+        <span class="badge badge-secondary pointer ml-1" @click.stop="editThematic(thematicitem.id)">Edit</span>
+        <span class="badge badge-secondary pointer ml-1" @click.stop="deleteThematic(thematicitem.id)">Delete</span>
+    </div>
     <!-- <li :class="checked(tableitem.done)" @click="toggleDone(tableitem.id)">
             <span :class="{ pointer:true, 'todo-done':tableitem.done }" :title="'Titulo : ' + tableitem.capacity">
                 {{tableitem.id}}
@@ -20,7 +19,7 @@ import { useRouter } from 'vue-router';
 
 export default {
     props: {
-        tableitem: Object
+        thematicitem: Object
     },
     setup(props) {
         const store = useStore();
@@ -32,23 +31,21 @@ export default {
         // const toggleDone = (id) => {
         //     store.dispatch(Constant.TOGGLE_DONE, { id });
         // }
-        const deleteTable = (id) => {
-            store.dispatch("table/"+Constant.DELETE_TABLE, { id });
+        const deleteThematic = (id) => {
+            store.dispatch("thematic/"+Constant.DELETE_THEMATIC, { id });
         }
-        const editTable = (id) => {
-            store.dispatch("table/"+Constant.INITIALIZE_TABLE, { tableitem: { ...props.tableitem } });
-            router.push({ name: 'updateTable', params: { id } })
+        const editThematic = (id) => {
+            console.log(props);
+            console.log(id);
+            store.dispatch("thematic/"+Constant.INITIALIZE_THEMATIC, { thematicitem: { ...props.thematicitem } });
+            router.push({ name: 'updateThematic', params: { id } })
         }
 
-        return { /*toggleDone,*/ deleteTable, editTable, checked }
+        return { /*toggleDone,*/ deleteThematic, editThematic, checked }
     }
 }
 </script>
 
 <style>
-.li{
-    margin-top: 2%;
-    background-color: ghostwhite;
-    padding: 2%;
-}
+
 </style>

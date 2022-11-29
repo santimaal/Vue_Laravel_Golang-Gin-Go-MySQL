@@ -1,7 +1,10 @@
 <template>
-    <h1>Admin Tablelist</h1>
-    <router-link to="addtable"><button>Add</button></router-link>
-    <TableItem_admin v-for="tableitem in state.tablelist" :key="tableitem.id" :tableitem="tableitem" />
+    <div class="template">
+        <h1>Admin Tablelist</h1>
+        <router-link to="addtable"><button>Add</button></router-link>
+        <TableItem_admin v-for="tableitem in state.tablelist" :key="tableitem.id" :tableitem="tableitem" />
+    </div>
+
 
 </template>
 
@@ -27,5 +30,7 @@ export default {
 </script>
 
 <style>
-
+.template{
+    padding: 3%;
+}
 </style>
