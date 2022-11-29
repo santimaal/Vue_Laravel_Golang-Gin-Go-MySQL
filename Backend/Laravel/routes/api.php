@@ -1,11 +1,11 @@
 <?php
 
-use App\Http\Controllers\ReservaController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\TableController;
 use App\Http\Controllers\ThematicController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\ReserveController;
 
 Route::get('/table', [TableController::class, 'index']);
 Route::get('/table/{id}', [TableController::class, 'show']);
@@ -19,4 +19,4 @@ Route::put('/thematic/{id}', [ThematicController::class, 'update']);
 // Route::resource('table', TableController::class);
 // Route::resource('thematic', ThematicController::class);
 Route::resource('user', UserController::class);
-Route::resource('reserva', ReservaController::class);
+Route::resource('reserve', ReserveController::class);
