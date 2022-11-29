@@ -13,10 +13,12 @@ import TableItem_Client from '../../../components/client/TableItem.vue';
 export default {
     setup() {
         const store = useStore();
+
+        store.dispatch("table/" + Constant.INITIALIZE_TABLE);
+
         const state = reactive({
             tablelist: computed(() => store.getters["table/getTable"]),
         });
-        store.dispatch("table/" + Constant.INITIALIZE_TABLE);
         return { state };
     },
     components: { TableItem_Client }

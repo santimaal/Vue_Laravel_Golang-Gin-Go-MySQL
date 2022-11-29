@@ -7,16 +7,11 @@ export const table = {
         tablelist: []
     },
     namespaced: true,
-    // state: {},
     mutations: {
         [Constant.ADD_TABLE]: (state, payload) => {
-            console.log(state + " : " + payload);
-            // state.tablelist.push({ ...payload });
+            state.tablelist.push({ ...payload });
         },
         [Constant.INITIALIZE_TABLE]: (state, payload) => {
-            console.log("paco")
-            // console.log(state + " : " + payload);
-
             // if (payload) {
             state.tablelist = payload;
             // } else {
@@ -30,20 +25,21 @@ export const table = {
     },
     actions: {
         [Constant.ADD_TABLE]: (store, payload) => {
-            console.log(store + " : " + payload);
-            // TableService.createTable(payload.tableitem)
-            //     .then(function (res) {
-            //         store.commit(Constant.ADD_TABLE, res.data.data);
-            //     })
-            //     .catch(function (error) {
-            //         console.log(error);
-            //     });
+            // store.commit(Constant.ADD_TABLE, payload.table)
+            TableService.createTable(payload.table)
+                .then(function (res) {
+                    console.log(res.data.data);
+                    store.commit(Constant.ADD_TABLE, res.data.data);
+                })
+                .catch(function (error) {
+                    console.log(error);
+                });
         },
         [Constant.INITIALIZE_TABLE]: (store /* payload */) => {
             TableService.getAllTable()
                 .then(function (res) {
-                    console.log(res.data.data);
-                    store.commit(Constant.INITIALIZE_TABLE, res.data.data);
+                    console.log(res.data);
+                    store.commit(Constant.INITIALIZE_TABLE, res.data);
                 })
                 .catch(function (error) {
                     console.log(error);

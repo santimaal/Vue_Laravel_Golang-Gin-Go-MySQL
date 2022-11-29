@@ -40,10 +40,10 @@ export default {
 </script>
 
 <style lang="scss">
-
 nav {
-    width: 100%!important;
+    width: 100% !important;
     background-color: black;
+
     img {
         width: 20%;
     }
