@@ -1,7 +1,22 @@
 <template>
     <h1>Admin ThematicList</h1>
-    <router-link to="addthematic"><button>Add</button></router-link>
-    <ThematicItem_admin v-for="thematicitem in state.thematiclist" :key="thematicitem.id" :thematicitem="thematicitem" />
+    <!-- <router-link to="addthematic"><button>Add</button></router-link> -->
+    <table class="table">
+        <thead class="thead-dark">
+            <tr>
+                <th scope="col">ID:</th>
+                <th scope="col">Name</th>
+                <th scope="col">Location</th>
+                <th scope="col">Img</th>
+                <th scope="col"> <router-link to="addthematic"><button>Add</button></router-link></th>
+            </tr>
+        </thead>
+        <tbody>
+            <ThematicItem_admin v-for="thematicitem in state.thematiclist" :key="thematicitem.id"
+                :thematicitem="thematicitem" />
+        </tbody>
+    </table>
+
 
 </template>
 
@@ -16,7 +31,7 @@ export default {
         const store = useStore();
 
         store.dispatch("thematic/" + Constant.INITIALIZE_THEMATIC);
-        
+
         const state = reactive({
             thematiclist: computed(() => store.getters["thematic/getTable"]),
         });
@@ -27,5 +42,7 @@ export default {
 </script>
 
 <style>
-
+th {
+    text-align: center;
+}
 </style>

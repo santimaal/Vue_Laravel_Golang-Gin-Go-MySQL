@@ -1,16 +1,11 @@
 <template>
-    <li class="li">{{tableitem}}
+    <li class="li">{{ tableitem }}
         <div class="float-right">
-            <span class="badge badge-secondary pointer ml-1" @click.stop="editTable(tableitem.id)">Edit</span>
-            <span class="badge badge-secondary pointer ml-1" @click.stop="deleteTable(tableitem.id)">Delete</span>
+            <button type="button" class="btn btn-primary m-1" @click="changeStatus(tableitem)">Status</button>
+            <button class="btn btn-primary m-1" @click.stop="editTable(tableitem.id)">Edit</button>
+            <button class="btn btn-primary m-1" @click.stop="deleteTable(tableitem.id)">Delete</button>
         </div>
     </li>
-    <!-- <li :class="checked(tableitem.done)" @click="toggleDone(tableitem.id)">
-            <span :class="{ pointer:true, 'todo-done':tableitem.done }" :title="'Titulo : ' + tableitem.capacity">
-                {{tableitem.id}}
-                {{tableitem.done ? " (done)" : ""}}
-            </span>
-    </li> -->
 </template>
 
 <script>
@@ -29,26 +24,29 @@ export default {
         const checked = (done) => {
             return { "list-group-item": true, "list-group-item-success": done };
         }
-        // const toggleDone = (id) => {
-        //     store.dispatch(Constant.TOGGLE_DONE, { id });
-        // }
+        const changeStatus = (tableitem) => {
+            tableitem.is_active = tableitem.is_active == false ? true : false;
+            store.dispatch("table/"+Constant.UPDATE_TABLE, { tableitem: tableitem });
+        }
         const deleteTable = (id) => {
-            store.dispatch("table/"+Constant.DELETE_TABLE, { id });
+            store.dispatch("table/" + Constant.DELETE_TABLE, { id });
         }
         const editTable = (id) => {
-            store.dispatch("table/"+Constant.INITIALIZE_TABLE, { tableitem: { ...props.tableitem } });
+            console.log(props.tableitem);
+            store.dispatch("table/" + Constant.INITIALIZE_TABLE, { tableitem: { ...props.tableitem } });
             router.push({ name: 'updateTable', params: { id } })
         }
 
-        return { /*toggleDone,*/ deleteTable, editTable, checked }
+        return {deleteTable, editTable, checked, changeStatus }
     }
 }
 </script>
 
 <style>
-.li{
+.li {
     margin-top: 2%;
     background-color: ghostwhite;
     padding: 2%;
+    list-style: none;
 }
 </style>

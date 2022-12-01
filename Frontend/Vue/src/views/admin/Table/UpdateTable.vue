@@ -1,5 +1,5 @@
 <template>
-    <div class="container">
+    <div class="m-4">
         <div class="row">
             <div class="col p-3">
                 <h2>Update Table</h2>
@@ -8,24 +8,32 @@
         <div class="row">
             <div class="col">
                 <div class="form-group">
-                    <label htmlFor="todo">Status Table:</label>
-                    <!-- <input type="text" class="form-control" v-model="state.todoitemlocal.todo" /> -->
+                    <label>Status Table:</label>
+                    <select v-model="state.tableitemlocal.is_active" class="m-3">
+                        <option value="true">Reserved</option>
+                        <option value="false">No Reserved</option>
+                    </select>
                 </div>
                 <div class="form-group">
-                    <label htmlFor="todo">Nombre :</label>
-                    <!-- <input type="text" class="form-control" v-model="state.todoitemlocal.todo" /> -->
+                    <label>Capacity :</label>
+                    <input type="number" class="m-3 .col-md-1" v-model="state.tableitemlocal.capacity" />
                 </div>
                 <div class="form-group">
-                    <label htmlFor="desc">Desc :</label>
-                    <!-- <textarea class="form-control" rows="3" id="desc" v-model="state.todoitemlocal.desc"></textarea> -->
+                    <label>Location :</label>
+                    <select v-model="state.tableitemlocal.location" class="m-3">
+                        <option value="outside">Outside</option>
+                        <option value="inside">Inside</option>
+                    </select>
                 </div>
                 <div class="form-group">
-                    <label htmlFor="desc">Desc : </label>&nbsp;
-                    <!-- <input type="checkbox" v-model="state.todoitemlocal.done" /> -->
+                    <label>Thematic : </label>
+                    <select v-model="state.tableitemlocal.id_thematic" class="m-3">
+                        <option v-for="(item,id) in state.thematiclist" :key="id" :value="item.id">{{item.name}}</option>
+                    </select>
                 </div>
                 <div class="form-group">
-                    <button type="button" class="btn btn-primary m-1" @click="updateTodo">Update</button>
-                    <button type="button" class="btn btn-primary m-1" @click="cancel">Cancel</button>
+                    <button type="button" class="btn btn-primary m-1" @click="updateTable">Update</button>
+                    <router-link to="/atable"><button class="btn btn-primary m-1">Cancel</button></router-link>
                 </div>
             </div>
         </div>
@@ -33,33 +41,30 @@
 </template>
   
 <script>
-//   import Constant from '../../../Constant';
-//   import { reactive } from 'vue'
-//   import { useStore } from 'vuex'
-//   import { useRouter, useRoute } from 'vue-router';
+import Constant from '../../../Constant';
+import { reactive } from 'vue'
+import { useStore } from 'vuex'
+import { useRouter, useRoute } from 'vue-router';
 
 export default {
     setup() {
-        //   const store = useStore();
-        //   const router = useRouter();
-        //   const currentRoute = useRoute();
+        const store = useStore();
+        const router = useRouter();
+        const currentRoute = useRoute();
+        const tableitem = store.state.table.tablelist.find(item => item.id == currentRoute.params.id);
+        const state = reactive({
+            tableitemlocal: { ...tableitem },
+            thematiclist: store.state.thematic.thematiclist
+        });
 
-        //   const todoitem = store.state.todolist.find((item)=> item.id === currentRoute.params.id)
-        //   console.log
-        //   const state = reactive({ 
-        //       todoitemlocal : { ...todoitem } 
-        //   });
+        console.log(state.tableitemlocal.id_thematic);
 
-        //   const updateTodo = () => {
-        //       router.push({ name:"todoList" });
-        //       store.dispatch(Constant.UPDATE_TODO, { todoitem: state.todoitemlocal });
-        //   }
+        const updateTable = () => {
+            router.push({ name: "todoList" });
+            store.dispatch(Constant.UPDATE_TODO, { todoitem: state.tablelist });
+        }
 
-        //   const cancel = () => {
-        //       router.push({ name:"todoList"});
-        //   }
-
-        //   return { state, updateTodo, cancel };
+        return { state,updateTable };
     }
 }
 </script>

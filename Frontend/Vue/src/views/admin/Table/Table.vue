@@ -1,7 +1,7 @@
 <template>
     <div class="template">
         <h1>Admin Tablelist</h1>
-        <router-link to="addtable"><button>Add</button></router-link>
+        <router-link to="addtable"><button class="btn btn-primary m-1">Add</button></router-link>
         <TableItem_admin v-for="tableitem in state.tablelist" :key="tableitem.id" :tableitem="tableitem" />
     </div>
 
@@ -19,7 +19,8 @@ export default {
         const store = useStore();
 
         store.dispatch("table/" + Constant.INITIALIZE_TABLE);
-        
+        store.dispatch("thematic/" + Constant.INITIALIZE_THEMATIC);
+
         const state = reactive({
             tablelist: computed(() => store.getters["table/getTable"]),
         });
@@ -30,7 +31,7 @@ export default {
 </script>
 
 <style>
-.template{
+.template {
     padding: 3%;
 }
 </style>

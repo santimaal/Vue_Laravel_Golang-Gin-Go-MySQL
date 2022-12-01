@@ -17,6 +17,12 @@ export const table = {
             );
             state.tablelist.splice(index, 1);
         },
+        [Constant.UPDATE_TABLE]: (state, payload) => {
+            let index = state.tablelist.findIndex(
+                item => item.id == payload.id
+            );
+            state.tablelist[index] = payload;
+        },
         [Constant.INITIALIZE_TABLE]: (state, payload) => {
             state.tablelist = payload;
         }
@@ -41,6 +47,16 @@ export const table = {
                         store.commit(Constant.DELETE_TABLE, payload.id);
                     }
                     
+                })
+                .catch(function (error) {
+                    console.log(error);
+                });
+        },
+        [Constant.UPDATE_TABLE]: (store, payload) => {
+            TableService.updateTable(payload.tableitem, payload.tableitem.id)
+                .then(function (res) {
+                    console.log(res);
+                    store.commit(Constant.UPDATE_TABLE, payload.tableitem);
                 })
                 .catch(function (error) {
                     console.log(error);
