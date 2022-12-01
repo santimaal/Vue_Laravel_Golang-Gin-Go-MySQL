@@ -1,5 +1,4 @@
 import { createRouter, createWebHistory } from "vue-router";
-import UpdateTodo from '../views/UpdateTodo';
 
 const routes = [
   { path: "", redirect: { name: "home" } },
@@ -12,8 +11,6 @@ const routes = [
   { path: "/addthematic", name: "admin_addthematic", component: () => import('../views/admin/Thematic/AddThematic') },
   { path: "/updateThematic/:id", name: "updateThematic", component: () => import('../views/admin/Thematic/UpdateThematic') },
   { path: "/home", name: "home", component: () => import('../views/Home') },
-  { path: "/todos/update/:id", name: "updateTodo", component: UpdateTodo },
-  { path: "/:catchAll(.*)", component: () => import('../views/NotFound') },
 ];
 
 const router = createRouter({

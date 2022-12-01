@@ -13,11 +13,6 @@ class ThematicFactory extends Factory
     {
         $random_city=['Valencia','Madrid','Barcelona','Extremadura','Aragón','Caceres','Jerez','Jaen','Bilbao','Gijon','Sevilla','Badajoz'];
         $city = fake()-> randomElement($random_city);
-        // for ($i=0; $i < sizeof($random_city); $i++) { 
-        //     $city = $random_city[$i];
-        // }
-
-        //if ($random_city ) existe ya existe en alguna de las ciudades que vuelva hacer una petición
 
         return [
             'name' => $city . ' Thematic',

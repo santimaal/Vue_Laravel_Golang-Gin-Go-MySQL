@@ -1,10 +1,12 @@
 <template>
-    <h1>Admin ThematicList</h1>
-    <!-- <router-link to="addthematic"><button>Add</button></router-link> -->
+     <th class="title" colspan="5"><fa icon="['fas', 'coffe']"/></th>
     <table class="table">
         <thead class="thead-dark">
             <tr>
-                <th scope="col">ID:</th>
+                <th class="title" colspan="5">Dashboard Thematics</th>
+            </tr>
+            <tr>
+                <th scope="col">Id:</th>
                 <th scope="col">Name</th>
                 <th scope="col">Location</th>
                 <th scope="col">Img</th>
@@ -12,12 +14,9 @@
             </tr>
         </thead>
         <tbody>
-            <ThematicItem_admin v-for="thematicitem in state.thematiclist" :key="thematicitem.id"
-                :thematicitem="thematicitem" />
+            <ThematicItem_admin v-for="thematicitem in state.thematiclist" :key="thematicitem.id" :thematicitem="thematicitem" />
         </tbody>
     </table>
-
-
 </template>
 
 <script>
@@ -44,5 +43,17 @@ export default {
 <style>
 th {
     text-align: center;
+}
+
+.table {
+    background-color: antiquewhite;
+    width: 80%;
+    float: right;
+    margin-right: 2%;
+    margin-top: 1%;
+}
+.title {
+    background-color: black !important;
+    font-size: xx-large;
 }
 </style>
