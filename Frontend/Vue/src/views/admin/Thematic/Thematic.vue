@@ -1,5 +1,4 @@
 <template>
-     <th class="title" colspan="5"><fa icon="['fas', 'coffe']"/></th>
     <table class="table">
         <thead class="thead-dark">
             <tr>
@@ -32,7 +31,7 @@ export default {
         store.dispatch("thematic/" + Constant.INITIALIZE_THEMATIC);
 
         const state = reactive({
-            thematiclist: computed(() => store.getters["thematic/getTable"]),
+            thematiclist: computed(() => store.getters["thematic/getThematic"]),
         });
         return { state };
     },
@@ -55,5 +54,6 @@ th {
 .title {
     background-color: black !important;
     font-size: xx-large;
+    border-bottom: 2px solid lightblue !important;
 }
 </style>

@@ -28,8 +28,8 @@ export const table = {
         }
     },
     actions: {
-        [Constant.ADD_TABLE]: (store, payload) => {
-            TableService.createTable(payload.table)
+        [Constant.ADD_TABLE]: async (store, payload) => {
+            await TableService.createTable(payload.table)
                 .then(function (res) {
                     console.log(res.data.data);
                     store.commit(Constant.ADD_TABLE, res.data.data);
@@ -38,22 +38,23 @@ export const table = {
                     console.log(error);
                 });
         },
-        [Constant.DELETE_TABLE]: (store, payload) => {
-            TableService.deleteTableById(payload.id)
+        [Constant.DELETE_TABLE]: async (store, payload) => {
+            await TableService.deleteTableById(payload.id)
                 .then(function (res) {
                     if (res.statusText !== "OK") {
                         throw Error("Ha habido algun problema al eliminar la mesa");
-                    }else {
+                    } else {
                         store.commit(Constant.DELETE_TABLE, payload.id);
                     }
-                    
+
                 })
                 .catch(function (error) {
                     console.log(error);
                 });
         },
-        [Constant.UPDATE_TABLE]: (store, payload) => {
-            TableService.updateTable(payload.tableitem, payload.tableitem.id)
+        [Constant.UPDATE_TABLE]: async (store, payload) => {
+            console.log(payload.tableitem.id);
+            await TableService.updateTable(payload.tableitem, payload.tableitem.id)
                 .then(function (res) {
                     console.log(res);
                     store.commit(Constant.UPDATE_TABLE, payload.tableitem);
@@ -62,8 +63,20 @@ export const table = {
                     console.log(error);
                 });
         },
-        [Constant.INITIALIZE_TABLE]: (store) => {
-            TableService.getAllTable()
+        [Constant.INITIALIZE_ONETABLE]: async (store, payload) => {
+            console.log(payload);
+            await TableService.getTableById(payload.id)
+                .then(function (res) {
+                    console.log(res.data);
+                    return res.data
+                   
+                })
+                .catch(function (error) {
+                    console.log(error);
+                });
+        },
+        [Constant.INITIALIZE_TABLE]: async (store) => {
+            await TableService.getAllTable()
                 .then(function (res) {
                     console.log(res.data);
                     store.commit(Constant.INITIALIZE_TABLE, res.data);
@@ -76,7 +89,7 @@ export const table = {
     getters: {
         getTable(state) {
             return state.tablelist;
-        },
+        }
         // getOrder(state) {
         //     if (state.tablelist) {
         //         var orders = state.tablelist.filter(function (element) {

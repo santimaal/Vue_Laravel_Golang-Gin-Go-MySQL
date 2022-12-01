@@ -1,17 +1,28 @@
 <template>
-    <li class="li">{{ tableitem }}
-        <div class="float-right">
+    <tr>
+        <th scope="row">{{ tableitem.id }}</th>
+        <td v-if="tableitem.is_active == false">No Reserved</td>
+        <td v-if="tableitem.is_active == true">Reserved</td>
+        <td>{{ tableitem.capacity }}</td>
+        <td>{{ tableitem.location }}</td>
+        <td>
+            <div v-for="(item, id) in state.thematic" :key="id">
+                <span v-if="(item.id == tableitem.id_thematic)">{{ item.name }}</span>
+            </div>
+        </td>
+        <td colspan="2">
             <button type="button" class="btn btn-primary m-1" @click="changeStatus(tableitem)">Status</button>
             <button class="btn btn-primary m-1" @click.stop="editTable(tableitem.id)">Edit</button>
             <button class="btn btn-primary m-1" @click.stop="deleteTable(tableitem.id)">Delete</button>
-        </div>
-    </li>
+        </td>
+    </tr>
 </template>
 
 <script>
 import Constant from '../../Constant';
 import { useStore } from 'vuex'
 import { useRouter } from 'vue-router';
+import { reactive } from 'vue';
 
 export default {
     props: {
@@ -26,7 +37,7 @@ export default {
         }
         const changeStatus = (tableitem) => {
             tableitem.is_active = tableitem.is_active == false ? true : false;
-            store.dispatch("table/"+Constant.UPDATE_TABLE, { tableitem: tableitem });
+            store.dispatch("table/" + Constant.UPDATE_TABLE, { tableitem: tableitem });
         }
         const deleteTable = (id) => {
             store.dispatch("table/" + Constant.DELETE_TABLE, { id });
@@ -36,8 +47,15 @@ export default {
             store.dispatch("table/" + Constant.INITIALIZE_TABLE, { tableitem: { ...props.tableitem } });
             router.push({ name: 'updateTable', params: { id } })
         }
+        setTimeout(() => {
+            state.thematic = store.getters["thematic/getThematic"]
+        }, 50);
 
-        return {deleteTable, editTable, checked, changeStatus }
+        const state = reactive({
+            thematic: store.state.thematic.thematiclist
+            // thematic: ThematicService.getAllThematic().data
+        })
+        return { deleteTable, editTable, checked, changeStatus, state }
     }
 }
 </script>
@@ -48,5 +66,9 @@ export default {
     background-color: ghostwhite;
     padding: 2%;
     list-style: none;
+}
+
+td {
+    text-align: center;
 }
 </style>

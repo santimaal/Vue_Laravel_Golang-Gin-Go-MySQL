@@ -28,7 +28,8 @@
                 <div class="form-group">
                     <label>Thematic : </label>
                     <select v-model="state.tableitemlocal.id_thematic" class="m-3">
-                        <option v-for="(item,id) in state.thematiclist" :key="id" :value="item.id">{{item.name}}</option>
+                        <option v-for="(item, id) in state.thematiclist" :key="id" :value="item.id">{{ item.name }}
+                        </option>
                     </select>
                 </div>
                 <div class="form-group">
@@ -45,26 +46,37 @@ import Constant from '../../../Constant';
 import { reactive } from 'vue'
 import { useStore } from 'vuex'
 import { useRouter, useRoute } from 'vue-router';
+import TableService from "@/services/TableService";
+import ThematicService from "@/services/ThematicService";
 
 export default {
     setup() {
         const store = useStore();
         const router = useRouter();
         const currentRoute = useRoute();
-        const tableitem = store.state.table.tablelist.find(item => item.id == currentRoute.params.id);
         const state = reactive({
-            tableitemlocal: { ...tableitem },
+            tableitemlocal: {},
             thematiclist: store.state.thematic.thematiclist
         });
 
-        console.log(state.tableitemlocal.id_thematic);
-
-        const updateTable = () => {
-            router.push({ name: "todoList" });
-            store.dispatch(Constant.UPDATE_TODO, { todoitem: state.tablelist });
+        if (store.state.table.tablelist.length != 0) {
+            state.tableitemlocal = store.state.table.tablelist.find(item => item.id == currentRoute.params.id);
+        } else {
+            TableService.getTableById(currentRoute.params.id).then(data => {
+                state.tableitemlocal = data.data;
+            })
+            ThematicService.getAllThematic().then(data => {
+                state.thematiclist = data.data;
+            })
         }
 
-        return { state,updateTable };
+        const updateTable = () => {
+            state.tableitemlocal.is_active = state.tableitemlocal.is_active == 'false' ? false : true;
+            router.push({ name: "admin_table" });
+            store.dispatch("table/" + Constant.UPDATE_TABLE, { tableitem: state.tableitemlocal });
+        }
+
+        return { state, updateTable };
     }
 }
 </script>

@@ -9,7 +9,6 @@
       <button class="btn btn-primary m-1" @click.stop="deleteThematic(thematicitem.id)">Delete</button>
     </td>
   </tr>
-
 </template>
 
 <script>

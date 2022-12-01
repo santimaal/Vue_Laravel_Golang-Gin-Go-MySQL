@@ -31,6 +31,7 @@ import { reactive } from 'vue'
 import { useStore } from 'vuex'
 import { useRouter, useRoute } from 'vue-router';
 import Constant from '../../../Constant';
+import ThematicService from "@/services/ThematicService";
 
 export default {
   setup() {
@@ -42,17 +43,22 @@ export default {
       thematicitemlocal: { ...thematicitem },
     });
 
-    const updateThematic = () => {
-      router.push({ name: "admin_thematic" });
-      store.dispatch("thematic/"+Constant.UPDATE_THEMATIC, { thematicitem: state.thematicitemlocal });
+    if (store.state.thematic.thematiclist.length != 0) {
+      state.thematicitemlocal =  store.state.thematic.thematiclist.find(item => item.id == currentRoute.params.id);
+    } else {
+      ThematicService.getThematicById(currentRoute.params.id).then(data => {
+        state.thematicitemlocal = data.data;
+      })
+
     }
 
-    //   const cancel = () => {
-    //       router.push({ name:"todoList"});
-    //   }
+    const updateThematic = () => {
+      router.push({ name: "admin_thematic" });
+      store.dispatch("thematic/" + Constant.UPDATE_THEMATIC, { thematicitem: state.thematicitemlocal });
+    }
+
     return { state, updateThematic }
 
-    // return { state, updateTodo, cancel };
   }
 }
 </script>

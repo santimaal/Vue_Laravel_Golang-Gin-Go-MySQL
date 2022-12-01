@@ -70,7 +70,7 @@ export const thematic = {
         },
     },
     getters: {
-        getTable(state) {
+        getThematic(state) {
             return state.thematiclist;
         },
         // getOrder(state) {

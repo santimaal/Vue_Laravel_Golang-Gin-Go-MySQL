@@ -45,6 +45,7 @@ export default {
             thematiclist: store.state.thematic.thematiclist
         });
 
+
         const addTable = () => {
             try {
                 if (state.table.is_active.indexOf("'")) {

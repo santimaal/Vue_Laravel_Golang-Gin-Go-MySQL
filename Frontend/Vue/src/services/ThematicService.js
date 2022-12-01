@@ -6,7 +6,7 @@ export default {
     return Api(secret.GO_APP_URL).get(`thematic`)
   },
   getThematicById(id) {
-    return Api(secret.LARAVEL_APP_URL).get(`thematic/${id}`)
+    return Api(secret.GO_APP_URL).get(`thematic/${id}`)
   },
   createThematic(data) {
     return Api(secret.LARAVEL_APP_URL).post('thematic', data)
