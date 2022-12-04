@@ -17,7 +17,7 @@ export default {
         store.dispatch("thematic/" + Constant.INITIALIZE_THEMATIC);
         
         const state = reactive({
-            thematiclist: computed(() => store.getters["thematic/getTable"]),
+            thematiclist: computed(() => store.getters["thematic/getThematic"]),
         });
         return { state };
     },

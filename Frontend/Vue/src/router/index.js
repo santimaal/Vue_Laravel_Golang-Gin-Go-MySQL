@@ -10,6 +10,7 @@ const routes = [
   { path: "/athematic", name: "admin_thematic", component: () => import('../views/admin/Thematic/Thematic') },
   { path: "/addthematic", name: "admin_addthematic", component: () => import('../views/admin/Thematic/AddThematic') },
   { path: "/updateThematic/:id", name: "updateThematic", component: () => import('../views/admin/Thematic/UpdateThematic') },
+  { path: "/reserve", name: "client_reserve", component: () => import('../views/client/Reserve/Reserve.vue') },
   { path: "/home", name: "home", component: () => import('../views/Home') },
 ];
 

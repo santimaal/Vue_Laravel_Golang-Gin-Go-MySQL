@@ -36,6 +36,7 @@ func SetupRouter() *gin.Engine {
 	grp1 := r.Group("/api")
 	{
 		grp1.GET("table", Controllers.GetTables)
+		grp1.GET("table/filter/:filt", Controllers.GetTables)
 		grp1.POST("table", Controllers.CreateTable)
 		grp1.GET("table/:id", Controllers.GetTableByID)
 		grp1.PUT("table/:id", Controllers.UpdateTable)

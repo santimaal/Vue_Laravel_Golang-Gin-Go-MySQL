@@ -5,6 +5,16 @@ export default {
   getAllTable() {
     return Api(secret.GO_APP_URL).get(`table`)
   },
+  getTableFilter(filter) {
+    let params = ""
+    Object.entries(filter).forEach(item => {
+      if (item[1] != '') {
+        params += item[0] + "=" + item[1] + "&"
+      }
+    })
+    console.log(params.substring(0, params.length - 1));
+    return "a"
+  },
   getTableById(id) {
     return Api(secret.GO_APP_URL).get(`table/${id}`)
   },

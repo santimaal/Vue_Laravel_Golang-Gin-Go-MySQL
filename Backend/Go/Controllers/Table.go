@@ -18,6 +18,10 @@ func GetTables(c *gin.Context) {
 		c.JSON(http.StatusOK, table)
 	}
 }
+func GetTablesFilter(c *gin.Context) {
+	id := c.Params.ByName("filt")
+	c.JSON(http.StatusOK, id)
+}
 
 // CreateMesa ... Create Mesa
 func CreateTable(c *gin.Context) {
