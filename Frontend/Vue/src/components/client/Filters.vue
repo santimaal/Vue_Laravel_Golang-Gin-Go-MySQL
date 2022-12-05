@@ -1,12 +1,15 @@
 <template>
     <form class="filters">
+        Location 
         <select name="" id="" v-model="state.filter.location">
             <option value="outside">Outside</option>
             <option value="inside">Inside</option>
         </select>
         <br>
+        Capacity 
         <input type="number" min="1" v-model="state.filter.capacity" />
         <br>
+        Thematic 
         <select v-model="state.filter.id_thematic" class="">
             <option v-for="(item, id) in state.thematic" :key="id" :value="item.id">{{ item.name }}</option>
         </select>
@@ -32,7 +35,7 @@ export default {
         const state = reactive({
             thematic: computed(() => store.getters['thematic/getThematic']),
             filter: {
-                location: "", capacity: 1, id_thematic: ""
+                location: "", capacity: "", id_thematic: ""
             }
         })
 
@@ -43,7 +46,7 @@ export default {
         const resetFilters = () => {
             state.filter= {
                 location : "",
-                capacity : 1,
+                capacity : "",
                 id_thematic:""
             }
         }

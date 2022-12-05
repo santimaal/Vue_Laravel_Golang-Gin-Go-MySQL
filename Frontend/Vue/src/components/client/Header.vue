@@ -16,9 +16,6 @@
                 <li class="nav-item">
                     <router-link class="nav-link" to="/thematic">ThematicList</router-link>
                 </li>
-                <li class="nav-item">
-                    <router-link class="nav-link" to="/reserve">Reserva</router-link>
-                </li>
             </ul>
         </div>
     </nav>

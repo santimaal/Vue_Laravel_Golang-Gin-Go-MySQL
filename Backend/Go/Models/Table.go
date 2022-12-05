@@ -15,6 +15,13 @@ func GetAllTables(table *[]Table) (err error) {
 	return nil
 }
 
+func GetTablesFilter(table *[]Table, filter []string) (err error) {
+	if err = Config.DB.Raw("SELECT * FROM tables WHERE location LIKE ? AND capacity LIKE ? AND id_thematic LIKE ?", filter[0], filter[1], filter[2]).Scan(table).Error; err != nil {
+		return err
+	}
+	return nil
+}
+
 // Createtable ... Insert New data
 func CreateTable(table *Table) (err error) {
 	if err = Config.DB.Create(table).Error; err != nil {

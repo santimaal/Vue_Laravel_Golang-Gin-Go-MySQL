@@ -18,9 +18,33 @@ func GetTables(c *gin.Context) {
 		c.JSON(http.StatusOK, table)
 	}
 }
+
 func GetTablesFilter(c *gin.Context) {
-	id := c.Params.ByName("filt")
-	c.JSON(http.StatusOK, id)
+	// filter := c.Params.ByName("filt")
+	// split := strings.Split(filter, "&")
+	location := c.Query("location")
+	thematic := c.Query("id_thematic")
+	capacity := c.Query("capacity")
+
+	if len(location) < 1 {
+		location = "%"
+	}
+	if len(thematic) < 1 {
+		thematic = "%"
+	}
+	if len(capacity) < 1 {
+		capacity = "%"
+	}
+
+	filter := []string{location, capacity, thematic}
+
+	var table []Models.Table
+	err := Models.GetTablesFilter(&table, filter)
+	if err != nil {
+		c.AbortWithStatus(http.StatusNotFound)
+	} else {
+		c.JSON(http.StatusOK, table)
+	}
 }
 
 // CreateMesa ... Create Mesa

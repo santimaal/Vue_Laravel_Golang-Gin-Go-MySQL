@@ -13,7 +13,8 @@ export default {
       }
     })
     console.log(params.substring(0, params.length - 1));
-    return "a"
+    return Api(secret.GO_APP_URL).get(`table/filter?${params.substring(0, params.length - 1)}`)
+    // return Api(secret.GO_APP_URL).get(`table`)
   },
   getTableById(id) {
     return Api(secret.GO_APP_URL).get(`table/${id}`)

@@ -28,10 +28,7 @@ export default {
         });
 
         const ApplyFilters = (filter) => {
-            // console.log(filter);
-            // state.tablelist = useTableFilters(filter)
-            let test = useTableFilters(filter)
-            console.log(test);
+            state.tablelist = useTableFilters(filter)
         }
         return { state, ApplyFilters };
     },
