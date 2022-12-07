@@ -8,7 +8,6 @@
     <h1 v-if="(state.reserve.length != 0)">Reservadas</h1>
     <li v-for="table in state.reserve" :key="table.id">{{ table.id }} <button type="button"
             @click="deleteReserve(table.id)">delete</button></li>
-
 </template>
 
 <script>
@@ -45,7 +44,6 @@ export default {
                     return item.id == table.id;
                 })
             }
-            console.log(check);
             if (!check) {
                 state.reserve.push(table)
             }

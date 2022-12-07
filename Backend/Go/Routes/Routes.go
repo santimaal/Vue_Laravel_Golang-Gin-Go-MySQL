@@ -35,8 +35,8 @@ func SetupRouter() *gin.Engine {
 
 	api := r.Group("/api")
 
-	// Thematic.ThematicRouting(api.Group("thematic"))
-	// Table.TableRouting(api.Group("table/"))
+	// Thematic.ThematicRouting(api.Group("/thematic"))
+	// Table.TableRouting(api.Group("/table"))
 	// User.UserRouting(api.Group("user/"))
 	// Reserve.ReserveRouting(api.Group("reserve/"))
 

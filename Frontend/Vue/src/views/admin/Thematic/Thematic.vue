@@ -46,8 +46,8 @@ th {
 
 .table {
     background-color: antiquewhite;
-    width: 80%;
-    float: right;
+    /* width: 80%;
+    float: right; */
     margin-right: 2%;
     margin-top: 1%;
 }

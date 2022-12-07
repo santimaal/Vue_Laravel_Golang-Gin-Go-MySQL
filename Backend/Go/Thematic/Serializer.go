@@ -5,26 +5,28 @@ import (
 )
 
 type ThematicResponse struct {
-	Id    uint   `json:"id"`
-	Name  string `json:"name"`
-	Img string `json:"img"`
+	Id       uint   `json:"id"`
+	Name     string `json:"name"`
+	Location string `json:"location"`
+	Img      string `json:"img"`
 }
 
 type ThematicSerializer struct {
-	C *gin.Context
+	C        *gin.Context
 	thematic ThematicModel
 }
 
 type ThematicsSerializer struct {
-	C *gin.Context
+	C         *gin.Context
 	thematics []ThematicModel
 }
 
 func (ss *ThematicSerializer) Response() ThematicResponse {
 	response := ThematicResponse{
-		Id:    ss.thematic.Id,
-		Name:  ss.thematic.Name,
-		Img: ss.thematic.Img,
+		Id:       ss.thematic.Id,
+		Name:     ss.thematic.Name,
+		Location: ss.thematic.Location,
+		Img:      ss.thematic.Img,
 	}
 
 	return response

@@ -30,7 +30,7 @@ class ThematicFactory extends Factory
     private function imgThematic()
     {
         $img = array(
-            "GastronomiaValenciana.png",
+            "https://upload.wikimedia.org/wikipedia/commons/thumb/e/ed/01_Paella_Valenciana_original.jpg/420px-01_Paella_Valenciana_original.jpg",
             "GastronomiaMadrid.png",
             "GastronomiaBarcelona.png",
             "GastronomiaExtremadura.png",

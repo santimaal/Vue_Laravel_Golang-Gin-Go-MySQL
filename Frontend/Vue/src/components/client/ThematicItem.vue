@@ -1,5 +1,10 @@
 <template>
-    <li>{{ thematicitem }}</li>
+    <!-- <li>{{ thematicitem }}</li> -->
+
+    <div class="card">
+        <img :src="thematicitem.img" alt="" style="width:20%">
+        {{ thematicitem.location }}
+    </div>
     <!-- <li :class="checked(tableitem.done)" @click="toggleDone(tableitem.id)">
             <span :class="{ pointer:true, 'todo-done':tableitem.done }" :title="'Titulo : ' + tableitem.capacity">
                 {{tableitem.id}}

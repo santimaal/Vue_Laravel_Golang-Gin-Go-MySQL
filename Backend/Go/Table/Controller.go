@@ -7,14 +7,35 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-//GET ALL Tables
+// GET ALL Tables
 func GetAllTables(c *gin.Context) {
 	var tables []TableModel = GetAllTablesService(c)
 	serializer := TablesSerializer{c, tables}
 	c.JSON(http.StatusOK, serializer.Response())
 }
 
-//GET ONE Tables
+func GetTablesFilter(c *gin.Context) {
+	location := c.Query("location")
+	thematic := c.Query("id_thematic")
+	capacity := c.Query("capacity")
+
+	if len(location) < 1 {
+		location = "%"
+	}
+	if len(thematic) < 1 {
+		thematic = "%"
+	}
+	if len(capacity) < 1 {
+		capacity = "%"
+	}
+
+	filter := []string{location, capacity, thematic}
+
+	var table []TableModel = GetTablesFilterService(c, filter)
+	c.JSON(http.StatusOK, table)
+}
+
+// GET ONE Tables
 func GetTableByID(c *gin.Context) {
 	idTable := c.Param("id")
 	var table TableModel

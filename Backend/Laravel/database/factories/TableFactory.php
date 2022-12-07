@@ -13,8 +13,8 @@ class TableFactory extends Factory
         return [
             'is_active' => 0,
             'capacity' => fake()->randomDigit,
-            'location' => fake()->randomElement(['oustside', 'inside']),
-            'id_thematic' => Thematic::all()->random()->id   
+            'location' => fake()->randomElement(['outside', 'inside']),
+            'id_thematic' => Thematic::all()->random()->id
         ];
     }
 }
