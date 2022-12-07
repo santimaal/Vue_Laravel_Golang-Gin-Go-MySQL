@@ -1,4 +1,4 @@
-Config
+.env
 go.mod
 go.sum
 tmp/

@@ -1,11 +1,13 @@
 package main
 
 import (
-	"net/http"
-	"second-api/Config"
-	"second-api/Routes"
+	"fmt"
+	"sanvic/Config"
+	"sanvic/Routes"
 
 	"github.com/jinzhu/gorm"
+
+	_ "github.com/go-sql-driver/mysql"
 )
 
 var err error
@@ -14,11 +16,11 @@ func main() {
 	Config.DB, err = gorm.Open("mysql", Config.DbURL(Config.BuildDBConfig()))
 	defer Config.DB.Close()
 
-	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
-		w.Write([]byte("Hello, World"))
-	})
+	if err != nil {
+		fmt.Println("Status:", err)
+	}
+	// Config.DB.AutoMigrate(&Models.User{})
 
 	r := Routes.SetupRouter()
-	//running
 	r.Run(":3001")
 }

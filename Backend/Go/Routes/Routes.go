@@ -1,9 +1,9 @@
 package Routes
 
 import (
-	"second-api/Controllers"
-
 	"net/http"
+	"sanvic/Table"
+	"sanvic/Thematic"
 
 	"github.com/gin-gonic/gin"
 )
@@ -28,24 +28,22 @@ func CORS(c *gin.Context) {
 		c.AbortWithStatus(http.StatusOK)
 	}
 }
-func SetupRouter() *gin.Engine {
 
+func SetupRouter() *gin.Engine {
 	r := gin.Default()
 	r.Use(CORS)
 
-	grp1 := r.Group("/api")
-	{
-		grp1.GET("table", Controllers.GetTables)
-		grp1.GET("table/filter", Controllers.GetTablesFilter)
-		grp1.POST("table", Controllers.CreateTable)
-		grp1.GET("table/:id", Controllers.GetTableByID)
-		grp1.PUT("table/:id", Controllers.UpdateTable)
-		grp1.DELETE("table/:id", Controllers.DeleteTable)
-		grp1.GET("thematic", Controllers.GetThematics)
-		grp1.POST("thematic", Controllers.CreateThematic)
-		grp1.GET("thematic/:id", Controllers.GetThematicByID)
-		grp1.PUT("thematic/:id", Controllers.UpdateThematic)
-		grp1.DELETE("thematic/:id", Controllers.DeleteThematic)
-	}
+	api := r.Group("/api")
+
+	// Thematic.ThematicRouting(api.Group("thematic"))
+	// Table.TableRouting(api.Group("table/"))
+	// User.UserRouting(api.Group("user/"))
+	// Reserve.ReserveRouting(api.Group("reserve/"))
+
+	api.GET("table", Table.GetAllTables)
+	api.GET("table/:id", Table.GetTableByID)
+	api.GET("thematic", Thematic.GetAllThematics)
+	api.GET("thematic/:id", Thematic.GetThematicByID)
+
 	return r
 }
