@@ -6,8 +6,10 @@
         @click="reserva(tableitem)" />
 
     <h1 v-if="(state.reserve.length != 0)">Reservadas</h1>
-    <li v-for="table in state.reserve" :key="table.id">{{ table.id }} <button type="button"
-            @click="deleteReserve(table.id)">delete</button></li>
+    <li v-for="table in state.reserve" :key="table.id">
+        {{ table.id }}
+        <button type="button" @click="deleteReserve(table.id)">delete</button>
+    </li>
 </template>
 
 <script>
@@ -17,10 +19,15 @@ import { useStore } from 'vuex'
 import filters from "../../../components/client/Filters.vue"
 import TableItem_Client from '../../../components/client/TableItem.vue';
 import { useTableFilters } from '../../../composables/table/useTable';
+import { useRoute, useRouter } from 'vue-router';
 
 export default {
     setup() {
         const store = useStore();
+        const router = useRouter();
+        const currentRoute = useRoute()
+
+
 
         store.dispatch("table/" + Constant.INITIALIZE_TABLE);
         if (store.state.thematic.thematiclist.length == 0) {
@@ -32,7 +39,13 @@ export default {
             reserve: []
         });
 
+        if (currentRoute.params.filter && currentRoute.params.filter != "all") {
+            state.tablelist = useTableFilters(JSON.parse(atob(currentRoute.params.filter)))
+        }
+
         const ApplyFilters = (filter) => {
+            const urlfilter = btoa(JSON.stringify(filter));
+            router.push({ name: "client_table", params: { filter: urlfilter } });
             state.tablelist = useTableFilters(filter)
         }
 

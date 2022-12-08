@@ -1,15 +1,15 @@
 <template>
     <form class="filters">
-        Location 
+        Location
         <select name="" id="" v-model="state.filter.location">
             <option value="outside">Outside</option>
             <option value="inside">Inside</option>
         </select>
         <br>
-        Capacity 
+        Capacity
         <input type="number" min="1" v-model="state.filter.capacity" />
         <br>
-        Thematic 
+        Thematic
         <select v-model="state.filter.id_thematic" class="">
             <option v-for="(item, id) in state.thematic" :key="id" :value="item.id">{{ item.name }}</option>
         </select>
@@ -20,12 +20,14 @@
 </template>
 <script>
 import { reactive, getCurrentInstance, computed } from 'vue';
+import { useRoute } from 'vue-router';
 import { useStore } from 'vuex';
 import Constant from '../../Constant';
 
 export default {
     setup() {
         const store = useStore();
+        const currentRoute = useRoute()
         const { emit } = getCurrentInstance();
 
         if (store.state.thematic.thematiclist.length == 0) {
@@ -39,15 +41,19 @@ export default {
             }
         })
 
+        if (currentRoute.params.filter && currentRoute.params.filter != "all") {
+            state.filter = JSON.parse(atob(currentRoute.params.filter))
+        }
+
         const searchFilters = () => {
             emit('filters', state.filter)
         }
 
         const resetFilters = () => {
-            state.filter= {
-                location : "",
-                capacity : "",
-                id_thematic:""
+            state.filter = {
+                location: "",
+                capacity: "",
+                id_thematic: ""
             }
         }
 
