@@ -12,6 +12,6 @@ func GetOneTableService(id int, c *gin.Context) (TableModel, error) {
 	return GetOneTableRepo(id, c)
 }
 
-func GetTablesFilterService(c *gin.Context, filter []string) {
+func GetTablesFilterService(c *gin.Context, filter []string) []TableModel {
 	return GetTablesFilterRepo(c, filter)
 }

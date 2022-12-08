@@ -41,6 +41,7 @@ func SetupRouter() *gin.Engine {
 	// Reserve.ReserveRouting(api.Group("reserve/"))
 
 	api.GET("table", Table.GetAllTables)
+	api.GET("table/filter", Table.GetTablesFilter)
 	api.GET("table/:id", Table.GetTableByID)
 	api.GET("thematic", Thematic.GetAllThematics)
 	api.GET("thematic/:id", Thematic.GetThematicByID)

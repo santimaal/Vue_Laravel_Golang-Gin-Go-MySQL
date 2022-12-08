@@ -15,9 +15,11 @@ func GetAllTables(c *gin.Context) {
 }
 
 func GetTablesFilter(c *gin.Context) {
+
 	location := c.Query("location")
 	thematic := c.Query("id_thematic")
 	capacity := c.Query("capacity")
+	search := c.Query("search")
 
 	if len(location) < 1 {
 		location = "%"
@@ -28,8 +30,12 @@ func GetTablesFilter(c *gin.Context) {
 	if len(capacity) < 1 {
 		capacity = "%"
 	}
-
-	filter := []string{location, capacity, thematic}
+	if len(search) < 1 {
+		search = "%"
+	} else {
+		search = "%" + search + "%"
+	}
+	filter := []string{location, capacity, thematic, search}
 
 	var table []TableModel = GetTablesFilterService(c, filter)
 	c.JSON(http.StatusOK, table)

@@ -7,4 +7,5 @@ import (
 func TableRouting(router *gin.RouterGroup) {
 	router.GET("/", GetAllTables)
 	router.GET("/:id", GetTableByID)
+	router.GET("/filter", GetTablesFilter)
 }

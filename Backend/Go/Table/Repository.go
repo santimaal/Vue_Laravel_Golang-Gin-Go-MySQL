@@ -21,12 +21,14 @@ func GetAllTablesRepo(c *gin.Context) []TableModel {
 
 }
 
-func GetTablesFilterRepo(c *gin.Context filter []string)  []TableModel {
+// SELECT t.* from tables t, thematics th where t.id_thematic=th.id AND lower(th.name) LIKE ?;
+
+func GetTablesFilterRepo(c *gin.Context, filter []string) []TableModel {
 	var table []TableModel
 
-	if err = Config.DB.Raw("SELECT * FROM tables WHERE location LIKE ? AND capacity LIKE ? AND id_thematic LIKE ?", filter[0], filter[1], filter[2]).Scan(table).Error; err != nil {
+	if err := Config.DB.Raw("SELECT t.* FROM tables t, thematics th WHERE t.id_thematic=th.id AND lower(th.name) LIKE ? AND t.location LIKE ? AND capacity LIKE ? AND id_thematic LIKE ?", filter[3], filter[0], filter[1], filter[2]).Scan(&table).Error; err != nil {
 		c.AbortWithStatus(http.StatusNotFound)
-		fmt.Println("Status:", err)	
+		fmt.Println("Status:", err)
 	}
 	return table
 }
