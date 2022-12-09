@@ -1,6 +1,6 @@
 <template>
     <nav class="navbar navbar-expand-md navbar-dark">
-        <span><img src="../../assets/sanvic.png" alt=""></span>
+        <span><img src="../../assets/logo_sanvic.png" alt=""></span>
         <button class="navbar-toggler" type="button" @click="changeIsNavShow">
             <span class="navbar-toggler-icon"></span>
         </button>

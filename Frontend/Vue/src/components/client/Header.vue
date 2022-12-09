@@ -1,6 +1,6 @@
 <template>
     <nav class="navbar navbar-expand-md navbar-dark">
-        <span><img src="../../assets/sanvic.png" alt=""></span>
+        <span><img src="../../assets/logo_sanvic.png" alt=""></span>
         <button class="navbar-toggler" type="button" @click="changeIsNavShow">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -11,7 +11,7 @@
                     <router-link class="nav-link" to="/home">Home</router-link>
                 </li>
                 <li class="nav-item">
-                    <router-link class="nav-link" to="/table">TableList</router-link>
+                    <router-link class="nav-link" to="/table/all">TableList</router-link>
                 </li>
                 <li class="nav-item">
                     <router-link class="nav-link" to="/thematic">ThematicList</router-link>

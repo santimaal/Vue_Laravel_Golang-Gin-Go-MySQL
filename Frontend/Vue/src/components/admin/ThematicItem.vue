@@ -3,7 +3,7 @@
     <th scope="row">{{ thematicitem.id }}</th>
     <td>{{ thematicitem.name }}</td>
     <td>{{ thematicitem.location }}</td>
-    <td> <img :src="thematicitem.img" alt=""></td>
+    <td> <img class="img" :src="thematicitem.img" alt=""></td>
     <td colspan="2"> 
       <button class="btn btn-primary m-1" @click.stop="editThematic(thematicitem.id)">Edit</button>
       <button class="btn btn-primary m-1" @click.stop="deleteThematic(thematicitem.id)">Delete</button>
@@ -48,7 +48,7 @@ export default {
   list-style: none;
 }
 
-img {
+.img {
   max-width: 20%;
 }
 td{
