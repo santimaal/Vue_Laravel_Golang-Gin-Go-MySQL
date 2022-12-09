@@ -1,9 +1,7 @@
 <template>
   <nav class="footer_nav">
     <span>
-      <img class="log_foot" src="../assets/solo_logo.png" alt="" />© SANVIC
-      Restaurant developed by Santi Martinez and Vicent Esteve ©</span
-    >
+      <img class="log_foot" src="../assets/logo/solo_logo.png" alt="" />© SANVIC Restaurant developed by Santi Martinez and Vicent Esteve ©</span>
   </nav>
 </template>
 

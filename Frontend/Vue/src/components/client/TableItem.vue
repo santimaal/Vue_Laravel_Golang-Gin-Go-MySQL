@@ -1,11 +1,5 @@
 <template>
     <li>{{ tableitem }}</li>
-    <!-- <li :class="checked(tableitem.done)" @click="toggleDone(tableitem.id)">
-            <span :class="{ pointer:true, 'todo-done':tableitem.done }" :title="'Titulo : ' + tableitem.capacity">
-                {{tableitem.id}}
-                {{tableitem.done ? " (done)" : ""}}
-            </span>
-    </li> -->
 </template>
 
 <script>
@@ -24,9 +18,6 @@ export default {
         const checked = (done) => {
             return { "list-group-item": true, "list-group-item-success": done };
         }
-        // const toggleDone = (id) => {
-        //     store.dispatch(Constant.TOGGLE_DONE, { id });
-        // }
         const deleteTable = (id) => {
             store.dispatch(Constant.DELETE_TABLE, { id });
         }
@@ -35,7 +26,7 @@ export default {
             router.push({ name: 'updateTable', params: { id } })
         }
 
-        return { /*toggleDone,*/ deleteTable, editTable, checked }
+        return {deleteTable, editTable, checked }
     }
 }
 </script>

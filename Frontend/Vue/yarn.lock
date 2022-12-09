@@ -8658,6 +8658,11 @@ vue@*, "vue@^2 || ^3.0.0-0", vue@^3.0.0-0, vue@^3.2.0, vue@3.2.45:
     "@vue/server-renderer" "3.2.45"
     "@vue/shared" "3.2.45"
 
+vue3-carousel@^0.2.8:
+  version "0.2.8"
+  resolved "https://registry.npmjs.org/vue3-carousel/-/vue3-carousel-0.2.8.tgz"
+  integrity sha512-G3wty+O4iXPXeZksXvVdNR7EsHXLSIh3IYqz5N5GYRUA7PQ6x9nAtfPqZIfLAyadH4AdeLgMVfMXJhRZlsvyVg==
+
 vuex@^4.0.0-beta.4:
   version "4.1.0"
   resolved "https://registry.npmjs.org/vuex/-/vuex-4.1.0.tgz"
