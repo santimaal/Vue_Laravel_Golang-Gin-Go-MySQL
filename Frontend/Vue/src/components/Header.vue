@@ -16,9 +16,6 @@
         <li class="nav-item">
           <router-link class="nav-link button" to="/atable">DashboardTable</router-link>
         </li>
-        <!-- <li class="nav-item">
-                    <router-link class="nav-link liNav" to="/thematic">ThematicList</router-link>
-                </li> -->
         <li class="nav-item">
           <router-link class="nav-link button" to="/athematic">DashboardThematic</router-link>
         </li>

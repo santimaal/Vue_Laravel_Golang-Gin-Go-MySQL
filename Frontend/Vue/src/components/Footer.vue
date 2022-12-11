@@ -10,13 +10,13 @@
   background-color: black !important;
   width: 100%;
   color: aliceblue;
-  padding: 1%;
+  padding: 0.6%;
   display: flex;
   justify-content: center;
   span {
     display: flex;
     justify-content: center;
-    font-size: x-large;
+    font-size: large;
     .log_foot {
       width: 5%;
     }

@@ -2,7 +2,7 @@ import { createRouter, createWebHistory } from "vue-router";
 
 const routes = [
   { path: "", redirect: { name: "home" } },
-  { path: "/table/:filter", name: "client_table", component: () => import('../views/client/Table/Table') },
+  { path: "/table/:filter", name: "client_table", component: () => import('../views/client/ReserveTables') },
   { path: "/atable", name: "admin_table", component: () => import('../views/admin/Table/Table') },
   { path: "/addtable", name: "admin_addtable", component: () => import('../views/admin/Table/AddTable') },
   { path: "/updateTable/:id", name: "updateTable", component: () => import('../views/admin/Table/UpdateTable') },

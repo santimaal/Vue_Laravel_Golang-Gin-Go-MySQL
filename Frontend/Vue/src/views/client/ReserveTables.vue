@@ -13,12 +13,12 @@
 </template>
 
 <script>
-import Constant from '../../../Constant';
+import Constant from '../../Constant';
 import { reactive, computed } from 'vue'
 import { useStore } from 'vuex'
-import filters from "../../../components/client/Filters.vue"
-import TableItem_Client from '../../../components/client/TableItem.vue';
-import { useTableFilters } from '../../../composables/table/useFilters';
+import filters from "../../components/client/Filters.vue"
+import TableItem_Client from '../../components/client/TableItem.vue';
+import { useTableFilters } from '../../composables/table/useFilters';
 import { useRoute, useRouter } from 'vue-router';
 
 export default {
@@ -47,6 +47,7 @@ export default {
             const urlfilter = btoa(JSON.stringify(filter));
             router.push({ name: "client_table", params: { filter: urlfilter } });
             state.tablelist = useTableFilters(filter)
+
         }
 
         const reserva = (table) => {

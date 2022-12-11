@@ -75,9 +75,6 @@ export const table = {
                     console.log(error);
                 });
         },
-        [Constant.FILTERS]: (/*store*/) => {
-            return "pacoo";
-        },
         [Constant.INITIALIZE_TABLE]: async (store) => {
             await TableService.getAllTable()
                 .then(function (res) {

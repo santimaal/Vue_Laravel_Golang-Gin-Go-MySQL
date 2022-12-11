@@ -8,6 +8,11 @@ export default {
   getThematicById(id) {
     return Api(secret.GO_APP_URL).get(`thematic/${id}`)
   },
+  GetThematicInfinite(page, limit) {
+    return Api(secret.GO_APP_URL).get(`thematic`)
+    // return Api(secret.GO_APP_URL).get('thematicInfinite', { params: { page: page, limit: limit } });
+  },
+
   createThematic(data) {
     return Api(secret.LARAVEL_APP_URL).post('thematic', data)
   },

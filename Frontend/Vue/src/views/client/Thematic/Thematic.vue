@@ -8,7 +8,7 @@
 import Constant from '../../../Constant';
 import { reactive, computed } from 'vue'
 import { useStore } from 'vuex'
-import ThematicItem_client from '../../../components/client/ThematicItem.vue';
+import ThematicItem_client from '../../../components/client/Card_Thematic.vue';
 
 export default {
     setup() {
