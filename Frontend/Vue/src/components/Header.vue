@@ -1,6 +1,6 @@
 <template>
   <nav class="navbar navbar-expand-md navbar-dark">
-    <router-link class="nav-link" to="/home"><img class="logo" src="../assets/logo/logo_vert.png" alt=""/></router-link>
+    <router-link class="nav-link" to="/home"><img class="logo" src="../assets/logo/sanvic.png" alt=""/></router-link>
     <button class="navbar-toggler" type="button" @click="changeIsNavShow">
       <span class="navbar-toggler-icon"></span>
     </button>

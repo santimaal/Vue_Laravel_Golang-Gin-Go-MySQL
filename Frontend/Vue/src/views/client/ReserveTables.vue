@@ -1,4 +1,5 @@
 <template>
+    <search @search="ApplyFilters" />
     <h1>Client TableList</h1>
     <filters @filters="ApplyFilters"></filters>
     <!-- <li v-for="tableitem in state.tablelist" :key="tableitem.id">{{ tableitem }}</li> -->
@@ -18,6 +19,7 @@ import { reactive, computed } from 'vue'
 import { useStore } from 'vuex'
 import filters from "../../components/client/Filters.vue"
 import TableItem_Client from '../../components/client/TableItem.vue';
+import search from '../../components/client/Search.vue';
 import { useTableFilters } from '../../composables/table/useFilters';
 import { useRoute, useRouter } from 'vue-router';
 
@@ -25,7 +27,7 @@ export default {
     setup() {
         const store = useStore();
         const router = useRouter();
-        const currentRoute = useRoute()
+        const currentRoute = useRoute();
 
 
 
@@ -36,7 +38,7 @@ export default {
 
         const state = reactive({
             tablelist: computed(() => store.getters["table/getTable"]),
-            reserve: []
+            reserve: [],
         });
 
         if (currentRoute.params.filter && currentRoute.params.filter != "all") {
@@ -44,7 +46,11 @@ export default {
         }
 
         const ApplyFilters = (filter) => {
+            if (currentRoute.params.filter != "all" && filter.search == undefined && JSON.parse(atob(currentRoute.params.filter)).search != undefined) {
+                filter = { ...filter, search: JSON.parse(atob(currentRoute.params.filter)).search }
+            }
             const urlfilter = btoa(JSON.stringify(filter));
+            console.log(filter);
             router.push({ name: "client_table", params: { filter: urlfilter } });
             state.tablelist = useTableFilters(filter)
 
@@ -75,7 +81,7 @@ export default {
         }
         return { state, ApplyFilters, reserva, deleteReserve };
     },
-    components: { TableItem_Client, filters }
+    components: { TableItem_Client, filters, search }
 }
 </script>
 

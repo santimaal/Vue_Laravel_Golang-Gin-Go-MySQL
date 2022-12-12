@@ -1,12 +1,14 @@
 <template>
-  <nav class="footer_nav">
-    <span>
-      <img class="log_foot" src="../assets/logo/solo_logo.png" alt="" />© SANVIC Restaurant developed by Santi Martinez and Vicent Esteve ©</span>
-  </nav>
+    <nav class="footer_nav">
+      <span>
+        <img class="log_foot" src="../assets/logo/solo_logo.png" alt="" />© SANVIC Restaurant developed by Santi Martinez and Vicent Esteve ©</span>
+      </nav>
 </template>
 
 <style lang="scss">
 .footer_nav {
+  position: sticky;
+  top: 100%;
   background-color: black !important;
   width: 100%;
   color: aliceblue;
