@@ -45,6 +45,7 @@ func SetupRouter() *gin.Engine {
 	api.GET("table/:id", Table.GetTableByID)
 	api.GET("thematic", Thematic.GetAllThematics)
 	api.GET("thematic/:id", Thematic.GetThematicByID)
+	api.GET("thematic/infinite", Thematic.GetThematicsInfinity)
 
 	return r
 }

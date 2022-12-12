@@ -33,3 +33,13 @@ func GetOneThematicRepo(id int, c *gin.Context) (ThematicModel, error) {
 
 	return thematic, err
 }
+
+func GetThematicsInfinityRepo(c *gin.Context, Data_limit []string) []ThematicModel {
+	var thematic []ThematicModel
+
+	if err := Config.DB.Limit(Data_limit[1]).Offset(Data_limit[0]).Find(&thematic).Error; err != nil {
+		c.AbortWithStatus(http.StatusNotFound)
+		fmt.Println("Status:", err)
+	}
+	return thematic
+}

@@ -12,7 +12,7 @@
           of {{ thematic.location }}. You can also have a unique experience that
           you will remember for the rest of your life
         </p>
-        <button v-on:click="redirectReserve(thematic.id)">Reserve table</button>
+        <button @click="redirectReserve(thematic.id)">Reserve table</button>
       </div>
       <div class="front">
         <div class="image">
@@ -30,10 +30,11 @@ import { reactive } from "vue";
 
 export default {
   methods: {
-    // redirectReserve(id) {
-    //     localStorage.setItem('id', id);
-    //     window.location.href="/#/reservation";
-    // }
+    redirectReserve(id) {
+      console.log("Click en la Theamtica " + id);
+        // localStorage.setItem('id', id);
+        // window.location.href="/#/reservation";
+    }
   },
   setup() {
     const Thematics = useThematicInfinite();

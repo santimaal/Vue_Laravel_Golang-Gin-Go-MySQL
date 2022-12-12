@@ -12,7 +12,7 @@ export default {
         params += item[0] + "=" + item[1] + "&"
       }
     })
-    console.log(params.substring(0, params.length - 1));
+    // console.log(params.substring(0, params.length - 1));
     return Api(secret.GO_APP_URL).get(`table/filter?${params.substring(0, params.length - 1)}`)
     // return Api(secret.GO_APP_URL).get(`table`)
   },

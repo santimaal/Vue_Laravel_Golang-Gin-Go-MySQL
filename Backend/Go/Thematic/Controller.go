@@ -1,6 +1,7 @@
 package Thematic
 
 import (
+	"fmt"
 	"net/http"
 	"strconv"
 
@@ -18,6 +19,7 @@ func GetAllThematics(c *gin.Context) {
 //GET ONE Thematics
 func GetThematicByID(c *gin.Context) {
 	idThematic := c.Param("id")
+	fmt.Println(c.Param("prueba"))
 	var thematic ThematicModel
 	var id int
 	id, err := strconv.Atoi(idThematic)
@@ -33,5 +35,28 @@ func GetThematicByID(c *gin.Context) {
 		serializer := ThematicSerializer{c, thematic}
 		c.JSON(http.StatusOK, serializer.Response())
 	}
+}
+
+//GET Thematics with LIMIT for InfinityScrool
+func GetThematicsInfinity(c *gin.Context) {
+	// fmt.Println(c.Query("offset"))
+	// var thematics []ThematicModel = GetAllThematicsService(c)
+	// println(thematics)
+	// serializer := ThematicsSerializer{c, thematics}
+	// c.JSON(http.StatusOK, serializer.Response())
+
+	offset := c.Query("offset")
+	limit := c.Query("limit")
+	fmt.Println(offset)
+	fmt.Println(limit)
+	// var Data_limit string
+	// Data_limit = offset + ", " + limit
+	// fmt.Println(Data_limit)
+	Data_limit := []string{offset, limit}
+	var thematic []ThematicModel = GetThematicsInfinityService(c, Data_limit)
+	c.JSON(http.StatusOK, thematic)
+
+	
+	
 
 }
