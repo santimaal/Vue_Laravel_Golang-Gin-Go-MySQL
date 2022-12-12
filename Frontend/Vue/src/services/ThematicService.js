@@ -9,7 +9,6 @@ export default {
     return Api(secret.GO_APP_URL).get(`thematic/${id}`)
   },
   GetThematicInfinite(page, limit) {
-    // return Api(secret.GO_APP_URL).get(`thematic`)
     return Api(secret.GO_APP_URL).get('thematic/infinite', { params: { offset: page, limit: limit } });
   },
 
