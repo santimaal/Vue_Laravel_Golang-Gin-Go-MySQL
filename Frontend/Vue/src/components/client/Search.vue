@@ -6,7 +6,7 @@
             <div class="col-md-6">
 
                 <div class="form">
-                    <i class="fa fa-search">lupa</i>
+                    <v-icon name="fa-search" fill="black" scale="2" animation="pulse" />
                     <input type="text" v-model="state.filter.search" class="form-control form-input"
                         placeholder="Search anything..." v-on:change="search" v-on:keyup.enter="search">
                     <span class="left-pan"><i class="fa fa-microphone">mic</i></span>

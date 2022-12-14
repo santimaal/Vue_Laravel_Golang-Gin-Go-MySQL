@@ -2,34 +2,22 @@
   <search @search="ApplyFilters" />
   <filters @filters="ApplyFilters"></filters>
   <div v-if="state.show_tablelist.length > 0">
-    <TableItem_Client v-for="tableitem in state.show_tablelist" :key="tableitem.id" :tableitem="tableitem" @click="reserva(tableitem)"/>
+    <TableItem_Client v-for="tableitem in state.show_tablelist" :key="tableitem.id" :tableitem="tableitem"
+      @click="reserva(tableitem)" />
     <nav aria-label="">
       <ul class="pagination justify-content-center">
         <li class="page-item">
-          <a
-            class="page-link"
-            @click="changePage(state.page - 1)"
-            aria-label="Previous"
-          >
+          <a class="page-link" @click="changePage(state.page - 1)" aria-label="Previous">
             <span aria-hidden="true">&laquo;</span>
             <span class="sr-only">Previous</span>
           </a>
         </li>
-        <li
-          class="page-item"
-          v-for="(row, id) in state.total_pages"
-          :key="id"
-          :class="isActive(id)"
-          @click="changePage(id)"
-        >
+        <li class="page-item" v-for="(row, id) in state.total_pages" :key="id" :class="isActive(id)"
+          @click="changePage(id)">
           <a class="page-link" href="#">{{ row }}</a>
         </li>
         <li class="page-item">
-          <a
-            class="page-link"
-            @click="changePage(state.page + 1)"
-            aria-label="Next"
-          >
+          <a class="page-link" @click="changePage(state.page + 1)" aria-label="Next">
             <span aria-hidden="true">&raquo;</span>
             <span class="sr-only">Next</span>
           </a>
@@ -43,7 +31,9 @@
       <button type="button" @click="deleteReserve(table.id)">delete</button>
     </li>
   </div>
-  <div v-else><h1>Don't have tables with filters applied</h1></div>
+  <div v-else>
+    <h1>Don't have tables with filters applied</h1>
+  </div>
 </template>
 
 <script>
