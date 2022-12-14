@@ -4,7 +4,7 @@
   <HeaderA v-if="head.option == 'admin'" /> -->
   <!-- <button @click="cambia('client')">Client</button>
   <button @click="cambia('admin')">Admin</button> -->
-  <div class="all">
+  <div class="all height">
     <Header />
     <router-view></router-view>
     <Footer />

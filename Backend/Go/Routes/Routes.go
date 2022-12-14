@@ -17,6 +17,9 @@ func CORS(c *gin.Context) {
 	c.Header("Access-Control-Allow-Headers", "*")
 	c.Header("Content-Type", "application/json")
 
+	// c.Header("Access-Control-Max-Age", "3001");
+	// c.Header("Access-Control-Allow-Credentials", "true");
+
 	// Second, we handle the OPTIONS problem
 	if c.Request.Method != "OPTIONS" {
 		c.Next()

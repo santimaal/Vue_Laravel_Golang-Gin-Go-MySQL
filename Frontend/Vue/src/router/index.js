@@ -6,7 +6,6 @@ const routes = [
   { path: "/atable", name: "admin_table", component: () => import('../views/admin/Table/Table') },
   { path: "/addtable", name: "admin_addtable", component: () => import('../views/admin/Table/AddTable') },
   { path: "/updateTable/:id", name: "updateTable", component: () => import('../views/admin/Table/UpdateTable') },
-  { path: "/thematic", name: "client_thematic", component: () => import('../views/client/Thematic/Thematic') },
   { path: "/athematic", name: "admin_thematic", component: () => import('../views/admin/Thematic/Thematic') },
   { path: "/addthematic", name: "admin_addthematic", component: () => import('../views/admin/Thematic/AddThematic') },
   { path: "/updateThematic/:id", name: "updateThematic", component: () => import('../views/admin/Thematic/UpdateThematic') },

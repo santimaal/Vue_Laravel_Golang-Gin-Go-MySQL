@@ -13,32 +13,57 @@
     <div>
       <h2>Types of gastronomy</h2>
       <div class="d-flex justify-content-center">
-        <!-- <CardThematic v-for="thematicitem in state.thematiclist" :key="thematicitem.id" :thematicitem="thematicitem"/> -->
-        <CardThematic/>
-
+        <CardThematic :propThematic="state.thematicsData" />
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import Constant from "../Constant";
-import { reactive, computed } from "vue";
-import { useStore } from "vuex";
-
+import { reactive } from "vue";
 import Carousel from "../components/client/Carousel_welcome.vue";
 import CardThematic from "../components/client/Card_Thematic.vue";
+import { useThematicInfinite } from "../composables/thematics/useThematics";
+import { useCountThematics } from "../composables/thematics/useThematics";
 
 export default {
   setup() {
-    const store = useStore();
-
-    store.dispatch("thematic/" + Constant.INITIALIZE_THEMATIC);
-
     const state = reactive({
-      thematiclist: computed(() => store.getters["thematic/getThematic"]),
+      thematicsData: useThematicInfinite(1, 6),
+      scroll: {
+        offset: 0,
+        prod_tot: useCountThematics(),
+        active: "no",
+      },
     });
-    return { state };
+
+    const makeScroll = () => {
+      let scrollTop = document.documentElement.scrollTop;
+      let scrollHeight = document.documentElement.scrollHeight;
+      let clientHeight = document.documentElement.clientHeight;
+
+      if (state.scroll.offset >= state.scroll.prod_tot) {
+        state.scroll.active = "yes";
+      }
+
+      if (state.scroll.active == "no") {
+        if (scrollTop + clientHeight >= scrollHeight) {
+          state.scroll.offset += 6;
+          state.listTmp = useThematicInfinite(state.scroll.offset, 6);
+          setTimeout(() => {
+            state.listTmp.map((item) => {
+              state.thematicsData.push(item);
+            });
+          }, 100);
+        }
+      }
+    };
+
+    return { state, scroll, makeScroll };
+  },
+
+  mounted() {
+    window.addEventListener("scroll", this.makeScroll);
   },
   components: { Carousel, CardThematic },
 };
@@ -48,6 +73,7 @@ export default {
 @import url("https://fonts.googleapis.com/css2?family=Lobster&display=swap");
 
 .homeHtml {
+  background-color: rgb(201, 243, 234);
   text-align: center;
   .wl {
     text-align: center;

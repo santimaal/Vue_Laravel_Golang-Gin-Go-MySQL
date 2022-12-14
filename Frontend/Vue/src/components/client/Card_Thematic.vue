@@ -1,8 +1,8 @@
 <template>
-  <div class="all_cards" v-if="thematicsData.length > 0">
+  <div class="all_cards" v-if="propThematic.length > 0">
     <div
       class="maincontainer"
-      v-for="thematic in thematicsData"
+      v-for="thematic in propThematic"
       :key="thematic.id"
     >
       <div class="back">
@@ -21,7 +21,6 @@
         </div>
       </div>
     </div>
-    <!-- <InfiniteLoading @infinite="scroll" :distance="1"/> -->
   </div>
   <div v-else>
     <span>Don't have thematics</span>
@@ -29,19 +28,15 @@
 </template>
 
 <script>
-import { useThematicInfinite } from "../../composables/thematics/useThematics";
-import { reactive } from "vue";
 import { useRouter } from "vue-router";
 
-// import InfiniteLoading from "v3-infinite-loading";
-// import "v3-infinite-loading/lib/style.css";
-
 export default {
-  // components: { InfiniteLoading },
+  props: {
+      propThematic: Object
+  },
+
   setup() {
     const router = useRouter();
-    const Thematics = useThematicInfinite();
-    var thematicsData = reactive(Thematics);
 
     const redirectReserve = (id) => {
       console.log("Click en la Theamtica " + id);
@@ -51,21 +46,15 @@ export default {
         name: "client_table",
         params: { filter: btoa(JSON.stringify(search)) },
       });
-
-      // localStorage.setItem('id', id);
-      // window.location.href="/#/reservation";
     };
-
-    const scroll = {
-      prueba: "hola",
-    };
-    console.log(scroll.prueba);
-    return { thematicsData, redirectReserve, scroll };
+    
+    return { redirectReserve };
   },
 };
 </script>
 
 <style>
+@import url("https://fonts.googleapis.com/css2?family=Lobster&display=swap");
 .all_cards {
   display: grid;
   grid-template-columns: repeat(3, 20%);
@@ -103,6 +92,14 @@ export default {
   margin-top: 70%;
   margin-left: -40%;
   border-radius: 10px;
+  border: 2px solid #3ec9a5;
+  font-family: "Lobster", cursive;
+  font-size: large;
+}
+
+.back button:hover {
+ background-color: black;
+ color: aliceblue;
 }
 
 .front img {

@@ -11,7 +11,6 @@ export default {
   GetThematicInfinite(page, limit) {
     return Api(secret.GO_APP_URL).get('thematic/infinite', { params: { offset: page, limit: limit } });
   },
-
   createThematic(data) {
     return Api(secret.LARAVEL_APP_URL).post('thematic', data)
   },

@@ -39,11 +39,6 @@ func GetThematicByID(c *gin.Context) {
 
 //GET Thematics with LIMIT for InfinityScrool
 func GetThematicsInfinity(c *gin.Context) {
-	// fmt.Println(c.Query("offset"))
-	// var thematics []ThematicModel = GetAllThematicsService(c)
-	// println(thematics)
-	// serializer := ThematicsSerializer{c, thematics}
-	// c.JSON(http.StatusOK, serializer.Response())
 
 	offset := c.Query("offset")
 	limit := c.Query("limit")
@@ -51,12 +46,7 @@ func GetThematicsInfinity(c *gin.Context) {
 	fmt.Println(limit)
 	// var Data_limit string
 	// Data_limit = offset + ", " + limit
-	// fmt.Println(Data_limit)
 	Data_limit := []string{offset, limit}
 	var thematic []ThematicModel = GetThematicsInfinityService(c, Data_limit)
 	c.JSON(http.StatusOK, thematic)
-
-	
-	
-
 }
