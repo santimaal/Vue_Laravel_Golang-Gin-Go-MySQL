@@ -1,10 +1,6 @@
 <template>
   <div class="all_cards" v-if="propThematic.length > 0">
-    <div
-      class="maincontainer"
-      v-for="thematic in propThematic"
-      :key="thematic.id"
-    >
+    <div class="maincontainer" v-for="thematic in propThematic" :key="thematic.id">
       <div class="back">
         <h2>{{ thematic.name }}</h2>
         <p>
@@ -32,7 +28,7 @@ import { useRouter } from "vue-router";
 
 export default {
   props: {
-      propThematic: Object
+    propThematic: Object
   },
 
   setup() {
@@ -47,7 +43,7 @@ export default {
         params: { filter: btoa(JSON.stringify(search)) },
       });
     };
-    
+
     return { redirectReserve };
   },
 };
@@ -55,6 +51,7 @@ export default {
 
 <style>
 @import url("https://fonts.googleapis.com/css2?family=Lobster&display=swap");
+
 .all_cards {
   display: grid;
   grid-template-columns: repeat(3, 20%);
@@ -98,8 +95,8 @@ export default {
 }
 
 .back button:hover {
- background-color: black;
- color: aliceblue;
+  background-color: black;
+  color: aliceblue;
 }
 
 .front img {
@@ -117,7 +114,8 @@ export default {
   top: 200px;
   color: #000;
 }
-.maincontainer > .front {
+
+.maincontainer>.front {
   position: absolute;
   transform: perspective(600px) rotateY(0deg);
   width: 302px;
@@ -126,7 +124,7 @@ export default {
   transition: transform 0.5s linear 0s;
 }
 
-.maincontainer > .back {
+.maincontainer>.back {
   position: absolute;
   transform: perspective(600px) rotateY(180deg);
   background: #262626;
@@ -139,11 +137,11 @@ export default {
   transition: transform 0.5s linear 0s;
 }
 
-.maincontainer:hover > .front {
+.maincontainer:hover>.front {
   transform: perspective(600px) rotateY(-180deg);
 }
 
-.maincontainer:hover > .back {
+.maincontainer:hover>.back {
   transform: perspective(600px) rotateY(0deg);
 }
 </style>

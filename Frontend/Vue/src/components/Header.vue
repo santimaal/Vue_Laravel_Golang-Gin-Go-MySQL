@@ -51,7 +51,7 @@ nav {
   width: 100% !important;
   background-color: black !important;
   .logo {
-    width: 40%;
+    width: 25%;
     margin-left: 5%;
   }
   div {

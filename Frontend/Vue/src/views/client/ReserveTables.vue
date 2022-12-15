@@ -3,8 +3,10 @@
   <filters @filters="ApplyFilters"></filters>
 
   <div v-if="state.show_tablelist.length > 0">
-    <TableItem_Client v-for="tableitem in state.show_tablelist" :key="tableitem.id" :tableitem="tableitem"
-      @click="reserva(tableitem)" />
+    <div class="all_cards_table">
+      <Card_Table v-for="tableitem in state.show_tablelist" :key="tableitem.id" :tableitem="tableitem"
+        @click="reserva(tableitem)" />
+    </div>
 
     <Pagination :totalpages="state.total_pages" @changepage="loadnewtables" />
 
@@ -25,7 +27,7 @@ import Constant from "../../Constant";
 import { reactive, computed } from "vue";
 import { useStore } from "vuex";
 import filters from "../../components/client/Filters.vue";
-import TableItem_Client from "../../components/client/TableItem.vue";
+import Card_Table from "../../components/client/Card_Table.vue";
 import Pagination from "../../components/client/Pagination.vue";
 import search from "../../components/client/Search.vue";
 import { useTableFilters } from "../../composables/table/useFilters";
@@ -80,7 +82,6 @@ export default {
     };
 
     if (currentRoute.params.filter && currentRoute.params.filter != "all") {
-      // state.show_tablelist = useTableFilters(JSON.parse(atob(currentRoute.params.filter)))
       ApplyFilters(JSON.parse(atob(currentRoute.params.filter)));
     }
 
@@ -114,7 +115,7 @@ export default {
     };
     return { state, ApplyFilters, reserva, deleteReserve, loadnewtables };
   },
-  components: { TableItem_Client, filters, search, Pagination },
+  components: { Card_Table, filters, search, Pagination },
 };
 </script>
 
@@ -122,5 +123,20 @@ export default {
 .pagination {
   background-color: rgb(201, 243, 234);
   border-radius: 0px;
+}
+
+.all_cards_table {
+    display: grid;
+    grid-template-columns: repeat(3, 22%);
+    justify-content: center;
+    justify-items: center;
+    grid-gap: 2rem 2rem;
+    margin-bottom: 2%;
+    margin-top: 2%;
+    background-color: rgb(201, 243, 234);
+}
+
+.change_color {
+  background-color: rgb(201, 243, 234);
 }
 </style>

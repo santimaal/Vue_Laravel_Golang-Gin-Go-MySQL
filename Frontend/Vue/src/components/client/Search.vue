@@ -1,15 +1,16 @@
 <template>
     <div class="container">
 
-        <div class="row justify-content-center">
+        <div class="row justify-content-center align-content-cener mt-4">
 
             <div class="col-md-6">
-
-                <div class="form">
-                    <v-icon name="fa-search" fill="black" scale="2" animation="pulse" />
-                    <input type="text" v-model="state.filter.search" class="form-control form-input"
-                        placeholder="Search anything..." v-on:change="search" v-on:keyup.enter="search">
-                    <span class="left-pan"><i class="fa fa-microphone">mic</i></span>
+                <div class="container">
+                    <div class="search">
+                        <input type="text" class="form-control form-input" v-model="state.filter.search" v-on:keyup.enter="search" placeholder="Search for your city...">
+                        <button type="submit" @click="search">
+                             <font-awesome-icon class="icon search" icon="fa-solid fa-magnifying-glass"/>
+                        </button>
+                    </div>
                 </div>
 
             </div>
@@ -48,59 +49,62 @@ export default {
 </script>
 
 <style>
-body {
-
-    background: #d1d5db;
-}
-
 .height {
-
     height: 100vh;
 }
-
-.form {
-
-    position: relative;
+.icon {
+    color: white !important;
+    width: 25px;
 }
 
-.form .fa-search {
-
-    position: absolute;
-    top: 20px;
-    left: 20px;
-    color: #9ca3af;
-
+.container .search {
+	position: relative;
+	height: 100%;
+}
+.container .search input {
+	width: 50px;
+	height: 50px;
+	position: absolute;
+	right: calc(50% - 25px);
+	top: 0;
+	padding: 0 25px;
+	border: 0;
+	border-radius: 25px;
+	color: #4e4e4e;
+	font-size: 18px;
+	font-weight: 300;
+	box-shadow: 0 5px 12px 0 rgba(0, 0, 0, 0.1),
+		0 1px 28px 0 rgba(0, 0, 0, 0.2),
+		0 0 40px 0 rgba(0, 0, 0, 0.1);
+	transition: all 0.6s cubic-bezier(0, 2, 1, -1);
+}
+.container .search button {
+	width: 50px;
+	height: 50px;
+	position: absolute;
+	right: calc(50% - 25px);
+	top: 0;
+	margin: auto;
+	background: #2d2926;
+	color: #fff;
+	font-size: 15px;
+	border: 0;
+	border-radius: 50%;
+	box-shadow: 0 6px 28px 0 rgba(0, 0, 0, 0.0), 0 5px 55px 0 rgba(0, 0, 0, 0.0);
+	cursor: pointer;
+	transition:all 0.6s cubic-bezier(0, 2, 1, -1);
 }
 
-.form span {
-
-    position: absolute;
-    right: 17px;
-    top: 13px;
-    padding: 2px;
-    border-left: 1px solid #d1d5db;
-
+.container .search input:focus,
+.container .search input:active,
+.container .search:hover input {
+	width: 400px;
+	right:0;
 }
-
-.left-pan {
-    padding-left: 7px;
-}
-
-.left-pan i {
-
-    padding-left: 10px;
-}
-
-.form-input {
-
-    height: 55px;
-    text-indent: 33px;
-    border-radius: 10px;
-}
-
-.form-input:focus {
-
-    box-shadow: none;
-    border: none;
+.container .search input:focus + button,
+.container .search input:active + button,
+.container .search:hover button {
+	right: 0;
+	box-shadow: 0 6px 28px 0 rgba(0, 0, 0, 0.3), 0 5px 55px 0 rgba(0, 0, 0, 0.2);
 }
 </style>

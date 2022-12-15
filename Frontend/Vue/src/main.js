@@ -6,16 +6,16 @@ import App from './App.vue'
 import router from "./router";
 import store from "./store";
 
-// vue-icons
-// import { OhVueIcon, addIcons } from "oh-vue-icons";
-// // import * as VIcons from "oh-vue-icons/icons";
-// import {  BiMicFill, FaSearch, LaSpinnerSolid } from "oh-vue-icons/icons";
+//font-awesome-icons
+import { library } from '@fortawesome/fontawesome-svg-core';
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 
-// addIcons(LaSpinnerSolid, FaSearch, BiMicFill);
+import {faMagnifyingGlass,faMicrophone,faPerson} from '@fortawesome/free-solid-svg-icons';
+library.add(faMagnifyingGlass,faMicrophone,faPerson);
 
-createApp(App)
-  .use(router)
-  .use(store)
-  // .component('v-icon', OhVueIcon)
-  .mount("#app");
+ const app= createApp(App)
+  app.use(router)
+  app.use(store)
+  app.component('font-awesome-icon', FontAwesomeIcon);
+  app.mount("#app");
 
