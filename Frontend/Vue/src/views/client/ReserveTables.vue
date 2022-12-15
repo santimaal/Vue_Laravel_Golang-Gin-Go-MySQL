@@ -1,37 +1,21 @@
 <template>
   <search @search="ApplyFilters" />
   <filters @filters="ApplyFilters"></filters>
+
   <div v-if="state.show_tablelist.length > 0">
     <TableItem_Client v-for="tableitem in state.show_tablelist" :key="tableitem.id" :tableitem="tableitem"
       @click="reserva(tableitem)" />
-    <nav aria-label="">
-      <ul class="pagination justify-content-center">
-        <li class="page-item">
-          <a class="page-link" @click="changePage(state.page - 1)" aria-label="Previous">
-            <span aria-hidden="true">&laquo;</span>
-            <span class="sr-only">Previous</span>
-          </a>
-        </li>
-        <li class="page-item" v-for="(row, id) in state.total_pages" :key="id" :class="isActive(id)"
-          @click="changePage(id)">
-          <a class="page-link" href="#">{{ row }}</a>
-        </li>
-        <li class="page-item">
-          <a class="page-link" @click="changePage(state.page + 1)" aria-label="Next">
-            <span aria-hidden="true">&raquo;</span>
-            <span class="sr-only">Next</span>
-          </a>
-        </li>
-      </ul>
-    </nav>
+
+    <Pagination :totalpages="state.total_pages" @changepage="loadnewtables" />
 
     <h1 v-if="state.reserve.length != 0">Reservadas</h1>
     <li v-for="table in state.reserve" :key="table.id">
       {{ table.id }}
-      <button type="button" @click="deleteReserve(table.id)">delete</button>
+      <button type="button" class="btn btn-primary" @click="deleteReserve(table.id)">delete</button>
     </li>
   </div>
   <div v-else>
+    <!-- <v-icon name="la-spinner-solid" animation="spin" fill="black" scale="4" /> -->
     <h1>Don't have tables with filters applied</h1>
   </div>
 </template>
@@ -42,6 +26,7 @@ import { reactive, computed } from "vue";
 import { useStore } from "vuex";
 import filters from "../../components/client/Filters.vue";
 import TableItem_Client from "../../components/client/TableItem.vue";
+import Pagination from "../../components/client/Pagination.vue";
 import search from "../../components/client/Search.vue";
 import { useTableFilters } from "../../composables/table/useFilters";
 import { useRoute, useRouter } from "vue-router";
@@ -66,7 +51,7 @@ export default {
       page: 0,
       total_pages: computed(() =>
         Math.ceil(store.getters["table/getTable"].length / 6)
-      ),
+      )
     });
 
     const ApplyFilters = (filter) => {
@@ -99,22 +84,11 @@ export default {
       ApplyFilters(JSON.parse(atob(currentRoute.params.filter)));
     }
 
-    const isActive = (id) => {
-      return { active: id == state.page };
-    };
-
-    const changePage = (page) => {
-      if (page < 0) {
-        state.page = 0;
-      } else if (page == state.total_pages) {
-        state.page = state.total_pages - 1;
-      } else {
-        state.page = page;
-        state.show_tablelist = computed(() =>
-          state.save_tablelist.slice(page * 6, page * 6 + 6)
-        );
-      }
-    };
+    const loadnewtables = (page) => {
+      state.show_tablelist = computed(() =>
+        state.save_tablelist.slice(page * 6, page * 6 + 6)
+      );
+    }
 
     const reserva = (table) => {
       let check = null;
@@ -138,16 +112,9 @@ export default {
         return item.id == table;
       });
     };
-    return {
-      state,
-      ApplyFilters,
-      reserva,
-      deleteReserve,
-      changePage,
-      isActive,
-    };
+    return { state, ApplyFilters, reserva, deleteReserve, loadnewtables };
   },
-  components: { TableItem_Client, filters, search },
+  components: { TableItem_Client, filters, search, Pagination },
 };
 </script>
 
