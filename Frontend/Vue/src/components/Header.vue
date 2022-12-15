@@ -1,6 +1,6 @@
 <template>
   <nav class="navbar navbar-expand-md navbar-dark">
-    <router-link class="nav-link" to="/home"><img class="logo" src="../assets/logo/sanvic.png" alt=""/></router-link>
+    <router-link class="nav-link" to="/home"><img class="logo" src="../assets/logo/sanvic.png" alt="" /></router-link>
     <button class="navbar-toggler" type="button" @click="changeIsNavShow">
       <span class="navbar-toggler-icon"></span>
     </button>
@@ -18,6 +18,12 @@
         </li>
         <li class="nav-item">
           <router-link class="nav-link button" to="/athematic">DashboardThematic</router-link>
+        </li>
+        <li class="nav-item">
+          <router-link class="nav-link button" to="/register">Register</router-link>
+        </li>
+        <li class="nav-item">
+          <router-link class="nav-link button" to="/login">Login</router-link>
         </li>
       </ul>
     </div>
@@ -46,20 +52,24 @@ export default {
 };
 </script>
 
-<style lang="scss">
+<style lang="scss" >
 nav {
   width: 100% !important;
   background-color: black !important;
+  height: 12vh;
+
   .logo {
     width: 25%;
     margin-left: 5%;
   }
+
   div {
     .navRight {
       width: 100%;
       display: flex;
       justify-content: end;
-      .nav-item{
+
+      .nav-item {
         margin-right: 2%;
       }
     }
