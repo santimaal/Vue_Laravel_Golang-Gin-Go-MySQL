@@ -2,7 +2,7 @@
   <search @search="ApplyFilters" />
   <filters @filters="ApplyFilters"></filters>
 
-  <div v-if="state.show_tablelist.length > 0">
+  <div class="change_color" v-if="state.show_tablelist.length > 0">
     <div class="all_cards_table">
       <Card_Table v-for="tableitem in state.show_tablelist" :key="tableitem.id" :tableitem="tableitem"
         @click="reserva(tableitem)" />
@@ -127,10 +127,10 @@ export default {
 
 .all_cards_table {
     display: grid;
-    grid-template-columns: repeat(3, 22%);
+    grid-template-columns: repeat(3, 19%);
     justify-content: center;
     justify-items: center;
-    grid-gap: 2rem 2rem;
+    grid-gap: 2rem 3rem;
     margin-bottom: 2%;
     margin-top: 2%;
     background-color: rgb(201, 243, 234);

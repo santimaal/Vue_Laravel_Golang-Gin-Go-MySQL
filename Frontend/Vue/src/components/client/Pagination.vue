@@ -1,5 +1,5 @@
 <template>
-    <nav aria-label="">
+    <nav class="nav_pag" aria-label="">
         <ul class="pagination justify-content-center">
             <li class="page-item">
                 <a class="page-link" @click="changePage(state.page - 1)" aria-label="Previous">
@@ -52,6 +52,8 @@ export default {
     }
 }
 </script>
-<style>
-
+<style scoped>
+nav {
+    background-color: rgb(201, 243, 234) !important;
+}
 </style>

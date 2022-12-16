@@ -52,7 +52,7 @@ export default {
 };
 </script>
 
-<style lang="scss" >
+<style lang="scss">
 nav {
   width: 100% !important;
   background-color: black !important;

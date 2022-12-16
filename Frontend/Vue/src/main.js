@@ -10,8 +10,8 @@ import store from "./store";
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 
-import {faMagnifyingGlass,faMicrophone,faPerson} from '@fortawesome/free-solid-svg-icons';
-library.add(faMagnifyingGlass,faMicrophone,faPerson);
+import {faMagnifyingGlass,faMicrophone,faPerson,faLocationDot,faUtensils,faPersonShelter} from '@fortawesome/free-solid-svg-icons';
+library.add(faMagnifyingGlass,faMicrophone,faPerson,faLocationDot,faUtensils,faPersonShelter);
 
  const app= createApp(App)
   app.use(router)
