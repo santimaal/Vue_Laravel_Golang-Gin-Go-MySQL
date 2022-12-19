@@ -12,6 +12,8 @@ const routes = [
   { path: "/login", name: "login", component: () => import('../views/login/Login') },
   { path: "/updateThematic/:id", name: "updateThematic", component: () => import('../views/admin/Thematic/UpdateThematic') },
   { path: "/home", name: "home", component: () => import('../views/Home') },
+  { path: "/:catchAll(.*)", component: () => import('../views/Home') },
+
 ];
 
 const router = createRouter({

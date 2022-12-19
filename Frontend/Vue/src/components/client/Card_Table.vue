@@ -28,9 +28,9 @@
                                 icon="fa-solid fa-location-dot" />{{ item.location }}</p>
                     </div>
                     <div class="loc_rest">
-                        <p v-if="tableitem.location === 'outside'"><font-awesome-icon class="rIcon"
+                        <p v-if="tableitem.location == 'outside'"><font-awesome-icon class="rIcon"
                                 icon="fa-solid fa-person-shelter" />Outside</p>
-                        <p v-if="tableitem.location === 'inside'"><font-awesome-icon class="rIcon"
+                        <p v-if="tableitem.location == 'inside'"><font-awesome-icon class="rIcon"
                                 icon="fa-solid fa-person-shelter" /> Inside</p>
                     </div>
                 </div>
@@ -51,7 +51,6 @@ export default {
     },
     setup() {
         const store = useStore();
-
 
         const state = reactive({
             thematic: computed(() => store.getters["thematic/getThematic"])

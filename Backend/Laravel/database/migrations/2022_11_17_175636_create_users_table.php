@@ -19,7 +19,8 @@ return new class extends Migration
             $table->string('name');
             $table->string('password');
             $table->string('email');
-            $table->string('type');
+            $table->string('type')->default('client');
+            $table->string('img')->default('');
             $table->timestamps();
         });
     }

@@ -12,20 +12,27 @@
                                         <label class="form-label" for="email">Your Email</label>
                                         <input type="email" v-model="state.form.email" id="email"
                                             class="form-control form-control-lg" />
-                                        <span style="color:red">{{ state.err.email }}</span>
+                                        <span class="text-danger">{{ state.email }}</span>
                                     </div>
 
                                     <div class="form-outline mb-4">
                                         <label class="form-label" for="pass">Password</label>
                                         <input type="password" v-model="state.form.password" id="pass"
                                             class="form-control form-control-lg" />
-                                        <span style="color:red">{{ state.err.password }}</span>
+                                        <!-- <span class="text-danger">{{ state.err.password.$model }}</span> -->
+                                        <span class="text-danger" v-if="state.err.password.$invalid == true">Password is
+                                            required</span>
                                     </div>
 
                                     <div class="d-flex justify-content-center">
-                                        <button type="button"
+                                        <button
+                                            v-if="state.err.email.$invalid == true || state.err.password.$invalid == true"
+                                            type="button"
+                                            class="btn btn-light btn-block btn-lg gradient-custom-4 text-body border border-dark"
+                                            disabled>Login</button>
+                                        <button v-else type="button"
                                             class="btn btn-success btn-block btn-lg gradient-custom-4 text-body"
-                                            @click="login">Register</button>
+                                            @click="login">Login</button>
                                     </div>
 
                                     <p class="text-center text-muted mt-5 mb-0">You don't have an account?
@@ -46,7 +53,9 @@
 </template>
 
 <script>
-import { reactive } from 'vue';
+import { reactive, /*computed*/ } from 'vue';
+import { useVuelidate } from '@vuelidate/core';
+import { required, email } from '@vuelidate/validators';
 
 export default {
     setup() {
@@ -60,39 +69,56 @@ export default {
                 password: ""
             }
         })
-
-        const login = () => {
-            if (check() == false) {
-                console.log("mal");
-            } else {
-                console.log("bien");
-            }
-            console.log(state.form);
+        const rules = {
+            email: { required, email },
+            password: { required }
         }
 
-        function check() {
-            let errors = 0
-            if (state.form.email.length == 0) {
-                state.err.email = "Can't be blank"
-                errors++
-            } else {
-                state.err.email = ""
-            }
-            if (state.form.password.length == 0) {
-                state.err.password = "Can't be blank"
-                errors++
-            }
-            if (errors != 0) {
-                return false
-            } else {
-                return true
-            }
+        state.err = useVuelidate(rules, state.form);
+
+
+
+        // if (state.err.email.$model == "") {
+        //     console.log("Esta vacio el email");
+        //     state.email = "";
+        // } else {
+        //     console.log("El email esta lleno");
+        //     if (state.form.email == true) {
+        //         state.email = "Email is invalid";
+        //     } else {
+        //         state.email = "";
+        //     }
+        // }
+        // if (state.err.password.$model == "") {
+        //     console.log("Esta vacio PASSWORD");
+        // } else {
+        //     console.log("PASSWORD llena");
+        // }
+
+
+        const login = () => {
+            console.log("Hola soy el login");
+            console.log(state.form.email);
+            console.log(state.err.email);
+            // if (state.form.email != "") {
+            //     if (state.form.email == true) {
+            //         state.email = "Password is required"
+            //     } else {
+            //         state.email = ""
+            //     }
+
+            // } else {
+            //     state.pass = ""
+            //     console.log(state.form);
+            // }
         }
 
         return { state, login }
     }
 }
+
 </script>
+
 <style scoped>
 .allpage {
     height: 81vh;

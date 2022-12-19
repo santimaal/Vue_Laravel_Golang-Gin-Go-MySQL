@@ -14,7 +14,7 @@ class UserFactory extends Factory
             'name' =>  $this->namePerson(),
             'password' => fake()->password(),
             'email' => strtolower(explode(" ",  $_SESSION['NamePerson'])[0]). "@gmail.com",
-            'type' => fake()->randomElement(['client', 'admin'])
+            'type' => fake()->randomElement(['client'])
         ];
     }
 

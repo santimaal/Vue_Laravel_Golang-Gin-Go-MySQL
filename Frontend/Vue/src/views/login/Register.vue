@@ -9,27 +9,31 @@
                                 <h2 class="text-uppercase text-center mb-5">Create an account</h2>
 
                                 <form>
-
                                     <div class="form-outline mb-4">
                                         <label class="form-label" for="name">Your Name</label>
                                         <input type="text" v-model="state.form.name" id="name"
                                             class="form-control form-control-lg" />
-                                        <span style="color:red">{{ state.err.name }}</span>
+                                        <div class="input-errors" v-for="error of state.err.name.$errors"
+                                            :key="error.$uid">
+                                            <div class="error-msg">{{ error }}</div>
+                                        </div>
                                     </div>
 
                                     <div class="form-outline mb-4">
                                         <label class="form-label" for="email">Your Email</label>
                                         <input type="email" v-model="state.form.email" id="email"
                                             class="form-control form-control-lg" />
-                                        <span style="color:red">{{ state.err.email }}</span>
-
+                                        <div class="input-errors" v-for="error of state.err.email.$invalid"
+                                            :key="error.$uid">
+                                            <div class="error-msg">{{ error }}</div>
+                                        </div>
                                     </div>
 
                                     <div class="form-outline mb-4">
                                         <label class="form-label" for="pass">Password</label>
                                         <input type="password" v-model="state.form.password" id="pass"
                                             class="form-control form-control-lg" />
-                                        <span style="color:red">{{ state.err.password }}</span>
+                                        <span class="text-danger">{{ state.pass }}</span>
                                     </div>
 
                                     <div class="form-outline mb-4">
@@ -39,7 +43,12 @@
                                     </div>
 
                                     <div class="d-flex justify-content-center">
-                                        <button type="button"
+                                        <button
+                                            v-if="state.err.name.$invalid == true || state.err.email.$invalid == true || state.err.password.$invalid == true || state.err.rptpassword.$invalid == true"
+                                            type="button"
+                                            class="btn btn-success btn-block btn-lg gradient-custom-4 text-body"
+                                            disabled>Register</button>
+                                        <button v-else type="button"
                                             class="btn btn-success btn-block btn-lg gradient-custom-4 text-body"
                                             @click="register">Register</button>
                                     </div>
@@ -63,6 +72,8 @@
 
 <script>
 import { reactive } from 'vue';
+import { useVuelidate } from '@vuelidate/core'
+import { required, email } from '@vuelidate/validators'
 
 export default {
     setup() {
@@ -76,47 +87,31 @@ export default {
             err: {
                 name: "",
                 email: "",
-                password: ""
-            }
+                password: "",
+                rptpassword: "",
+            },
+            pass: ""
         })
 
-        const register = () => {
-            if (check()==false) {
-                console.log("mal");
-            } else {
-                console.log("bien");
-            }
-            console.log(state.form);
+        const rules = {
+            name: { required },
+            email: { required, email },
+            password: { required },
+            rptpassword: { required }
         }
 
-        function check() {
-            let errors = 0
-            if (state.form.name.length == 0) {
-                state.err.name = "Can't be blank"
-                errors++
-            } else {
-                state.err.name = ""
-            }
-            if (state.form.email.length == 0) {
-                state.err.email = "Can't be blank"
-                errors++
-            } else {
-                state.err.email = ""
-            }
+
+
+        state.err = useVuelidate(rules, state.form)
+        // console.log(v$);
+        const register = () => {
+            console.log("mismo");
             if (state.form.password != state.form.rptpassword) {
-                state.err.password = "Is not the same password"
-                errors++
+                console.log("hola");
+                state.pass = "Is not the same password"
             } else {
-                state.err.password = ""
-            }
-            if (state.form.password.length == 0) {
-                state.err.password = "Can't be blank"
-                errors++
-            }
-            if (errors != 0) {
-                return false
-            } else {
-                return true
+                state.pass = ""
+                console.log(state.form);
             }
         }
         return { state, register }

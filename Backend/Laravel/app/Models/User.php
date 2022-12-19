@@ -9,7 +9,7 @@ class User extends Model
 {
     use HasFactory;
     protected $table = 'users';
-    protected $fillable = ['is_active', 'name', 'password', 'email', 'type'];
+    protected $fillable = ['is_active', 'name', 'password', 'email', 'type', 'img'];
     protected $hidden = ['created_at', 'updated_at'];
 
     public function tables()

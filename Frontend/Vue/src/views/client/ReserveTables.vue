@@ -77,7 +77,7 @@ export default {
         state.total_pages = computed(() =>
           Math.ceil(state.save_tablelist.length / 6)
         );
-      }, 100);
+      }, 10);
       state.page = 0;
     };
 
@@ -126,14 +126,14 @@ export default {
 }
 
 .all_cards_table {
-    display: grid;
-    grid-template-columns: repeat(3, 19%);
-    justify-content: center;
-    justify-items: center;
-    grid-gap: 2rem 3rem;
-    margin-bottom: 2%;
-    margin-top: 2%;
-    background-color: rgb(201, 243, 234);
+  display: grid;
+  grid-template-columns: repeat(3, 19%);
+  justify-content: center;
+  justify-items: center;
+  grid-gap: 2rem 3rem;
+  margin-bottom: 2%;
+  margin-top: 2%;
+  background-color: rgb(201, 243, 234);
 }
 
 .change_color {
