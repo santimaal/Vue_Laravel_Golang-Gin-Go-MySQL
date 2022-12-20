@@ -19,9 +19,7 @@
                                         <label class="form-label" for="pass">Password</label>
                                         <input type="password" v-model="state.form.password" id="pass"
                                             class="form-control form-control-lg" />
-                                        <!-- <span class="text-danger">{{ state.err.password.$model }}</span> -->
-                                        <span class="text-danger" v-if="state.err.password.$invalid == true">Password is
-                                            required</span>
+                                        <span class="text-danger">{{ state.passwd }}</span>
                                     </div>
 
                                     <div class="d-flex justify-content-center">
@@ -29,7 +27,7 @@
                                             v-if="state.err.email.$invalid == true || state.err.password.$invalid == true"
                                             type="button"
                                             class="btn btn-light btn-block btn-lg gradient-custom-4 text-body border border-dark"
-                                            disabled>Login</button>
+                                            @click="login">Login</button>
                                         <button v-else type="button"
                                             class="btn btn-success btn-block btn-lg gradient-custom-4 text-body"
                                             @click="login">Login</button>
@@ -76,41 +74,24 @@ export default {
 
         state.err = useVuelidate(rules, state.form);
 
-
-
-        // if (state.err.email.$model == "") {
-        //     console.log("Esta vacio el email");
-        //     state.email = "";
-        // } else {
-        //     console.log("El email esta lleno");
-        //     if (state.form.email == true) {
-        //         state.email = "Email is invalid";
-        //     } else {
-        //         state.email = "";
-        //     }
-        // }
-        // if (state.err.password.$model == "") {
-        //     console.log("Esta vacio PASSWORD");
-        // } else {
-        //     console.log("PASSWORD llena");
-        // }
-
-
         const login = () => {
-            console.log("Hola soy el login");
-            console.log(state.form.email);
-            console.log(state.err.email);
-            // if (state.form.email != "") {
-            //     if (state.form.email == true) {
-            //         state.email = "Password is required"
-            //     } else {
-            //         state.email = ""
-            //     }
 
-            // } else {
-            //     state.pass = ""
-            //     console.log(state.form);
-            // }
+            if (state.err.email.$invalid == true) {
+                console.log("1");
+                if (state.err.email.$model != "") {
+                    state.email = "Email is invalid";
+                } else {
+                    state.email = "Email is required";
+                }
+
+            } else {
+                state.email = "";
+            }
+            if (state.err.password.$invalid == true) {
+                state.passwd = "Password is required"
+            } else {
+                state.passwd = "";
+            }
         }
 
         return { state, login }

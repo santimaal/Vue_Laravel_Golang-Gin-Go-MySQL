@@ -17,6 +17,40 @@
         <button type="button" @click="resetFilters">Reset</button>
     </form>
 
+    <div class="row justify-content-center">
+        <div class="col-8">
+            <form class="row filters justify-content-around bg-light rounded p-3 m-2">
+                <div class="col-md-3 position-relative">
+                    <div class="d-flex justify-content-center">
+                        <h3>Location</h3>
+                    </div>
+                    <p class="text-center">
+                        Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do
+                        eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                    </p>
+                </div>
+                <div class="col-md-3 position-relative">
+                    <div class="d-flex justify-content-center">
+                        <h3>Capacity</h3>
+                    </div>
+                    <p class="text-center">
+                        Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do
+                        eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                    </p>
+                </div>
+                <div class="col-md-3 position-relative">
+                    <div class="d-flex justify-content-center">
+                        <h3>Thematic</h3>
+                    </div>
+                    <p class="text-center">
+                        Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do
+                        eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                    </p>
+                </div>
+            </form>
+        </div>
+    </div>
+
 </template>
 <script>
 import { reactive, getCurrentInstance, computed } from 'vue';
