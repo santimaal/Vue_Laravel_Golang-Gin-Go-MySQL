@@ -24,12 +24,16 @@ func GetAllUsersRepo(c *gin.Context) []UserModel {
 func GetOneUserRepo(id int, c *gin.Context) (UserModel, error) {
 
 	var user UserModel
-
 	err := Config.DB.Where("id = ?", id).Find(&user).Error
-	if err != nil {
-		fmt.Println(err.Error())
-		c.AbortWithStatus(http.StatusNotFound)
-	}
-
 	return user, err
+}
+
+func UserRegisterRepo(user *UserModel, c *gin.Context) (err error, exist bool) {
+	err = Config.DB.Create(user).Error
+	return err, false
+}
+
+func CheckUserEmail(user *UserModel, c *gin.Context) (exists UserModel, err error) {
+	err = Config.DB.Where("name = ?", user.Name).Find(&exists).Error
+	return exists, err
 }

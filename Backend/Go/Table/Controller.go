@@ -2,7 +2,6 @@ package Table
 
 import (
 	"net/http"
-	"strconv"
 
 	"github.com/gin-gonic/gin"
 )
@@ -15,44 +14,19 @@ func GetAllTables(c *gin.Context) {
 }
 
 func GetTablesFilter(c *gin.Context) {
-
-	location := c.Query("location")
-	thematic := c.Query("id_thematic")
-	capacity := c.Query("capacity")
-	search := c.Query("search")
-
-	if len(location) < 1 {
-		location = "%"
-	}
-	if len(thematic) < 1 {
-		thematic = "%"
-	}
-	if len(capacity) < 1 {
-		capacity = "%"
-	}
-	if len(search) < 1 {
-		search = "%"
+	table, err := GetTablesFilterService(c)
+	if err != nil {
+		c.JSON(http.StatusNotFound, "Table doesn't exist")
 	} else {
-		search = "%" + search + "%"
+		serializer := TablesSerializer{c, table}
+		c.JSON(http.StatusOK, serializer.Response())
 	}
-	filter := []string{location, capacity, thematic, search}
-
-	var table []TableModel = GetTablesFilterService(c, filter)
-	c.JSON(http.StatusOK, table)
 }
 
 // GET ONE Tables
 func GetTableByID(c *gin.Context) {
-	idTable := c.Param("id")
-	var table TableModel
-	var id int
-	id, err := strconv.Atoi(idTable)
-	if err != nil {
-		println("error")
-	}
 
-	table, err = GetOneTableService(id, c)
-
+	table, err := GetOneTableService(c)
 	if err != nil {
 		c.JSON(http.StatusNotFound, "Table doesn't exist")
 	} else {

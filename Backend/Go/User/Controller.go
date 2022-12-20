@@ -2,12 +2,11 @@ package User
 
 import (
 	"net/http"
-	"strconv"
 
 	"github.com/gin-gonic/gin"
 )
 
-//GET ALL Users
+// GET ALL Users
 func GetAllUsers(c *gin.Context) {
 	var users []UserModel = GetAllUsersService(c)
 	println(users)
@@ -15,23 +14,23 @@ func GetAllUsers(c *gin.Context) {
 	c.JSON(http.StatusOK, serializer.Response())
 }
 
-//GET ONE User
-func GetUserByID(c *gin.Context) {
-	idUser := c.Param("id")
-	var user UserModel
-	var id int
-	id, err := strconv.Atoi(idUser)
-	if err != nil {
-		println("error")
+// REGISTER User
+func UserRegister(c *gin.Context) {
+	err, bool := UserRegisterService(c)
+	if err != nil || bool {
+		c.JSON(http.StatusInternalServerError, "Email is registered")
+	} else {
+		c.JSON(http.StatusOK, "User created correctly")
 	}
+}
 
-	user, err = GetOneUserService(id, c)
-
+// GET ONE User
+func GetUserByID(c *gin.Context) {
+	user, err := GetOneUserService(c)
 	if err != nil {
 		c.JSON(http.StatusNotFound, "User doesn't exist")
 	} else {
 		serializer := UserSerializer{c, user}
 		c.JSON(http.StatusOK, serializer.Response())
 	}
-
 }

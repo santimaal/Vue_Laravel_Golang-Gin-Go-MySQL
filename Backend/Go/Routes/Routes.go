@@ -4,6 +4,7 @@ import (
 	"net/http"
 	"sanvic/Table"
 	"sanvic/Thematic"
+	"sanvic/User"
 
 	"github.com/gin-gonic/gin"
 )
@@ -49,6 +50,8 @@ func SetupRouter() *gin.Engine {
 	api.GET("thematic", Thematic.GetAllThematics)
 	api.GET("thematic/:id", Thematic.GetThematicByID)
 	api.GET("thematic/infinite", Thematic.GetThematicsInfinity)
+	api.GET("user/:id", User.GetUserByID)
+	api.POST("user/register", User.UserRegister)
 
 	return r
 }

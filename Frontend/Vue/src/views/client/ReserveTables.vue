@@ -17,8 +17,12 @@
     </li>
   </div>
   <div v-else>
-    <!-- <v-icon name="la-spinner-solid" animation="spin" fill="black" scale="4" /> -->
-    <h1>Don't have tables with filters applied</h1>
+    <!-- <iframe v-if="state.loadspinner" src="https://giphy.com/embed/Fa69v6AU6oN4i0DZZc" width="480" height="480"
+      frameBorder="0" class="giphy-embed d-flex w-100 justify-content-center" allowFullScreen></iframe> -->
+      <!-- <v-icon name="la-spinner-solid" animation="spin" fill="black" scale="4" /> -->
+      <img v-if="state.loadspinner" width="480" height="480" class="giphy-embed d-flex justify-content-center"
+        src="https://media.tenor.com/dJLmV08Db0gAAAAi/liga-arroz.gif" alt="">
+    <h1 v-if="!state.loadspinner">Don't have tables with filters applied</h1>
   </div>
 </template>
 
@@ -34,6 +38,13 @@ import { useTableFilters } from "../../composables/table/useFilters";
 import { useRoute, useRouter } from "vue-router";
 
 export default {
+  mounted() {
+    setTimeout(() => {
+      if (this.state.save_tablelist.length == 0) {
+        this.state.loadspinner = false;
+      }
+    }, 2000);
+  },
   setup() {
     const store = useStore();
     const router = useRouter();
@@ -53,8 +64,10 @@ export default {
       page: 0,
       total_pages: computed(() =>
         Math.ceil(store.getters["table/getTable"].length / 6)
-      )
+      ),
+      loadspinner: true
     });
+    state.total_pages = computed(() => Math.ceil(state.save_tablelist.length / 6))
 
     const ApplyFilters = (filter) => {
       if (
@@ -72,12 +85,7 @@ export default {
       const urlfilter = btoa(JSON.stringify(filter));
       router.push({ name: "client_table", params: { filter: urlfilter } });
       state.save_tablelist = useTableFilters(filter);
-      setTimeout(() => {
-        state.show_tablelist = computed(() => state.save_tablelist.slice(0, 6));
-        state.total_pages = computed(() =>
-          Math.ceil(state.save_tablelist.length / 6)
-        );
-      }, 10);
+      state.show_tablelist = computed(() => state.save_tablelist.slice(0, 6));
       state.page = 0;
     };
 

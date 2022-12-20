@@ -24,22 +24,12 @@ func GetAllThematicsRepo(c *gin.Context) []ThematicModel {
 func GetOneThematicRepo(id int, c *gin.Context) (ThematicModel, error) {
 
 	var thematic ThematicModel
-
 	err := Config.DB.Where("id = ?", id).Find(&thematic).Error
-	if err != nil {
-		fmt.Println(err.Error())
-		c.AbortWithStatus(http.StatusNotFound)
-	}
-
 	return thematic, err
 }
 
-func GetThematicsInfinityRepo(c *gin.Context, Data_limit []string) []ThematicModel {
+func GetThematicsInfinityRepo(c *gin.Context, Data_limit []string) ([]ThematicModel, error) {
 	var thematic []ThematicModel
-
-	if err := Config.DB.Limit(Data_limit[1]).Offset(Data_limit[0]).Find(&thematic).Error; err != nil {
-		c.AbortWithStatus(http.StatusNotFound)
-		fmt.Println("Status:", err)
-	}
-	return thematic
+	err := Config.DB.Limit(Data_limit[1]).Offset(Data_limit[0]).Find(&thematic).Error
+	return thematic, err
 }

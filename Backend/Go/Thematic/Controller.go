@@ -1,14 +1,12 @@
 package Thematic
 
 import (
-	"fmt"
 	"net/http"
-	"strconv"
 
 	"github.com/gin-gonic/gin"
 )
 
-//GET ALL Thematics
+// GET ALL Thematics
 func GetAllThematics(c *gin.Context) {
 	var thematics []ThematicModel = GetAllThematicsService(c)
 	println(thematics)
@@ -16,19 +14,9 @@ func GetAllThematics(c *gin.Context) {
 	c.JSON(http.StatusOK, serializer.Response())
 }
 
-//GET ONE Thematics
+// GET ONE Thematics
 func GetThematicByID(c *gin.Context) {
-	idThematic := c.Param("id")
-	fmt.Println(c.Param("prueba"))
-	var thematic ThematicModel
-	var id int
-	id, err := strconv.Atoi(idThematic)
-	if err != nil {
-		println("error")
-	}
-
-	thematic, err = GetOneThematicService(id, c)
-
+	thematic, err := GetOneThematicService(c)
 	if err != nil {
 		c.JSON(http.StatusNotFound, "Thematic doesn't exist")
 	} else {
@@ -37,16 +25,14 @@ func GetThematicByID(c *gin.Context) {
 	}
 }
 
-//GET Thematics with LIMIT for InfinityScrool
+// GET Thematics with LIMIT for InfinityScrool
 func GetThematicsInfinity(c *gin.Context) {
-
-	offset := c.Query("offset")
-	limit := c.Query("limit")
-	fmt.Println(offset)
-	fmt.Println(limit)
-	// var Data_limit string
-	// Data_limit = offset + ", " + limit
-	Data_limit := []string{offset, limit}
-	var thematic []ThematicModel = GetThematicsInfinityService(c, Data_limit)
-	c.JSON(http.StatusOK, thematic)
+	thematic, err := GetThematicsInfinityService(c)
+	if err != nil {
+		c.JSON(http.StatusNotFound, "Thematic doesn't exist")
+	} else {
+		// serializer := ThematicsSerializer{c, thematic}
+		// c.JSON(http.StatusOK, serializer.Response())
+		c.JSON(http.StatusOK, thematic)
+	}
 }
