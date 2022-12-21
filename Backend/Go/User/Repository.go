@@ -33,6 +33,11 @@ func UserRegisterRepo(user *UserModel, c *gin.Context) (err error, exist bool) {
 	return err, false
 }
 
+func UserLoginRepo(usrinput *UserModel, c *gin.Context) (err error, user UserModel) {
+	err = Config.DB.Raw("SELECT * FROM users u WHERE u.email = ? AND u.password = ?", usrinput.Email, usrinput.Password).Scan(&user).Error
+	fmt.Println(user)
+	return err, user
+}
 func CheckUserEmail(user *UserModel, c *gin.Context) (exists UserModel, err error) {
 	err = Config.DB.Where("name = ?", user.Name).Find(&exists).Error
 	return exists, err

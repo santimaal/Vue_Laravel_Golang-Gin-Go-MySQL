@@ -1,6 +1,7 @@
 package User
 
 import (
+	"fmt"
 	"strconv"
 
 	"github.com/gin-gonic/gin"
@@ -32,4 +33,21 @@ func UserRegisterService(c *gin.Context) (error, bool) {
 	} else {
 		return UserRegisterRepo(&usrModel, c)
 	}
+}
+
+func UserLoginService(c *gin.Context) (error, UserModel) {
+	var usrModel UserModel
+	c.BindJSON(&usrModel)
+	exists, err := CheckUserEmail(&usrModel, c)
+	if exists.Id != 0 {
+		fmt.Println(exists)
+		if exists.checkPassword(usrModel.Password) != nil {
+			usrModel.clean()
+			return err, usrModel
+		} else {
+			return err, exists
+		}
+	}
+	return err, exists
+	// usrModel.setPassword(usrModel.Password)
 }

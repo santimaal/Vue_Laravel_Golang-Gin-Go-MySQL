@@ -45,13 +45,15 @@ func SetupRouter() *gin.Engine {
 	// Reserve.ReserveRouting(api.Group("reserve/"))
 
 	api.GET("table", Table.GetAllTables)
+	// api.Use(User.AuthMiddleware(false))
 	api.GET("table/filter", Table.GetTablesFilter)
 	api.GET("table/:id", Table.GetTableByID)
 	api.GET("thematic", Thematic.GetAllThematics)
 	api.GET("thematic/:id", Thematic.GetThematicByID)
 	api.GET("thematic/infinite", Thematic.GetThematicsInfinity)
-	api.GET("user/:id", User.GetUserByID)
 	api.POST("user/register", User.UserRegister)
+	api.POST("user/login", User.UserLogin)
+	api.GET("user/:id", User.GetUserByID)
 
 	return r
 }

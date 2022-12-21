@@ -16,11 +16,30 @@ func GetAllUsers(c *gin.Context) {
 
 // REGISTER User
 func UserRegister(c *gin.Context) {
+	// userModelValidator := NewUserModelValidator()
+	// if err := userModelValidator.Bind(c); err != nil {
+	// 	c.JSON(http.StatusUnprocessableEntity, common.NewValidatorError(err))
+	// 	return
+	// }
+
 	err, bool := UserRegisterService(c)
 	if err != nil || bool {
 		c.JSON(http.StatusInternalServerError, "Email is registered")
 	} else {
 		c.JSON(http.StatusOK, "User created correctly")
+	}
+}
+
+func UserLogin(c *gin.Context) {
+	err, usr := UserLoginService(c)
+	if err != nil || len(usr.Name) == 0 {
+		c.JSON(http.StatusInternalServerError, "Email or password is not correct")
+	} else {
+		c.Set("my_user_model", usr)
+		// UpdateContextUserModel(c, usr)
+		serializer := UserSerializer{c, usr}
+		c.JSON(http.StatusOK, serializer.Response())
+		// c.JSON(http.StatusOK, usr)
 	}
 }
 
@@ -30,6 +49,8 @@ func GetUserByID(c *gin.Context) {
 	if err != nil {
 		c.JSON(http.StatusNotFound, "User doesn't exist")
 	} else {
+		c.Set("my_user_id", user.Id)
+		c.Set("my_user_model", user)
 		serializer := UserSerializer{c, user}
 		c.JSON(http.StatusOK, serializer.Response())
 	}
