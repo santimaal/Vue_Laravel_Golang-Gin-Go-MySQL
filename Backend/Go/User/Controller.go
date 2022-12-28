@@ -35,8 +35,9 @@ func UserLogin(c *gin.Context) {
 	if err != nil || len(usr.Name) == 0 {
 		c.JSON(http.StatusInternalServerError, "Email or password is not correct")
 	} else {
-		c.Set("my_user_model", usr)
-		// UpdateContextUserModel(c, usr)
+		UpdateContextUserModel(c, usr.Id)
+		// c.Set("my_user_id", user.Id)
+		// c.Set("my_user_model", user)
 		serializer := UserSerializer{c, usr}
 		c.JSON(http.StatusOK, serializer.Response())
 		// c.JSON(http.StatusOK, usr)
@@ -49,8 +50,6 @@ func GetUserByID(c *gin.Context) {
 	if err != nil {
 		c.JSON(http.StatusNotFound, "User doesn't exist")
 	} else {
-		c.Set("my_user_id", user.Id)
-		c.Set("my_user_model", user)
 		serializer := UserSerializer{c, user}
 		c.JSON(http.StatusOK, serializer.Response())
 	}
