@@ -22,7 +22,8 @@ func UpdateContextUserModel(c *gin.Context, id uint) {
 func stripBearerPrefixFromBearerString(tok string) (string, error) {
 	// Should be a bearer token
 	if len(tok) > 5 && strings.ToUpper(tok[0:7]) == "BEARER " {
-		return tok[6:], nil
+		fmt.Println("el bearer es:" + tok[7:])
+		return tok[7:], nil
 	}
 	return tok, nil
 }
@@ -46,7 +47,6 @@ func AuthMiddleware(auto401 bool) gin.HandlerFunc {
 	return func(c *gin.Context) {
 		c.Set("my_user_model", 0)
 		token, err := request.ParseFromRequest(c.Request, MyAuth2Extractor, func(token *jwt.Token) (interface{}, error) {
-			fmt.Println("auth")
 			b := ([]byte(os.Getenv("SecretPassword")))
 			return b, nil
 		})
