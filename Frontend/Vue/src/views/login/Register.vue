@@ -27,6 +27,7 @@
                                             :key="error.$uid">
                                             <div class="error-msg">{{ error }}</div>
                                         </div>
+                                        <span class="text-danger">{{ state.email }}</span>
                                     </div>
 
                                     <div class="form-outline mb-4">
@@ -74,9 +75,12 @@
 import { reactive } from 'vue';
 import { useVuelidate } from '@vuelidate/core'
 import { required, email } from '@vuelidate/validators'
+import { useStore } from 'vuex';
+import Constant from '../../Constant';
 
 export default {
     setup() {
+        const store = useStore()
         const state = reactive({
             form: {
                 name: "",
@@ -90,9 +94,11 @@ export default {
                 password: "",
                 rptpassword: "",
             },
-            pass: ""
+            pass: "",
+            email: ""
         })
 
+        
         const rules = {
             name: { required },
             email: { required, email },
@@ -103,15 +109,13 @@ export default {
 
 
         state.err = useVuelidate(rules, state.form)
-        // console.log(v$);
         const register = () => {
-            console.log("mismo");
             if (state.form.password != state.form.rptpassword) {
-                console.log("hola");
                 state.pass = "Is not the same password"
             } else {
                 state.pass = ""
                 console.log(state.form);
+                store.dispatch("user/" + Constant.USER_REGISTER, state.form);
             }
         }
         return { state, register }
