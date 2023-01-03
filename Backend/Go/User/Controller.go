@@ -16,12 +16,6 @@ func GetAllUsers(c *gin.Context) {
 
 // REGISTER User
 func UserRegister(c *gin.Context) {
-	// userModelValidator := NewUserModelValidator()
-	// if err := userModelValidator.Bind(c); err != nil {
-	// 	c.JSON(http.StatusUnprocessableEntity, common.NewValidatorError(err))
-	// 	return
-	// }
-
 	err, bool := UserRegisterService(c)
 	if err != nil || bool {
 		c.JSON(http.StatusInternalServerError, "Email is registered")

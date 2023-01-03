@@ -39,6 +39,6 @@ func UserLoginRepo(usrinput *UserModel, c *gin.Context) (err error, user UserMod
 	return err, user
 }
 func CheckUserEmail(user *UserModel, c *gin.Context) (exists UserModel, err error) {
-	err = Config.DB.Where("name = ?", user.Name).Find(&exists).Error
+	err = Config.DB.Where("email = ?", user.Email).Find(&exists).Error
 	return exists, err
 }

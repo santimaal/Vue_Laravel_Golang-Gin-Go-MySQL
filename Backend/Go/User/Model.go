@@ -11,14 +11,14 @@ import (
 )
 
 type UserModel struct {
-	Id        uint   `json:"id"`
-	Is_active bool   `json:"is_active"`
-	Name      string `json:"name"`
-	Password  string `json:"password"`
-	Email     string `json:"email"`
-	Img       string `json:"img"`
-	// Created_at string `json:"created_at"`
-	// Updated_at string `json:"updated_at"`
+	Id         uint      `json:"id"`
+	Is_active  bool      `json:"is_active"`
+	Name       string    `json:"name"`
+	Password   string    `json:"password"`
+	Email      string    `json:"email"`
+	Img        string    `json:"img"`
+	Created_at time.Time `json:"created_at"`
+	Updated_at time.Time `json:"updated_at"`
 }
 
 func (b *UserModel) TableName() string {
@@ -40,7 +40,6 @@ func (u *UserModel) setPassword(password string) error {
 		return errors.New("password should not be empty!")
 	}
 	bytePassword := []byte(password)
-	// Make sure the second param `bcrypt generator cost` between [4, 32)
 	passwordHash, _ := bcrypt.GenerateFromPassword(bytePassword, bcrypt.DefaultCost)
 	u.Password = string(passwordHash)
 	return nil
@@ -49,8 +48,6 @@ func (u *UserModel) setPassword(password string) error {
 func (u *UserModel) checkPassword(password string) error {
 	bytePassword := []byte(password)
 	byteHashedPassword := []byte(u.Password)
-	// fmt.Println(bytePassword)
-	// fmt.Println(byteHashedPassword)
 	fmt.Println(bcrypt.CompareHashAndPassword(byteHashedPassword, bytePassword))
 	return bcrypt.CompareHashAndPassword(byteHashedPassword, bytePassword)
 }
