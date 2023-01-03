@@ -17,6 +17,7 @@ type UserModel struct {
 	Password   string    `json:"password"`
 	Email      string    `json:"email"`
 	Img        string    `json:"img"`
+	Type       string    `json:"type"`
 	Created_at time.Time `json:"created_at"`
 	Updated_at time.Time `json:"updated_at"`
 }

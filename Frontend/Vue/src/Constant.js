@@ -11,6 +11,13 @@ export default {
     UPDATE_THEMATIC : "updateThematic",
     DELETE_THEMATIC : "deleteThematic",
     INITIALIZE_THEMATIC : "initializeThematic",
-    INITIALIZE_ONETHEMATIC : "initializeOneThematic"
+    INITIALIZE_ONETHEMATIC : "initializeOneThematic",
 
+    // USER
+    USER_REGISTER : "userRegister",
+    USER_LOGIN : "userLogin",
+    USER_REGISTER_ADMIN : "userRegisterAdmin",
+    USER_LOGIN_ADMIN : "userLoginAdmin",
+    SET_USER : "setUser",
+   
 }

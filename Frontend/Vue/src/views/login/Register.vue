@@ -43,15 +43,26 @@
                                             class="form-control form-control-lg" />
                                     </div>
 
+                                    <div class="form-check mb-3">
+                                        <input class="form-check-input" type="checkbox" v-model="state.form.adminserver"
+                                            value="" id="adminserver">
+                                        <label class="form-check-label" for="adminserver">
+                                            Admin Server
+                                        </label>
+                                    </div>
+
+
                                     <div class="d-flex justify-content-center">
                                         <button
                                             v-if="state.err.name.$invalid == true || state.err.email.$invalid == true || state.err.password.$invalid == true || state.err.rptpassword.$invalid == true"
                                             type="button"
                                             class="btn btn-success btn-block btn-lg gradient-custom-4 text-body"
-                                            disabled>Register</button>
+                                            disabled>Register
+                                        </button>
                                         <button v-else type="button"
                                             class="btn btn-success btn-block btn-lg gradient-custom-4 text-body"
-                                            @click="register">Register</button>
+                                            @click="register">Register
+                                        </button>
                                     </div>
 
                                     <p class="text-center text-muted mt-5 mb-0">Have already an account?
@@ -87,6 +98,7 @@ export default {
                 email: "",
                 password: "",
                 rptpassword: "",
+                adminserver: false,
             },
             err: {
                 name: "",
@@ -98,7 +110,7 @@ export default {
             email: ""
         })
 
-        
+
         const rules = {
             name: { required },
             email: { required, email },
@@ -115,7 +127,11 @@ export default {
             } else {
                 state.pass = ""
                 console.log(state.form);
-                store.dispatch("user/" + Constant.USER_REGISTER, state.form);
+                if (state.form.adminserver) {
+                    store.dispatch("user/" + Constant.USER_REGISTER_ADMIN, state.form);
+                } else {
+                    store.dispatch("user/" + Constant.USER_REGISTER, state.form);
+                }
             }
         }
         return { state, register }

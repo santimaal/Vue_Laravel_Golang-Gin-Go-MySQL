@@ -9,8 +9,9 @@ type UserResponse struct {
 	Is_active bool   `json:"is_active"`
 	Name      string `json:"name"`
 	// Password  string `json:"password"`
-	Email string `json:"Email"`
+	Email string `json:"email"`
 	Img   string `json:"img"`
+	Type  string `json:"type"`
 	Token string `json:"token"`
 }
 
@@ -32,6 +33,7 @@ func (ss *UserSerializer) Response() UserResponse {
 		// Password:  ss.user.Password,
 		Email: ss.user.Email,
 		Img:   ss.user.Img,
+		Type:  ss.user.Type,
 		Token: GenToken(ss.user.Id),
 	}
 

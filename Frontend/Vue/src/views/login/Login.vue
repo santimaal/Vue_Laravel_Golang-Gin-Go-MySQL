@@ -54,9 +54,12 @@
 import { reactive, /*computed*/ } from 'vue';
 import { useVuelidate } from '@vuelidate/core';
 import { required, email } from '@vuelidate/validators';
+import Constant from '../../Constant';
+import { useStore } from 'vuex';
 
 export default {
     setup() {
+        const store = useStore();
         const state = reactive({
             form: {
                 email: "",
@@ -75,9 +78,9 @@ export default {
         state.err = useVuelidate(rules, state.form);
 
         const login = () => {
+            let count = 0
 
             if (state.err.email.$invalid == true) {
-                console.log("1");
                 if (state.err.email.$model != "") {
                     state.email = "Email is invalid";
                 } else {
@@ -86,11 +89,16 @@ export default {
 
             } else {
                 state.email = "";
+                count++;
             }
             if (state.err.password.$invalid == true) {
                 state.passwd = "Password is required"
             } else {
                 state.passwd = "";
+                count++;
+            }
+            if (count == 2) {
+                store.dispatch("user/" + Constant.USER_LOGIN, state.form);
             }
         }
 

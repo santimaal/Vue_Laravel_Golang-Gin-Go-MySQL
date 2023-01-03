@@ -2,6 +2,7 @@ package Routes
 
 import (
 	"net/http"
+	"sanvic/Reserve"
 	"sanvic/Table"
 	"sanvic/Thematic"
 	"sanvic/User"
@@ -48,6 +49,7 @@ func SetupRouter() *gin.Engine {
 	api.POST("user/register", User.UserRegister)
 	api.Use(User.AuthMiddleware(false))
 	api.GET("table", Table.GetAllTables)
+	api.GET("reserve", Reserve.GetAllReserves)
 	api.GET("table/filter", Table.GetTablesFilter)
 	api.GET("table/:id", Table.GetTableByID)
 	api.GET("thematic", Thematic.GetAllThematics)
