@@ -1,30 +1,22 @@
 <?php
 
-namespace App\Http\Requests;
+namespace App\Http\Requests\User;
 
 use Illuminate\Foundation\Http\FormRequest;
 
 class StoreUserRequest extends FormRequest
 {
-    /**
-     * Determine if the user is authorized to make this request.
-     *
-     * @return bool
-     */
+    // Authorize (return boolean)    
     public function authorize()
     {
         return true;
     }
 
-    /**
-     * Get the validation rules that apply to the request.
-     *
-     * @return array<string, mixed>
-     */
+    // Rules (return array)
     public function rules()
     {
         return [
-            "is_active" => ["required"],
+            "is_active" => ["optional"],
             "name" => ["required"],
             "password" => ["required"],
             "type" => ["optional"],

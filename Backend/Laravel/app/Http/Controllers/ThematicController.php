@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\StoreThematicRequest;
+use App\Http\Requests\Thematic\StoreThematicRequest;
 use App\Http\Resources\ThematicResource;
 use App\Models\Thematic;
 use Illuminate\Http\Request;

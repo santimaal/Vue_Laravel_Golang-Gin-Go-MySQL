@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\StoreReserveRequest;
+use App\Http\Requests\Reserve\StoreReserveRequest;
 use App\Http\Resources\ReserveResource;
 use App\Models\Reserve;
 use Illuminate\Http\Request;
