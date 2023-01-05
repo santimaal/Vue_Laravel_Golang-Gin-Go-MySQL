@@ -28,6 +28,12 @@ func GetOneUserRepo(id int, c *gin.Context) (UserModel, error) {
 	return user, err
 }
 
+func GetOneUserByID(id uint, c *gin.Context) (UserModel, error) {
+	var user UserModel
+	err := Config.DB.Where("id = ?", id).Find(&user).Error
+	return user, err
+}
+
 func UserRegisterRepo(user *UserModel, c *gin.Context) (err error, exist bool) {
 	err = Config.DB.Create(user).Error
 	return err, false

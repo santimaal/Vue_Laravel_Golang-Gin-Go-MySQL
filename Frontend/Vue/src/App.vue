@@ -1,9 +1,4 @@
 <template>
-  <!-- <Header v-if="head.option == ''" />
-  <HeaderC v-if="head.option == 'client'" />
-  <HeaderA v-if="head.option == 'admin'" /> -->
-  <!-- <button @click="cambia('client')">Client</button>
-  <button @click="cambia('admin')">Admin</button> -->
   <div class="all height">
     <Header />
     <router-view></router-view>
@@ -11,27 +6,17 @@
   </div>
 </template>
 
-<script>
-// import HeaderA from './components/admin/Header';
-// import HeaderC from './components/client/Header';
+<script setup>
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 
-import { reactive } from "vue";
+import Constant from "./Constant";
+import { useStore } from "vuex";
+const store = useStore();
 
-export default {
-  components: { Header, Footer /*,HeaderC,HeaderA*/ },
-  setup() {
-    const head = reactive({
-      option: "",
-    });
-
-    const cambia = (result) => {
-      head.option = result;
-    };
-    return { head, cambia };
-  },
-};
+if (localStorage.getItem('token')) {
+  store.dispatch("user/" + Constant.GET_PROFILE)
+}
 </script>
 
 <style>

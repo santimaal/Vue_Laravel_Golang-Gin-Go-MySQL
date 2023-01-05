@@ -1,6 +1,7 @@
 package User
 
 import (
+	"fmt"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
@@ -35,6 +36,17 @@ func UserLogin(c *gin.Context) {
 		serializer := UserSerializer{c, usr}
 		c.JSON(http.StatusOK, serializer.Response())
 		// c.JSON(http.StatusOK, usr)
+	}
+}
+
+func GetProfile(c *gin.Context) {
+	usr, _ := c.Get("my_user_model")
+	u, ok := usr.(UserModel)
+	if ok {
+		serializer := UserSerializer{c, u}
+		c.JSON(http.StatusOK, serializer.Response())
+	} else {
+		fmt.Println("No se ha podido convertir")
 	}
 }
 

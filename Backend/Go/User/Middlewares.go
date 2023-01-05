@@ -14,7 +14,8 @@ import (
 func UpdateContextUserModel(c *gin.Context, id uint) {
 	if id != 0 {
 		c.Set("my_user_id", id)
-		usr, _ := GetOneUserService(c)
+		usr, _ := GetUserServiceByID(c, id)
+		fmt.Println(usr)
 		c.Set("my_user_model", usr)
 	}
 }

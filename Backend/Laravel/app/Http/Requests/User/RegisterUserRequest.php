@@ -18,8 +18,8 @@ class RegisterUserRequest extends FormRequest
     public function rules(){
         return [
             "is_active" => 'optional',
-            "name" => 'required|string|between:2,100',
-            "password" => 'required|string|min:6',
+            "name" => 'required|string|between:2,100|unique:users',
+            "password" => 'required|string|min:2',
             "type" => 'optional',
             "email" => 'required|string|email|max:100|unique:users',
             "img" => 'optional',

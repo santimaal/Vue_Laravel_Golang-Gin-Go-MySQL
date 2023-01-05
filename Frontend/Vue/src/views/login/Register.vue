@@ -120,13 +120,12 @@ export default {
 
 
 
-        state.err = useVuelidate(rules, state.form)
+        state.err = useVuelidate(rules, state.form);
         const register = () => {
             if (state.form.password != state.form.rptpassword) {
-                state.pass = "Is not the same password"
+                state.pass = "Is not the same password";
             } else {
-                state.pass = ""
-                console.log(state.form);
+                state.pass = "";
                 if (state.form.adminserver) {
                     store.dispatch("user/" + Constant.USER_REGISTER_ADMIN, state.form);
                 } else {
@@ -134,7 +133,7 @@ export default {
                 }
             }
         }
-        return { state, register }
+        return { state, register };
     }
 }
 </script>

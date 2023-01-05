@@ -13,17 +13,23 @@
         <li class="nav-item">
           <router-link class="nav-link button" to="/table/all">Reserves</router-link>
         </li>
-        <li class="nav-item">
+        <li class="nav-item" v-if="state.auth == 'admin'">
           <router-link class="nav-link button" to="/atable">DashboardTable</router-link>
         </li>
-        <li class="nav-item">
+        <li class="nav-item" v-if="state.auth == 'admin'">
           <router-link class="nav-link button" to="/athematic">DashboardThematic</router-link>
         </li>
-        <li class="nav-item">
+        <li class="nav-item" v-if="state.auth == ''">
+          <router-link class="nav-link button" to="/login">Login</router-link>
+        </li>
+        <li class="nav-item" v-if="state.auth == ''">
           <router-link class="nav-link button" to="/register">Register</router-link>
         </li>
-        <li class="nav-item">
-          <router-link class="nav-link button" to="/login">Login</router-link>
+        <li class="nav-item" v-if="state.auth == 'client'">
+          <a class="nav-link button">{{state.user.name}}</a>
+        </li>
+        <li class="nav-item" v-if="state.auth != ''">
+          <a class="nav-link button" @click="logout">LogOut</a>
         </li>
       </ul>
     </div>
@@ -32,11 +38,18 @@
 
 <script>
 import { reactive, computed } from "vue";
+import { useStore } from "vuex";
+import Constant from '../Constant';
+
+
 
 export default {
   setup() {
+    const store = useStore()
     const state = reactive({
       isNavShow: false,
+      user: computed(()=> store.getters["user/getUser"]),
+      auth: computed(() => store.getters["user/getAuth"])
     });
     const navClass = computed(() =>
       state.isNavShow
@@ -47,7 +60,11 @@ export default {
       state.isNavShow = !state.isNavShow;
     };
 
-    return { state, changeIsNavShow, navClass };
+    const logout = () => {
+      store.dispatch("user/" + Constant.LOGOUT)
+    }
+
+    return { state, changeIsNavShow, navClass, logout };
   },
 };
 </script>
@@ -59,8 +76,9 @@ nav {
   height: 12vh;
 
   .logo {
-    width: 25%;
+    width: auto;
     margin-left: 5%;
+    height: 10vh;
   }
 
   div {

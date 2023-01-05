@@ -56,6 +56,7 @@ func SetupRouter() *gin.Engine {
 	api.GET("thematic/:id", Thematic.GetThematicByID)
 	api.GET("thematic/infinite", Thematic.GetThematicsInfinity)
 	api.Use(User.AuthMiddleware(true))
+	api.GET("user/profile", User.GetProfile)
 	api.GET("user/:id", User.GetUserByID)
 
 	return r

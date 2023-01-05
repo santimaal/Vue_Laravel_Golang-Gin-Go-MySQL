@@ -18,7 +18,7 @@
                                     <div class="form-outline mb-4">
                                         <label class="form-label" for="pass">Password</label>
                                         <input type="password" v-model="state.form.password" id="pass"
-                                            class="form-control form-control-lg" />
+                                            class="form-control form-control-lg" @keyup.enter="login"/>
                                         <span class="text-danger">{{ state.passwd }}</span>
                                     </div>
 
@@ -26,7 +26,7 @@
                                         <button
                                             v-if="state.err.email.$invalid == true || state.err.password.$invalid == true"
                                             type="button"
-                                            class="btn btn-light btn-block btn-lg gradient-custom-4 text-body border border-dark"
+                                            class="btn_invalid btn  btn-block btn-lg gradient-custom-4 text-body border border-dark"
                                             @click="login">Login</button>
                                         <button v-else type="button"
                                             class="btn btn-success btn-block btn-lg gradient-custom-4 text-body"
@@ -51,7 +51,7 @@
 </template>
 
 <script>
-import { reactive, /*computed*/ } from 'vue';
+import { reactive, useRouter, computed } from 'vue';
 import { useVuelidate } from '@vuelidate/core';
 import { required, email } from '@vuelidate/validators';
 import Constant from '../../Constant';
@@ -60,6 +60,7 @@ import { useStore } from 'vuex';
 export default {
     setup() {
         const store = useStore();
+        const router = useRouter
         const state = reactive({
             form: {
                 email: "",
@@ -99,6 +100,10 @@ export default {
             }
             if (count == 2) {
                 store.dispatch("user/" + Constant.USER_LOGIN, state.form);
+                
+                if (computed(() => store.getters["user/getUser"].name != "")) {
+                    router.push({ name: 'home' })
+                }
             }
         }
 
@@ -111,5 +116,11 @@ export default {
 <style scoped>
 .allpage {
     height: 81vh;
+}
+
+.btn_invalid {
+    background: rgba(40, 167, 69, 0.7) !important;
+    color: rgba(48, 47, 47, 0.7) !important;
+    border: 0px rgba(40, 167, 69, 0.7) !important;
 }
 </style>

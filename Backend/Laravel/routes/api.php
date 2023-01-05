@@ -27,8 +27,8 @@ Route::delete('/thematic/{id}', [ThematicController::class, 'destroy']);
 
 
 // User
-Route::post('/register', [AuthController::class, 'register']);
-Route::post('/login', [AuthController::class, 'login']);
+Route::post('user/register', [AuthController::class, 'register']);
+Route::post('user/login', [AuthController::class, 'login']);
 Route::resource('user', AuthController::class);
 
 
