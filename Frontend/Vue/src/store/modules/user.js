@@ -31,12 +31,24 @@ export const user = {
       router.push({ name: 'login' });
     },
     [Constant.USER_LOGIN]: (state, payload) => {
+        localStorage.setItem("token", JSON.stringify(payload.token));
         state.user = {
           is_active: payload.is_active,
           name: payload.name,
           email: payload.email,
           img: payload.img,
-          type: payload.type,
+          type: 'client',
+        };
+        router.push({ name: 'home' });
+    },
+    [Constant.USER_LOGIN_ADMIN]: (state, payload) => {
+        localStorage.setItem("token", payload.authorisation.token);
+        state.user = {
+          is_active: payload.user.is_active,
+          name: payload.user.name,
+          email: payload.user.email,
+          img: payload.user.img,
+          type: 'admin',
         };
         router.push({ name: 'home' });
     },
@@ -80,9 +92,13 @@ export const user = {
       UserService.userLogin(payload)
         .then(function (res) {
             if (res.data.type == "admin") {
+                toaster.info("Comprobando Credenciales Admin...", { position: "top-right", duration: 3000, dismissible: true });
                 UserService.userLoginAdmin(payload)
                 .then(function (res) {
-                  console.log(res);
+                    setTimeout(function() {
+                        toaster.success("Admin " + res.data.user.name.toUpperCase() + " loged successfully loged", { position: "top-right", duration: 5000, dismissible: true });
+                        store.commit(Constant.USER_LOGIN_ADMIN, res.data);
+                    }, 2000);  
                 })
                 .catch(function (error) {
                     console.log(error);
@@ -90,9 +106,8 @@ export const user = {
                 });
             }else {
                 store.commit(Constant.USER_LOGIN, res.data);
+                toaster.success(res.data.user.name.toUpperCase() + " loged successfully", { position: "top-right", duration: 5000, dismissible: true });
             }
-          
-          localStorage.setItem("token", JSON.stringify(res.data.token));
         })
         .catch(function (error) {
             if (error["response"]["data"] == "Email or password is not correct") {
