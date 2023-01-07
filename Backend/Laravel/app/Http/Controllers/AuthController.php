@@ -30,73 +30,52 @@ class AuthController extends Controller
             'password' => Hash::make($request->password),
         ]);
 
-        $token = Auth::login($user);
-        $type= User::select('type')->where('id', $user['id'] )->get()[0]['type'];
-        return response()->json([
-            'status' => 'success',
-            'message' => 'User created successfully',
-            'user' => $user,
-            'authorisation' => [
-                'token' => $token,
-                'type' => $type,
-            ]
-        ]);
+        if ($user) {
+            return response()->json('User created successfully', 200);
+        }else {
+            return response()->json('Error Register', 401);
+        }
     }
 
 
     //Login User
     public function login(Request $request)
     {
-
         $validator = Validator::make($request->all(), [
             'email' => 'required|email',
             'password' => 'required|string|min:2',
         ]);
 
         if ($validator->fails()) {
-            echo ($validator->errors());
             return response()->json($validator->errors(), 422);
         } else {
-            echo "Soy el ELSE";
+            $user_exist = User::select()->where('email', $request->email)->get()->count();
+            if ($user_exist) {
+                $credentials = $request->only('email', 'password');
+                $token = Auth::attempt($credentials);
+
+                if (!$token = auth()->attempt($validator->validated())) {
+                    return response()->json(['error' => 'Unauthorized'], 401);
+                } else {
+                    if (auth()->user()->type == "admin") {
+                        $user_serialize = Auth::user();
+                        unset($user_serialize->password);
+                        return response()->json([
+                            'status' => 'success',
+                            'user' => $user_serialize,
+                            'authorisation' => [
+                                'token' => $token,
+                                'type' => $user_serialize->type,
+                            ]
+                        ]);
+                    } else {
+                        return response()->json(['error' => 'Unauthorized'], 401);
+                    }
+                }
+            } else {
+                return response()->json(['error' => 'User not exist'], 401);
+            }
         }
-
-
-
-        // if (! $token = auth()->attempt($validator->validated())) {
-        //     return response()->json(['error' => 'Unauthorized'], 401);
-        // }
-
-        // return $this->createNewToken($token);
-
-
-
-        // $request->validate([
-        //     'email' => 'required|string|email',
-        //     'password' => 'required|string|min:6',
-        // ]);
-
-        // $credentials = $request->only('email', 'password');
-        // $token = Auth::attempt($credentials);
-
-
-        // if (!$token) {
-        //     return response()->json([
-        //         'status' => 'error',
-        //         'message' => 'Unauthorized',
-        //     ], 401);
-        // }else{
-        //     echo "EXISTE TOKEN";
-        // }
-
-        // $user = Auth::user();
-        // return response()->json([
-        //     'status' => 'success',
-        //     'user' => $user,
-        //     'authorisation' => [
-        //         'token' => $token,
-        //         'type' => 'bearer',
-        //     ]
-        // ]);
     }
 
     // GET ALL USER

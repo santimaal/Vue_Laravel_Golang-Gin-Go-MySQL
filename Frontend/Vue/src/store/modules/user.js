@@ -27,7 +27,7 @@ export const user = {
       };
     },
     [Constant.USER_REGISTER]: (state, payload) => {
-      toaster.success("User " + payload.name + " has successfully registered",{ position: "top-right", duration: 5000, dismissible: true });
+      toaster.success("User " + payload.name.toUpperCase() + " has successfully registered",{ position: "top-right", duration: 5000, dismissible: true });
       router.push({ name: 'login' });
     },
     [Constant.USER_LOGIN]: (state, payload) => {
@@ -79,7 +79,19 @@ export const user = {
     [Constant.USER_LOGIN]: (store, payload) => {
       UserService.userLogin(payload)
         .then(function (res) {
-          store.commit(Constant.USER_LOGIN, res.data);
+            if (res.data.type == "admin") {
+                UserService.userLoginAdmin(payload)
+                .then(function (res) {
+                  console.log(res);
+                })
+                .catch(function (error) {
+                    console.log(error);
+                    toaster.error("Error login Admin", { position: "bottom", duration: 5000, dismissible: true });
+                });
+            }else {
+                store.commit(Constant.USER_LOGIN, res.data);
+            }
+          
           localStorage.setItem("token", JSON.stringify(res.data.token));
         })
         .catch(function (error) {
