@@ -1,7 +1,10 @@
 package Reserve
 
 import (
+	"fmt"
+	"sanvic/User"
 	"strconv"
+	"time"
 
 	"github.com/gin-gonic/gin"
 )
@@ -17,4 +20,17 @@ func GetOneReserveService(c *gin.Context) (ReserveModel, error) {
 		println("error")
 	}
 	return GetOneReserveRepo(id, c)
+}
+
+func CreateReserveService(c *gin.Context) (ReserveModel, error) {
+	var r ReserveModel
+	c.BindJSON(&r)
+	usr, _ := c.Get("my_user_model")
+	u, ok := usr.(User.UserModel)
+	if !ok {
+		fmt.Println("No se ha podido convertir")
+	}
+	r.Id_user = u.Id
+	r.Datefin = r.Dateini.Add(time.Hour * time.Duration(1))
+	return CreateReserveRepo(&r, c)
 }

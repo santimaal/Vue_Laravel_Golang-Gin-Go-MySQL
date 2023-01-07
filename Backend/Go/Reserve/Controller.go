@@ -26,3 +26,24 @@ func GetReserveByID(c *gin.Context) {
 	}
 
 }
+
+func CreateReserve(c *gin.Context) {
+	// var done ReserveModel
+	// c.BindJSON(&done)
+	// c.JSON(http.StatusOK, done.Dateini)
+	// unaHoraMas := done.Dateini.Add(time.Hour * time.Duration(10))
+	// c.JSON(http.StatusOK, unaHoraMas)
+
+	reserve, err := CreateReserveService(c)
+	if err != nil {
+		c.AbortWithStatus(http.StatusNotFound)
+	} else {
+		c.JSON(http.StatusOK, reserve)
+	}
+	// var err error
+	// if err != nil {
+	// 	c.JSON(http.StatusNotFound, "Can't reserve it")
+	// } else {
+	// 	c.JSON(http.StatusOK, "reserve created")
+	// }
+}

@@ -1,15 +1,19 @@
 package Reserve
 
 import (
+	"time"
+
 	"github.com/gin-gonic/gin"
 	// "fmt"
 )
 
 type ReserveResponse struct {
-	Id           uint `json:"id"`
-	Id_table     uint `json:"id_table"`
-	Id_user      uint `json:"Id_user"`
-	Is_confirmed bool `json:"is_confirmed"`
+	Id           uint      `json:"id"`
+	Id_table     uint      `json:"id_table"`
+	Id_user      uint      `json:"Id_user"`
+	Is_confirmed bool      `json:"is_confirmed"`
+	Dateini      time.Time `json:"dateini"`
+	Datefin      time.Time `json:"datefin"`
 }
 
 type ReserveSerializer struct {
@@ -28,6 +32,8 @@ func (ss *ReserveSerializer) Response() ReserveResponse {
 		Id_table:     ss.reserve.Id_table,
 		Id_user:      ss.reserve.Id_user,
 		Is_confirmed: ss.reserve.Is_confirmed,
+		Dateini:      ss.reserve.Dateini,
+		Datefin:      ss.reserve.Datefin,
 	}
 
 	return response

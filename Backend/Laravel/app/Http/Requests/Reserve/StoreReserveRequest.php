@@ -19,6 +19,7 @@ class StoreReserveRequest extends FormRequest
             "id_table" => ["required"],
             "id_user" => ["required"],
             "is_confirmed" => ["required"],
+            "dateini" => ["required"],
         ];
     }
 }

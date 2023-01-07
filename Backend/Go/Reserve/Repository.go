@@ -26,3 +26,8 @@ func GetOneReserveRepo(id int, c *gin.Context) (ReserveModel, error) {
 	err := Config.DB.Where("id = ?", id).Find(&reserve).Error
 	return reserve, err
 }
+
+func CreateReserveRepo(r *ReserveModel, c *gin.Context) (ReserveModel, error) {
+	err := Config.DB.Create(r).Error
+	return *r, err
+}

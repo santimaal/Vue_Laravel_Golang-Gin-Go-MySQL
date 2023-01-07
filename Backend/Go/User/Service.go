@@ -28,6 +28,7 @@ func GetUserServiceByID(c *gin.Context, id uint) (UserModel, error) {
 func UserRegisterService(c *gin.Context) (error, bool) {
 	var usrModel UserModel
 	c.BindJSON(&usrModel)
+	usrModel.Type = "client"
 	usrModel.setPassword(usrModel.Password)
 	exists, err := CheckUserEmail(&usrModel, c)
 	if exists.Id != 0 {
