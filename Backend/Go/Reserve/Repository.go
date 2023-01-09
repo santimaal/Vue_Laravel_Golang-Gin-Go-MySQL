@@ -33,7 +33,7 @@ func CreateReserveRepo(r *ReserveModel, c *gin.Context) (ReserveModel, error) {
 	return *r, err
 }
 
-func GetHoursRepo(t time.Time, c *gin.Context) (r []ReserveModel, err error) {
-	err = Config.DB.Where("dateini BETWEEN ? AND ?", t, t.AddDate(0, 0, 1)).Find(&r).Error
+func GetHoursRepo(t time.Time, id string, c *gin.Context) (r []ReserveModel, err error) {
+	err = Config.DB.Where("id_table = ? AND dateini BETWEEN ? AND ?", id, t, t.AddDate(0, 0, 1)).Find(&r).Error
 	return r, err
 }

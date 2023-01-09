@@ -36,12 +36,18 @@ func CreateReserveService(c *gin.Context) (ReserveModel, error) {
 }
 
 func GetHoursService(c *gin.Context) ([]ReserveModel, error) {
-	type times struct {
-		Dateini time.Time `json:"dateini"`
+	// type times struct {
+	// 	Dateini time.Time `json:"dateini"`
+	// }
+	t := c.Param("date")
+	id := c.Param("id")
+
+	date, error := time.Parse("2006-01-02", t)
+	if error != nil {
+		fmt.Println(error)
 	}
-	var t times
-	// test := c.Param("hour")
-	c.BindJSON(&t)
-	fmt.Println(t.Dateini)
-	return GetHoursRepo(t.Dateini, c)
+
+	// c.BindJSON(&t)
+	fmt.Println(date)
+	return GetHoursRepo(date, id, c)
 }

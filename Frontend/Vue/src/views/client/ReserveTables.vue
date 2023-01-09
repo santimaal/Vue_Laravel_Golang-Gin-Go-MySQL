@@ -5,7 +5,8 @@
   <div class="change_color" v-if="state.show_tablelist.length > 0">
     <div class="all_cards_table">
       <Card_Table v-for="tableitem in state.show_tablelist" :key="tableitem.id" :tableitem="tableitem"
-        data-toggle="modal" data-target="#reservetable" @click="state.clicked = tableitem.id" />
+        v-on:click="checkuser" @click="state.clicked = tableitem.id, dateselected = 0, state.hours = []"
+        data-toggle="modal" data-target="#reservetable" />
     </div>
 
     <Pagination :totalpages="state.total_pages" @changepage="loadnewtables" />
@@ -37,12 +38,15 @@
         </div>
         <div class="modal-body">
           <input type="date" ref="fechaInput" v-model="dateselected" v-on:change="getHours(dateselected)" />
-          <input type="time" name="" id="">
-          {{ state.clicked }}
+          <select name="" id="" v-model="hour">
+            <option v-for="h in state.hours" :key="h" :value="h">{{ h }}</option>
+          </select>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-primary">Save changes</button>
+          <button type="button" class="btn btn-primary" data-dismiss="modal"
+            @click="addReserva(dateselected, hour, state.clicked)">Save
+            changes</button>
         </div>
       </div>
     </div>
@@ -58,13 +62,13 @@ import Card_Table from "../../components/client/Card_Table.vue";
 import Pagination from "../../components/client/Pagination.vue";
 import search from "../../components/client/Search.vue";
 import { useTableFilters } from "../../composables/table/useFilters";
-import { useGHours } from "../../composables/reserve/useGHours";
+import { useGHours, useAddReserve } from "../../composables/reserve/useReserve";
 import { useRoute, useRouter } from "vue-router";
 
 export default {
   mounted() {
     const hoy = new Date()
-    this.$refs.fechaInput.min = `${hoy.getFullYear()}-${String(hoy.getMonth() + 1).padStart(2, '0')}-${String(hoy.getDate()).padStart(2, '0')}`
+    this.$refs.fechaInput.min = `${hoy.getFullYear()}-${String(hoy.getMonth() + 1).padStart(2, '0')}-${String(hoy.getDate() + 1).padStart(2, '0')}`
 
     setTimeout(() => {
       if (this.state.save_tablelist.length == 0) {
@@ -83,6 +87,7 @@ export default {
     }
 
     const state = reactive({
+      hours: [],
       clicked: 0,
       show_tablelist: computed(() =>
         store.getters["table/getTable"].slice(0, 6)
@@ -149,13 +154,28 @@ export default {
         return item.id == table;
       });
     };
-    const getHours = (test) => {
-      let fecha = new Date(test)
 
-      console.log(fecha.toISOString());
-      useGHours({ dateini : fecha.toISOString() })
+    const getHours = (date) => {
+      let fecha = new Date(date)
+      state.hours = useGHours({ dateini: fecha.toISOString(), id: state.clicked })
     }
-    return { state, ApplyFilters, reserva, deleteReserve, loadnewtables, getHours };
+
+    const checkuser = () => {
+      if (!localStorage.getItem('token')) {
+        router.push({ name: 'login' })
+      }
+    }
+
+    const addReserva = (date, hour, id) => {
+      let newhour = parseInt(hour) - 1
+      if (newhour == -1) {
+        newhour = 23
+      }
+      useAddReserve({ dateini: date + "T" + newhour + ":00:00Z", id_table: id })
+      router.push({ name: 'client_table', params: { filter: 'all' } })
+    }
+
+    return { state, ApplyFilters, reserva, deleteReserve, loadnewtables, getHours, checkuser, addReserva };
   },
   components: { Card_Table, filters, search, Pagination },
 };
