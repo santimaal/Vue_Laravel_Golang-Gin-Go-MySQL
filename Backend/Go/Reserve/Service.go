@@ -34,3 +34,14 @@ func CreateReserveService(c *gin.Context) (ReserveModel, error) {
 	r.Datefin = r.Dateini.Add(time.Hour * time.Duration(1))
 	return CreateReserveRepo(&r, c)
 }
+
+func GetHoursService(c *gin.Context) ([]ReserveModel, error) {
+	type times struct {
+		Dateini time.Time `json:"dateini"`
+	}
+	var t times
+	// test := c.Param("hour")
+	c.BindJSON(&t)
+	fmt.Println(t.Dateini)
+	return GetHoursRepo(t.Dateini, c)
+}

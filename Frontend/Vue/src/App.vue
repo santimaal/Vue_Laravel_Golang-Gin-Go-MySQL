@@ -9,7 +9,7 @@
 <script setup>
 import Header from "./components/Header";
 import Footer from "./components/Footer";
-
+import 'bootstrap/dist/js/bootstrap.js'
 import Constant from "./Constant";
 import { useStore } from "vuex";
 const store = useStore();

@@ -5,7 +5,7 @@
   <div class="change_color" v-if="state.show_tablelist.length > 0">
     <div class="all_cards_table">
       <Card_Table v-for="tableitem in state.show_tablelist" :key="tableitem.id" :tableitem="tableitem"
-        @click="reserva(tableitem)" />
+        data-toggle="modal" data-target="#reservetable" @click="state.clicked = tableitem.id" />
     </div>
 
     <Pagination :totalpages="state.total_pages" @changepage="loadnewtables" />
@@ -19,10 +19,33 @@
   <div v-else>
     <!-- <iframe v-if="state.loadspinner" src="https://giphy.com/embed/Fa69v6AU6oN4i0DZZc" width="480" height="480"
       frameBorder="0" class="giphy-embed d-flex w-100 justify-content-center" allowFullScreen></iframe> -->
-      <!-- <v-icon name="la-spinner-solid" animation="spin" fill="black" scale="4" /> -->
-      <img v-if="state.loadspinner" width="480" height="480" class="giphy-embed d-flex justify-content-center"
-        src="https://media.tenor.com/dJLmV08Db0gAAAAi/liga-arroz.gif" alt="">
+    <!-- <v-icon name="la-spinner-solid" animation="spin" fill="black" scale="4" /> -->
+    <img v-if="state.loadspinner" width="480" height="480" class="giphy-embed d-flex justify-content-center"
+      src="https://media.tenor.com/dJLmV08Db0gAAAAi/liga-arroz.gif" alt="">
     <h1 v-if="!state.loadspinner">Don't have tables with filters applied</h1>
+  </div>
+
+  <!-- Modal -->
+  <div class="modal fade" id="reservetable" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="modalLabel">Quieres reservar La Mesa {{ state.clicked }}?</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <input type="date" ref="fechaInput" v-model="dateselected" v-on:change="getHours(dateselected)" />
+          <input type="time" name="" id="">
+          {{ state.clicked }}
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary">Save changes</button>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -35,10 +58,14 @@ import Card_Table from "../../components/client/Card_Table.vue";
 import Pagination from "../../components/client/Pagination.vue";
 import search from "../../components/client/Search.vue";
 import { useTableFilters } from "../../composables/table/useFilters";
+import { useGHours } from "../../composables/reserve/useGHours";
 import { useRoute, useRouter } from "vue-router";
 
 export default {
   mounted() {
+    const hoy = new Date()
+    this.$refs.fechaInput.min = `${hoy.getFullYear()}-${String(hoy.getMonth() + 1).padStart(2, '0')}-${String(hoy.getDate()).padStart(2, '0')}`
+
     setTimeout(() => {
       if (this.state.save_tablelist.length == 0) {
         this.state.loadspinner = false;
@@ -56,6 +83,7 @@ export default {
     }
 
     const state = reactive({
+      clicked: 0,
       show_tablelist: computed(() =>
         store.getters["table/getTable"].slice(0, 6)
       ),
@@ -121,7 +149,13 @@ export default {
         return item.id == table;
       });
     };
-    return { state, ApplyFilters, reserva, deleteReserve, loadnewtables };
+    const getHours = (test) => {
+      let fecha = new Date(test)
+
+      console.log(fecha.toISOString());
+      useGHours({ dateini : fecha.toISOString() })
+    }
+    return { state, ApplyFilters, reserva, deleteReserve, loadnewtables, getHours };
   },
   components: { Card_Table, filters, search, Pagination },
 };
