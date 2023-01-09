@@ -10,6 +10,7 @@ const routes = [
   { path: "/addthematic", name: "admin_addthematic", component: () => import('../views/admin/Thematic/AddThematic') },
   { path: "/register", name: "register", component: () => import('../views/login/Register') },
   { path: "/login", name: "login", component: () => import('../views/login/Login') },
+  { path: "/profile", name: "profile", component: () => import('../views/profile/SetProfile') },
   { path: "/updateThematic/:id", name: "updateThematic", component: () => import('../views/admin/Thematic/UpdateThematic') },
   { path: "/home", name: "home", component: () => import('../views/Home') },
   { path: "/:catchAll(.*)", component: () => import('../views/Home') },

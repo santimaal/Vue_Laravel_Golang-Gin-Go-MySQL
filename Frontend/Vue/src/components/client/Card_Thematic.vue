@@ -68,13 +68,13 @@ export default {
 }
 
 .back {
-  border: 2px solid #3ec9a5;
+  border: 2px solid lightslategray;
 }
 
 .back h2 {
   position: absolute;
   font-style: italic;
-  color: #3ec9a5;
+  color: lightslategray;
 }
 
 .back p {
@@ -89,7 +89,7 @@ export default {
   margin-top: 70%;
   margin-left: -40%;
   border-radius: 10px;
-  border: 2px solid #3ec9a5;
+  border: 2px solid lightslategray;
   font-family: "Lobster", cursive;
   font-size: large;
 }

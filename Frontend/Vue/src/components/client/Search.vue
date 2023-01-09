@@ -3,7 +3,7 @@
 
 		<div class="row justify-content-center align-content-cener mt-4">
 
-			<div class="col-md-6">
+			<div class="col-md-5">
 				<div class="container">
 					<div class="search">
 						<input type="text" class="form-control form-input" v-model="state.filter.search"

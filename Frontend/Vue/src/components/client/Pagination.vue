@@ -9,7 +9,7 @@
             </li>
             <li class="page-item" v-for="(row, id) in state.total_pages" :key="id" :class="isActive(id)"
                 @click="changePage(id)">
-                <a class="page-link" href="#">{{ row }}</a>
+                <a class="page-link num_pag" href="#">{{ row }}</a>
             </li>
             <li class="page-item">
                 <a class="page-link" @click="changePage(state.page + 1)" aria-label="Next">
@@ -56,4 +56,28 @@ export default {
 nav {
     background-color: rgb(201, 243, 234) !important;
 }
+.page-link{
+    background-color: transparent;
+    border: 0px;
+    color:black;
+}
+.page-link span{
+font-size: large;
+}
+.num_pag{
+    border-radius: 20px;
+    border: 2px solid black;
+}
+.page-item{
+padding: 3px;
+}
+
+.page-item.active .page-link{
+    border-radius: 20px;
+    border: 2px solid rgb(92, 91, 91);
+    background-color: black;
+    color: white;
+    font-weight: bold;
+}
+
 </style>

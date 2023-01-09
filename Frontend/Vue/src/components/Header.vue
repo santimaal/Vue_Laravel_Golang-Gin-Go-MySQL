@@ -25,11 +25,12 @@
         <li class="nav-item" v-if="state.auth == ''">
           <router-link class="nav-link button" to="/register">Register</router-link>
         </li>
-        <li class="nav-item" v-if="state.auth == 'client'">
-          <a class="nav-link button">{{state.user.name}}</a>
+        <li class="nav-item" v-if="state.auth">
+          <router-link class="nav-link button" to="/profile">{{ state.user.name }}</router-link>
         </li>
         <li class="nav-item" v-if="state.auth != ''">
-          <a class="nav-link button" @click="logout">LogOut</a>
+          <a class="nav-link button" @click="logout"><font-awesome-icon class="logout_icon"
+              icon="fa-solid fa-right-from-bracket" /></a>
         </li>
       </ul>
     </div>
@@ -48,7 +49,7 @@ export default {
     const store = useStore()
     const state = reactive({
       isNavShow: false,
-      user: computed(()=> store.getters["user/getUser"]),
+      user: computed(() => store.getters["user/getUser"]),
       auth: computed(() => store.getters["user/getAuth"])
     });
     const navClass = computed(() =>
@@ -89,6 +90,12 @@ nav {
 
       .nav-item {
         margin-right: 2%;
+        background-color: black;
+        z-index: 100;
+        .logout_icon{
+          height: 20px;
+        }
+        
       }
     }
   }
@@ -151,6 +158,12 @@ nav {
 .navbar-toggler {
   display: flex;
   margin-left: 90%;
-  margin-top: -10%;
+  margin-top: -15%;
 }
+
+.collapse ul li .button {
+  padding-left: 2%;
+}
+
+
 </style>
