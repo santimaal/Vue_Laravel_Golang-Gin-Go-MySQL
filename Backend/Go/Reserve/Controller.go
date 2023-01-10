@@ -39,8 +39,11 @@ func CreateReserve(c *gin.Context) {
 func GetHours(c *gin.Context) {
 	reserve, err := GetHoursService(c)
 	if err != nil {
+		// 	fmt.Println("error no se porque")
 		c.AbortWithStatus(http.StatusNotFound)
+		return
 	} else {
 		c.JSON(http.StatusOK, reserve)
+		return
 	}
 }
