@@ -117,7 +117,6 @@ export const user = {
                 toaster.error("Error login Admin", { position: "bottom", duration: 5000, dismissible: true });
               });
           } else {
-            console.log("Holaaa");
             store.commit(Constant.USER_LOGIN, res.data);
             toaster.success(res.data.name.toUpperCase() + " loged successfully", { position: "top-right", duration: 5000, dismissible: true });
           }
@@ -126,6 +125,7 @@ export const user = {
           if (error["response"]["data"] == "Email or password is not correct") {
             toaster.error("Email or password is not correct", { position: "bottom", duration: 5000, dismissible: true });
           } else {
+            console.log(error);
             toaster.error("Error login", { position: "top-right", duration: 5000, dismissible: true });
           }
         });
