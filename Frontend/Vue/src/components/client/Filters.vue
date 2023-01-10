@@ -1,5 +1,5 @@
 <template>
-    <div class="row justify-content-center">
+    <div class="row justify-content-center rod_filters">
         <div class="col-8">
             <form class="filters justify-content-around rounded p-3 m-2">
                 <div class="row justify-content-around">
@@ -20,7 +20,7 @@
                     <div class="col-md-3 position-relative">
                         <div class="d-flex justify-content-center">
                             <select v-model="state.filter.id_thematic" class="">
-                                <option class="fil_center" value="" selected disabled hidden>THMATIC</option>
+                                <option class="fil_center" value="" selected disabled hidden>THEMATIC</option>
                                 <option class="fil_center" v-for="(item, id) in state.thematic" :key="id" :value="item.id">{{ item.name }}
                                 </option>
                             </select>
@@ -80,9 +80,10 @@ export default {
     }
 }
 </script>
-<style>
-.filters {
-    margin-top: 5% !important;
+<style scoped>
+.rod_filters{
+    height: 200px;
+    margin-top: 5%;
 }
 
 select, input {
@@ -106,6 +107,7 @@ input::placeholder {
     background-color: black;
     color: white;
     border-radius: 30px;
+    border: 1px solid white;
     font-size: x-large;
     
 }

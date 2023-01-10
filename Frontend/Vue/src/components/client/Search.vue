@@ -89,7 +89,7 @@ export default {
 	right: 0;
 	top: 0;
 	margin: auto;
-	background: #2d2926;
+	background: black;
 	color: #fff;
 	font-size: 15px;
 	border: 0;

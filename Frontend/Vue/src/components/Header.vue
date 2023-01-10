@@ -13,11 +13,14 @@
         <li class="nav-item">
           <router-link class="nav-link button" to="/table/all">Reserves</router-link>
         </li>
-        <li class="nav-item" v-if="state.auth == 'admin'">
-          <router-link class="nav-link button" to="/atable">DashboardTable</router-link>
-        </li>
-        <li class="nav-item" v-if="state.auth == 'admin'">
-          <router-link class="nav-link button" to="/athematic">DashboardThematic</router-link>
+        <li class="nav-item dropdown" v-if="state.auth == 'admin'">
+          <a class="nav-link dropdown-toggle button" href="#" role="button" data-toggle="dropdown" aria-expanded="false">Dashboard</a>
+          <div class="dropdown-menu">
+            <a class="dropdown-item" href="#"><router-link class="nav-link button" to="/atable">Table</router-link></a>
+            <a class="dropdown-item" href="#"><router-link class="nav-link button" to="/athematic">Thematic</router-link></a>
+            <a class="dropdown-item" href="#"><router-link class="nav-link button" to="/athematic">User</router-link></a>
+            <a class="dropdown-item" href="#"><router-link class="nav-link button" to="/athematic">Reserve</router-link></a>
+          </div>
         </li>
         <li class="nav-item" v-if="state.auth == ''">
           <router-link class="nav-link button" to="/login">Login</router-link>
@@ -92,10 +95,11 @@ nav {
         margin-right: 2%;
         background-color: black;
         z-index: 100;
-        .logout_icon{
+
+        .logout_icon {
           height: 20px;
         }
-        
+
       }
     }
   }
@@ -163,6 +167,23 @@ nav {
 
 .collapse ul li .button {
   padding-left: 2%;
+}
+.dropdown-menu{
+  background-color: transparent;
+  border: 0px;
+  margin-right: 10%;
+}
+.dropdown-item .button{
+  background-color: black;
+  text-align: center;
+}
+
+.dropdown-item:hover {
+  background-color: transparent;
+}
+
+.dropdown-menu {
+  margin-right: 20% !important;
 }
 
 

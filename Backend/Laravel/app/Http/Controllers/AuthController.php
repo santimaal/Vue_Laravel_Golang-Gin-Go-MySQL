@@ -53,7 +53,6 @@ class AuthController extends Controller
             if ($user_exist) {
                 $credentials = $request->only('email', 'password');
                 $token = Auth::attempt($credentials);
-
                 if (!$token = auth()->attempt($validator->validated())) {
                     return response()->json(['error' => 'Unauthorized'], 401);
                 } else {
@@ -76,6 +75,13 @@ class AuthController extends Controller
                 return response()->json(['error' => 'User not exist'], 401);
             }
         }
+    }
+
+    //PROFIILE USER
+    public function GetProfile(){
+        $user_serialize = Auth::user();
+        unset($user_serialize->password);
+        return response()->json($user_serialize);
     }
 
     // GET ALL USER

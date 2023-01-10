@@ -17,4 +17,7 @@ export default {
     getProfile() {
         return Api(secret.GO_APP_URL).get('user/profile');
     },
+    getProfile_Admin() {
+        return Api(secret.LARAVEL_APP_URL).get('user/profile');
+    },
 }

@@ -14,8 +14,11 @@ export default (URL) => {
             baseURL: URL
         })
 
-    const token = localStorage.getItem('token')
-    if (token) {
+    if (localStorage.getItem('token_admin')) {
+        const token= localStorage.getItem('token_admin');
+        axiosInstance.defaults.headers.common.Authorization = `Bearer ${token}`
+    }else {
+        const token= localStorage.getItem('token');
         axiosInstance.defaults.headers.common.Authorization = `Bearer ${token}`
     }
 

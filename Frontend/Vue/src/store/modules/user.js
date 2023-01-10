@@ -41,7 +41,7 @@ export const user = {
       router.push({ name: 'home' });
     },
     [Constant.USER_LOGIN_ADMIN]: (state, payload) => {
-      localStorage.setItem("token", payload.authorisation.token);
+      localStorage.setItem("token_admin", payload.authorisation.token);
       state.user = {
         is_active: payload.user.is_active,
         name: payload.user.name,
@@ -49,6 +49,7 @@ export const user = {
         img: payload.user.img,
         type: 'admin',
       };
+      console.log(state.user);
       router.push({ name: 'home' });
     },
     [Constant.LOGOUT]: (state) => {
@@ -63,14 +64,26 @@ export const user = {
     },
   },
   actions: {
-    [Constant.GET_PROFILE]: (store) => {
-      UserService.getProfile()
+    [Constant.GET_PROFILE]: (store, payload ) => {
+      if (payload == "admin") {
+        console.log("GET PROFILE ADMIN");
+        UserService.getProfile_Admin()
         .then(function (res) {
-          store.commit(Constant.SET_USER, res.data)
+          store.commit(Constant.SET_USER, res.data);
         })
         .catch(function (error) {
           console.log(error);
         });
+      }else {
+        UserService.getProfile()
+        .then(function (res) {
+          store.commit(Constant.SET_USER, res.data);
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+      }
+     
     },
     [Constant.USER_REGISTER]: (store, payload) => {
       UserService.userRegister(payload)
@@ -104,7 +117,7 @@ export const user = {
                 toaster.error("Error login Admin", { position: "bottom", duration: 5000, dismissible: true });
               });
           } else {
-            // console.log(res);
+            console.log("Holaaa");
             store.commit(Constant.USER_LOGIN, res.data);
             toaster.success(res.data.name.toUpperCase() + " loged successfully", { position: "top-right", duration: 5000, dismissible: true });
           }
@@ -139,6 +152,7 @@ export const user = {
     },
     [Constant.LOGOUT]: (store) => {
       localStorage.removeItem("token");
+      localStorage.removeItem("token_admin");
       store.commit(Constant.LOGOUT);
     },
   },
