@@ -11,7 +11,7 @@ class ReserveController extends Controller
 {
     public function index()
     {
-        return ReserveResource::collection(Reserve::get());
+        return ReserveResource::collection(Reserve::where('is_confirmed', "pending")->get());
     }
 
     public function create()

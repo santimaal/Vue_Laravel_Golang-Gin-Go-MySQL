@@ -21,6 +21,7 @@ return new class extends Migration
             $table->string('email');
             $table->string('type')->default('client');
             $table->string('img')->default('');
+            $table->integer('noti')->default(0);
             $table->timestamps();
         });
     }

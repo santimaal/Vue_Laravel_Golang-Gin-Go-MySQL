@@ -11,7 +11,7 @@ type ReserveResponse struct {
 	Id           uint      `json:"id"`
 	Id_table     uint      `json:"id_table"`
 	Id_user      uint      `json:"Id_user"`
-	Is_confirmed bool      `json:"is_confirmed"`
+	Is_confirmed string    `json:"is_confirmed"`
 	Dateini      time.Time `json:"dateini"`
 	Datefin      time.Time `json:"datefin"`
 }

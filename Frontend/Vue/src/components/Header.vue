@@ -4,7 +4,7 @@
     <button class="navbar-toggler" type="button" @click="changeIsNavShow">
       <span class="navbar-toggler-icon"></span>
     </button>
-
+    
     <div :class="navClass">
       <ul class="navbar-nav navRight">
         <li class="nav-item">
@@ -31,6 +31,9 @@
         <li class="nav-item" v-if="state.auth">
           <router-link class="nav-link button" to="/profile">{{ state.user.name }}</router-link>
         </li>
+        <li class="nav-item d-flex align-items-center" v-if="state.auth=='admin'">
+          <Notifications></Notifications>
+        </li>
         <li class="nav-item" v-if="state.auth != ''">
           <a class="nav-link button" @click="logout"><font-awesome-icon class="logout_icon"
               icon="fa-solid fa-right-from-bracket" /></a>
@@ -44,6 +47,7 @@
 import { reactive, computed } from "vue";
 import { useStore } from "vuex";
 import Constant from '../Constant';
+import Notifications from './admin/Notifications.vue';
 
 
 
@@ -70,6 +74,7 @@ export default {
 
     return { state, changeIsNavShow, navClass, logout };
   },
+  components:{Notifications},
 };
 </script>
 

@@ -31,6 +31,7 @@ func CreateReserveService(c *gin.Context) (ReserveModel, error) {
 		fmt.Println("No se ha podido convertir")
 	}
 	r.Id_user = u.Id
+	r.Is_confirmed = "pending"
 	r.Datefin = r.Dateini.Add(time.Hour * time.Duration(1))
 	return CreateReserveRepo(&r, c)
 }

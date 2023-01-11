@@ -8,18 +8,18 @@ use App\Http\Controllers\ReserveController;
 use App\Http\Controllers\AuthController;
 
 //All Users
-    // Thematic
-    Route::get('/thematic', [ThematicController::class, 'index']);
-    Route::get('/thematic/{id}', [ThematicController::class, 'show']);
+// Thematic
+Route::get('/thematic', [ThematicController::class, 'index']);
+Route::get('/thematic/{id}', [ThematicController::class, 'show']);
 
-    // Table
- 
-    Route::get('/table/{id}', [TableController::class, 'show']);
+// Table
 
-    // User
-    Route::post('user/register', [AuthController::class, 'register']);
-    Route::post('user/login', [AuthController::class, 'login']);
-    Route::get('user/profile', [AuthController::class, 'GetProfile']);
+Route::get('/table/{id}', [TableController::class, 'show']);
+
+// User
+Route::post('user/register', [AuthController::class, 'register']);
+Route::post('user/login', [AuthController::class, 'login']);
+Route::get('user/profile', [AuthController::class, 'GetProfile']);
 
 // Unique Users ADMIN
 Route::group(['middleware' => ['admin']], function () {
@@ -36,11 +36,11 @@ Route::group(['middleware' => ['admin']], function () {
     Route::delete('/thematic/{id}', [ThematicController::class, 'destroy']);
     Route::resource('thematic', ThematicController::class);
 
-    //Reserve
-    Route::resource('reserve', ReserveController::class);
-    
+    // Reserve
+    Route::get('/reserve', [ReserveController::class, 'index']);
+    // Route::resource('reserve', ReserveController::class);
+
     //Users
     Route::resource('user', AuthController::class);
     Route::get('/table', [TableController::class, 'index']);
-
 });

@@ -166,13 +166,16 @@ export default {
       }
     }
 
-    const addReserva = (date, hour, id) => {
+    const addReserva = (date, hour, id) => {  
+      let time = "T"
       let newhour = parseInt(hour) - 1
       if (newhour == -1) {
         newhour = 23
       }
-      useAddReserve({ dateini: date + "T" + newhour + ":00:00Z", id_table: id })
-      router.push({ name: 'client_table', params: { filter: 'all' } })
+      if (newhour<10) {
+        time+="0"
+      }
+      useAddReserve({ dateini: date + time + newhour + ":00:00Z", id_table: id })
     }
 
     return { state, ApplyFilters, reserva, deleteReserve, loadnewtables, getHours, checkuser, addReserva };

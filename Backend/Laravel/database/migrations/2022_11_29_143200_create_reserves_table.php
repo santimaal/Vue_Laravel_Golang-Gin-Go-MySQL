@@ -14,7 +14,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId( 'id_table' )->constrained( 'tables' )->onDelete( 'cascade' );
             $table->foreignId( 'id_user' )->constrained( 'users' )->onDelete( 'cascade' );
-            $table->boolean('is_confirmed')->default(false);
+            $table->string('is_confirmed')->default('pending');
             $table->timestamp("dateini")->nullable();
             $table->timestamp("datefin")->nullable();
             $table->timestamps();
