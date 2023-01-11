@@ -27,6 +27,16 @@ func GetReserveByID(c *gin.Context) {
 
 }
 
+func GetReserveByUser(c *gin.Context) {
+	reserve, err := GetReserveByUserService(c)
+	if err != nil {
+		c.JSON(http.StatusNotFound, "Reserve doesn't exist")
+	} else {
+		serializer := ReservesSerializer{c, reserve}
+		c.JSON(http.StatusOK, serializer.Response())
+	}
+}
+
 func CreateReserve(c *gin.Context) {
 	reserve, err := CreateReserveService(c)
 	if err != nil {

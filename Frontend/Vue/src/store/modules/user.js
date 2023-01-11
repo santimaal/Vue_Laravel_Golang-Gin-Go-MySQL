@@ -168,6 +168,9 @@ export const user = {
     },
     getNotis(state) {
       return state.user.noti;
+    },
+    setNotis(state) {
+      state.user.noti = 0;
     }
-  },
+  }
 };

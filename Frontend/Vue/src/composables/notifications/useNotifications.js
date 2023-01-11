@@ -10,3 +10,13 @@ export const useGetNotisAdmin = async() => {
         .catch(error => console.error(error))
     return noti;
 };
+
+export const useGetNotisClient = async() => {
+    const noti = ref([])
+    await UserService.getNotificationsClient()
+        .then(res => {
+            noti.value = res.data
+        })
+        .catch(error => console.error(error))
+    return noti;
+}

@@ -22,6 +22,15 @@ func GetOneReserveService(c *gin.Context) (ReserveModel, error) {
 	return GetOneReserveRepo(id, c)
 }
 
+func GetReserveByUserService(c *gin.Context) ([]ReserveModel, error) {
+	usr, _ := c.Get("my_user_model")
+	u, ok := usr.(User.UserModel)
+	if !ok {
+		fmt.Println("No se ha podido convertir")
+	}
+	return GetReserveByUserRepo(u, c)
+}
+
 func CreateReserveService(c *gin.Context) (ReserveModel, error) {
 	var r ReserveModel
 	c.BindJSON(&r)

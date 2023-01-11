@@ -32,6 +32,9 @@
           <router-link class="nav-link button" to="/profile">{{ state.user.name }}</router-link>
         </li>
         <li class="nav-item d-flex align-items-center" v-if="state.auth=='admin'">
+          <ANotifications></ANotifications>
+        </li>
+        <li class="nav-item d-flex align-items-center" v-if="state.auth=='client'">
           <Notifications></Notifications>
         </li>
         <li class="nav-item" v-if="state.auth != ''">
@@ -47,9 +50,8 @@
 import { reactive, computed } from "vue";
 import { useStore } from "vuex";
 import Constant from '../Constant';
-import Notifications from './admin/Notifications.vue';
-
-
+import ANotifications from './admin/Notifications.vue';
+import Notifications from './client/Notifications.vue';
 
 export default {
   setup() {
@@ -74,7 +76,7 @@ export default {
 
     return { state, changeIsNavShow, navClass, logout };
   },
-  components:{Notifications},
+  components:{Notifications, ANotifications},
 };
 </script>
 

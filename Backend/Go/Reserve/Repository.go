@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"net/http"
 	"sanvic/Config"
+	"sanvic/User"
 	"time"
 
 	"github.com/gin-gonic/gin"
@@ -25,6 +26,12 @@ func GetAllReservesRepo(c *gin.Context) []ReserveModel {
 func GetOneReserveRepo(id int, c *gin.Context) (ReserveModel, error) {
 	var reserve ReserveModel
 	err := Config.DB.Where("id = ?", id).Find(&reserve).Error
+	return reserve, err
+}
+
+func GetReserveByUserRepo(u User.UserModel, c *gin.Context) (reserve []ReserveModel, err error) {
+	// err = Config.DB.Where("id_user = ? AND is_confirmed <> 'pending'", u.Id).Order("updated_at desc").Limit(u.Noti).Find(&reserve).Error
+	err = Config.DB.Raw("CALL getNotificationsClient(?,?)", u.Id, u.Noti).Find(&reserve).Error
 	return reserve, err
 }
 

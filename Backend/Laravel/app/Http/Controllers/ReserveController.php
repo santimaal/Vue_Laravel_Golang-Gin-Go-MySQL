@@ -5,16 +5,14 @@ namespace App\Http\Controllers;
 use App\Http\Requests\Reserve\StoreReserveRequest;
 use App\Http\Resources\ReserveResource;
 use App\Models\Reserve;
-use Illuminate\Http\Request;
-
-use function Webmozart\Assert\Tests\StaticAnalysis\string;
+use Illuminate\Support\Facades\DB;
 
 class ReserveController extends Controller
 {
     public function index()
     {
-        // ReserveResource::collection(Reserve::where('is_confirmed', "pending")->get());
-        return response()->json(Reserve::join('users', 'reserves.id_user', '=', 'users.id')->where('reserves.is_confirmed',"pending")->select('reserves.*', 'users.name')->get());
+        // return response()->json(Reserve::join('users', 'reserves.id_user', '=', 'users.id')->where('reserves.is_confirmed',"pending")->select('reserves.*', 'users.name')->get());
+        return response()->json(DB::select("CALL getReservesAdmin()"));
     }
 
     public function store(StoreReserveRequest $request)

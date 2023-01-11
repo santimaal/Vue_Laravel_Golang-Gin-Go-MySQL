@@ -22,5 +22,8 @@ export default {
     },
     getNotificationsAdmin() {
         return Api(secret.LARAVEL_APP_URL).get('reserve');
+    },
+    getNotificationsClient() {
+        return Api(secret.GO_APP_URL).get('reserve');
     }
 }

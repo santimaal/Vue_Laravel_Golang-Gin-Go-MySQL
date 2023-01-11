@@ -15,13 +15,7 @@
                 <div class="ml-1 text-white">No notifications yet</div>
             </li>
             <li v-for="noti in state.notification" :key="noti.id">
-                <div class="dropdown-item text-white">
-                    {{ noti.name }} {{ noti.dateini }}
-                    <button type="button" class="btn btn-outline-success border-radius"
-                        @click="setReserve('accepted', noti.id)">V</button>
-                    <button type="button" class="btn btn-outline-danger border-radius"
-                        @click="setReserve('denied', noti.id)">X</button>
-                </div>
+                <div class="dropdown-item text-white">{{ noti.dateini }} is {{ noti.is_confirmed }}</div>
             </li>
         </ul>
     </div>
@@ -29,9 +23,7 @@
 <script>
 import { reactive, computed } from 'vue';
 import { useStore } from 'vuex';
-import { useGetNotisAdmin } from '../../composables/notifications/useNotifications'
-import { useChangeStatReserve } from '../../composables/reserve/useReserve'
-
+import { useGetNotisClient } from '../../composables/notifications/useNotifications'
 
 export default {
     setup() {
@@ -43,13 +35,9 @@ export default {
 
         const getNotis = async () => {
             store.getters["user/setNotis"];
-            state.notification = await useGetNotisAdmin()
+            state.notification = await useGetNotisClient()
         }
-
-        const setReserve = async (status, id) => {
-            await useChangeStatReserve(status, id)
-        }
-        return { state, getNotis, setReserve }
+        return { state, getNotis }
     }
 }
 </script>
