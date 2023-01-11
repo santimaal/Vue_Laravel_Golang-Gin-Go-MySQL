@@ -30,3 +30,11 @@ export const useAddReserve = (info) => {
         .catch(error => console.error(error))
     return status
 };
+
+export const useChangeStatReserve = (status, id) => {
+    ReserveService.updateReserve(status,id)
+    .then(res => {
+        console.log(res);
+    })
+    .catch(error => console.error(error)) 
+}

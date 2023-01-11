@@ -20,4 +20,7 @@ export default {
     getProfile_Admin() {
         return Api(secret.LARAVEL_APP_URL).get('user/profile');
     },
+    getNotificationsAdmin() {
+        return Api(secret.LARAVEL_APP_URL).get('reserve');
+    }
 }

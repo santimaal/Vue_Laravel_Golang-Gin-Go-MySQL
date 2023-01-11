@@ -12,6 +12,7 @@ type UserResponse struct {
 	Email string `json:"email"`
 	Img   string `json:"img"`
 	Type  string `json:"type"`
+	Noti  int    `json:"noti"`
 	Token string `json:"token"`
 }
 
@@ -34,6 +35,7 @@ func (ss *UserSerializer) Response() UserResponse {
 		Email: ss.user.Email,
 		Img:   ss.user.Img,
 		Type:  ss.user.Type,
+		Noti:  ss.user.Noti,
 		Token: GenToken(ss.user.Id),
 	}
 

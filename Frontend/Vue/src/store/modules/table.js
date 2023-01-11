@@ -89,18 +89,5 @@ export const table = {
         getTable(state) {
             return state.tablelist;
         }
-        // getOrder(state) {
-        //     if (state.tablelist) {
-        //         var orders = state.tablelist.filter(function (element) {
-        //             return element.order != null;
-        //         }).map(function (element) {
-        //             return element.order;
-
-        //         })
-        //         console.log(orders);
-        //         return orders;
-        //     }
-        //     return;
-        // },
     },
 }

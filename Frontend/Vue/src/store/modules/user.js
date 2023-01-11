@@ -12,6 +12,7 @@ export const user = {
       email: "",
       img: "",
       type: "",
+      noti:0,
     },
   },
   namespaced: true,
@@ -23,6 +24,7 @@ export const user = {
         email: payload.email,
         img: payload.img,
         type: payload.type,
+        noti: payload.noti,
       };
     },
     [Constant.USER_REGISTER]: (state, payload) => {
@@ -37,6 +39,7 @@ export const user = {
         email: payload.email,
         img: payload.img,
         type: 'client',
+        noti: payload.noti
       };
       router.push({ name: 'home' });
     },
@@ -48,8 +51,8 @@ export const user = {
         email: payload.user.email,
         img: payload.user.img,
         type: 'admin',
+        noti: payload.user.noti
       };
-      console.log(state.user);
       router.push({ name: 'home' });
     },
     [Constant.LOGOUT]: (state) => {
@@ -59,6 +62,7 @@ export const user = {
         email: "",
         img: "",
         type: "",
+        noti: 0
       };
       router.push({ name: 'home' });
     },
@@ -66,7 +70,6 @@ export const user = {
   actions: {
     [Constant.GET_PROFILE]: (store, payload ) => {
       if (payload == "admin") {
-        console.log("GET PROFILE ADMIN");
         UserService.getProfile_Admin()
         .then(function (res) {
           store.commit(Constant.SET_USER, res.data);
@@ -163,5 +166,8 @@ export const user = {
     getAuth(state) {
       return state.user.type;
     },
+    getNotis(state) {
+      return state.user.noti;
+    }
   },
 };

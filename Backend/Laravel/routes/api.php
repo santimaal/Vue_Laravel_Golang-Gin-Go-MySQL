@@ -25,22 +25,23 @@ Route::get('user/profile', [AuthController::class, 'GetProfile']);
 Route::group(['middleware' => ['admin']], function () {
 
     // Table
+    Route::get('/table', [TableController::class, 'index']);
     Route::post('/table', [TableController::class, 'store']);
     Route::put('/table/{id}', [TableController::class, 'update']);
     Route::delete('/table/{id}', [TableController::class, 'destroy']);
-    Route::resource('table', TableController::class);
+    // Route::resource('table', TableController::class);
 
     // Thematic
     Route::post('/thematic', [ThematicController::class, 'store']);
     Route::put('/thematic/{id}', [ThematicController::class, 'update']);
     Route::delete('/thematic/{id}', [ThematicController::class, 'destroy']);
-    Route::resource('thematic', ThematicController::class);
+    // Route::resource('thematic', ThematicController::class);
 
     // Reserve
     Route::get('/reserve', [ReserveController::class, 'index']);
+    Route::put('/reserve/{id}', [ReserveController::class, 'update']);
     // Route::resource('reserve', ReserveController::class);
 
     //Users
     Route::resource('user', AuthController::class);
-    Route::get('/table', [TableController::class, 'index']);
 });

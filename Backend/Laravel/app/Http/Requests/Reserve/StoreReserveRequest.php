@@ -16,10 +16,10 @@ class StoreReserveRequest extends FormRequest
     public function rules()
     {
         return [
-            "id_table" => ["required"],
-            "id_user" => ["required"],
+            "id_table" => ["optional"],
+            "id_user" => ["optional"],
             "is_confirmed" => ["required"],
-            "dateini" => ["required"],
+            "dateini" => ["optional"],
         ];
     }
 }
