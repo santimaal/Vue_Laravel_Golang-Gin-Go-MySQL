@@ -13,6 +13,7 @@ export const user = {
       img: "",
       type: "",
       noti:0,
+      chat_id:"",
     },
   },
   namespaced: true,
@@ -25,6 +26,7 @@ export const user = {
         img: payload.img,
         type: payload.type,
         noti: payload.noti,
+        chat_id: payload.chat_id
       };
     },
     [Constant.USER_REGISTER]: (state, payload) => {
@@ -39,7 +41,8 @@ export const user = {
         email: payload.email,
         img: payload.img,
         type: 'client',
-        noti: payload.noti
+        noti: payload.noti,
+        chat_id: payload.chat_id
       };
       router.push({ name: 'home' });
     },

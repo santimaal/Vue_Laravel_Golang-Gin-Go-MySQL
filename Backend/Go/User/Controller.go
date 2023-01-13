@@ -3,8 +3,10 @@ package User
 import (
 	"fmt"
 	"net/http"
+	"os"
 
 	"github.com/gin-gonic/gin"
+	tgbotapi "github.com/go-telegram-bot-api/telegram-bot-api/v5"
 )
 
 // GET ALL Users
@@ -59,4 +61,32 @@ func GetUserByID(c *gin.Context) {
 		serializer := UserSerializer{c, user}
 		c.JSON(http.StatusOK, serializer.Response())
 	}
+}
+
+func ComproveCode(code string, usrID int64) bool {
+	var c *gin.Context
+	return ComproveCodeService(c, code, usrID)
+}
+
+func SendTel(c *gin.Context) {
+	type Message struct {
+		Chat_id int64  `json:"chat_id"`
+		Message string `json:"message"`
+	}
+	var message Message
+	c.BindJSON(&message)
+
+	bot, err := tgbotapi.NewBotAPI(os.Getenv("TELEGRAM_APITOKEN"))
+	if err != nil {
+		panic(err)
+	}
+	bot.Debug = true
+	msg := tgbotapi.NewMessage(message.Chat_id, message.Message)
+
+	_, err = bot.Send(msg)
+	if err != nil {
+		panic(err)
+	}
+
+	c.JSON(http.StatusOK, "sended correctly")
 }

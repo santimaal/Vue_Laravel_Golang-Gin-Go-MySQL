@@ -48,3 +48,13 @@ func CheckUserEmail(user *UserModel, c *gin.Context) (exists UserModel, err erro
 	err = Config.DB.Where("email = ?", user.Email).Find(&exists).Error
 	return exists, err
 }
+
+func ComproveCodeRepo(c *gin.Context, code string) (usr UserModel, err error) {
+	err = Config.DB.Where("chat_id = ?", code).Find(&usr).Error
+	return usr, err
+}
+
+func UpdateUserRepo(c *gin.Context, usr UserModel) bool {
+	err := Config.DB.Save(&usr).Error
+	return err != nil
+}

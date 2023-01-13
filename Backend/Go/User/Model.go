@@ -19,6 +19,7 @@ type UserModel struct {
 	Img        string    `json:"img"`
 	Type       string    `json:"type"`
 	Noti       int       `json:"noti"`
+	Chat_id    string    `json:"chat_id"`
 	Created_at time.Time `json:"created_at"`
 	Updated_at time.Time `json:"updated_at"`
 }
@@ -36,6 +37,7 @@ func (u *UserModel) clean() error {
 	u.Password = ""
 	u.Noti = 0
 	u.Type = ""
+	u.Chat_id = ""
 	return nil
 }
 

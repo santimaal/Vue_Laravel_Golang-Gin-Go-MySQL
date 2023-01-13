@@ -55,3 +55,17 @@ func UserLoginService(c *gin.Context) (error, UserModel) {
 	return err, exists
 	// usrModel.setPassword(usrModel.Password)
 }
+
+func ComproveCodeService(c *gin.Context, code string, usrID int64) bool {
+	usr, err := ComproveCodeRepo(c, code)
+	if err != nil {
+		panic(err)
+	}
+	if usr.Id == 0 {
+		return false
+	} else {
+		usr.Chat_id = strconv.FormatInt(usrID, 10)
+		UpdateUserRepo(c, usr)
+		return true
+	}
+}

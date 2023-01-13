@@ -22,6 +22,7 @@ return new class extends Migration
             $table->string('type')->default('client');
             $table->string('img')->default('');
             $table->integer('noti')->default(0);
+            $table->string('chat_id');
             $table->timestamps();
         });
     }

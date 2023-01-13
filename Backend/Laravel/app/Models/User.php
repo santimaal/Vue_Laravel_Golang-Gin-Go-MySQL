@@ -11,7 +11,7 @@ class User extends Authenticatable implements JWTSubject
 {
     use HasFactory;
     protected $table = 'users';
-    protected $fillable = ['is_active', 'name', 'password', 'email', 'type', 'img', 'noti'];
+    protected $fillable = ['is_active', 'name', 'password', 'email', 'type', 'img', 'noti', 'chat_id'];
     protected $hidden = ['created_at', 'updated_at'];
 
     public function tables()
