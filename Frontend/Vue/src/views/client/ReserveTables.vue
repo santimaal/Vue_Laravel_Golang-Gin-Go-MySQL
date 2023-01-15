@@ -18,9 +18,6 @@
     </li>
   </div>
   <div v-else>
-    <!-- <iframe v-if="state.loadspinner" src="https://giphy.com/embed/Fa69v6AU6oN4i0DZZc" width="480" height="480"
-      frameBorder="0" class="giphy-embed d-flex w-100 justify-content-center" allowFullScreen></iframe> -->
-    <!-- <v-icon name="la-spinner-solid" animation="spin" fill="black" scale="4" /> -->
     <img v-if="state.loadspinner" width="480" height="480" class="giphy-embed d-flex justify-content-center"
       src="https://media.tenor.com/dJLmV08Db0gAAAAi/liga-arroz.gif" alt="">
     <h1 v-if="!state.loadspinner">Don't have tables with filters applied</h1>

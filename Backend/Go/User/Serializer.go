@@ -5,10 +5,8 @@ import (
 )
 
 type UserResponse struct {
-	// Id        uint   `json:"id"`
 	Is_active bool   `json:"is_active"`
 	Name      string `json:"name"`
-	// Password  string `json:"password"`
 	Email   string `json:"email"`
 	Img     string `json:"img"`
 	Type    string `json:"type"`
@@ -29,10 +27,8 @@ type UsersSerializer struct {
 
 func (ss *UserSerializer) Response() UserResponse {
 	response := UserResponse{
-		// Id:        ss.user.Id,
 		Is_active: ss.user.Is_active,
 		Name:      ss.user.Name,
-		// Password:  ss.user.Password,
 		Email:   ss.user.Email,
 		Img:     ss.user.Img,
 		Type:    ss.user.Type,

@@ -21,5 +21,6 @@ export default {
     USER_LOGIN_ADMIN : "userLoginAdmin",
     SET_USER : "setUser",
     LOGOUT : "logout",
+    USER_UPDATE: "updateProfile"
    
 }

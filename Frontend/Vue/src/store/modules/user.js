@@ -123,6 +123,7 @@ export const user = {
                 toaster.error("Error login Admin", { position: "bottom", duration: 5000, dismissible: true });
               });
           } else {
+            console.log(res.data);
             store.commit(Constant.USER_LOGIN, res.data);
             toaster.success(res.data.name.toUpperCase() + " loged successfully", { position: "top-right", duration: 5000, dismissible: true });
           }
@@ -160,6 +161,31 @@ export const user = {
       localStorage.removeItem("token");
       localStorage.removeItem("token_admin");
       store.commit(Constant.LOGOUT);
+    },
+    [Constant.USER_UPDATE]: (store, payload) => {
+      let old_form = payload;
+      let newForm = {};
+
+      Object.keys(old_form).forEach(key => {
+        if(old_form[key]) {
+          newForm[key] = old_form[key];
+        }
+      });
+      
+      UserService.userUpdate(newForm)
+      .then(function (res) {
+        store.commit(Constant.SET_USER, res.data);
+        toaster.success("Updated correctly!", { position: "bottom", duration: 5000, dismissible: true });
+
+      })
+      .catch(function () {
+          if (newForm.email){
+            toaster.error("The email is already in use", { position: "bottom", duration: 5000, dismissible: true });
+          }else {
+            toaster.error("Error update User", { position: "top-right", duration: 5000, dismissible: true });
+          }
+         
+      });
     },
   },
   getters: {

@@ -20,7 +20,7 @@ return new class extends Migration
             $table->string('password');
             $table->string('email');
             $table->string('type')->default('client');
-            $table->string('img')->default('');
+            $table->string('img')->default('https://i.postimg.cc/W41QygPj/descarga.png');
             $table->integer('noti')->default(0);
             $table->string('chat_id');
             $table->timestamps();

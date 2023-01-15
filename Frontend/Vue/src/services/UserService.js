@@ -25,5 +25,8 @@ export default {
     },
     getNotificationsClient() {
         return Api(secret.GO_APP_URL).get('reserve');
+    },
+    userUpdate(data) {
+        return Api(secret.GO_APP_URL).put('user/update', data);
     }
 }

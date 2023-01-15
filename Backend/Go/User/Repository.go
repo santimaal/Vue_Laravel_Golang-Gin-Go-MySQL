@@ -56,5 +56,5 @@ func ComproveCodeRepo(c *gin.Context, code string) (usr UserModel, err error) {
 
 func UpdateUserRepo(c *gin.Context, usr UserModel) bool {
 	err := Config.DB.Save(&usr).Error
-	return err != nil
+	return err == nil
 }

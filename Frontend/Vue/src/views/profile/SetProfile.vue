@@ -1,62 +1,163 @@
 <template>
-    <section class="bg-image allpage mt-4 mb-4">
-        <div class="mask d-flex align-items-center h-100 gradient-custom-3">
-            <div class="container h-100">
-                <div class="row d-flex justify-content-center align-items-center h-100">
-                    <div class="col-12 col-md-9 col-lg-7 col-xl-6">
-                        <div class="card" style="border-radius: 15px;">
-                            <div class="card-body p-5">
-                                <h2 class="text-uppercase text-center mb-5"></h2>
-
-                                <form>
-
-                                    <div class="form-outline mb-4">
-                                        <label class="form-label" for="name">Your Name</label>
-                                        <input type="text" v-model="state.form.name" id="name"
-                                            class="form-control form-control-lg" />
-                                        <div class="input-errors" v-for="error of state.err.name.$errors"
-                                            :key="error.$uid">
-                                            <div class="error-msg">{{ error }}</div>
-                                        </div>
+    <section class>
+        <div class="container py-5">
+            <div class="row">
+                <div class="col-lg-4">
+                    <div class="card mb-4">
+                        <div class="card-body text-center">
+                            <img :src=state.user.img alt="avatar" class="img_profile rounded-circle img-fluid">
+                            <hr>
+                            <form class="mt-4">
+                                <!-- Username -->
+                                <div class="form-outline mb-4">
+                                    <div class="row ml-2 div_row">
+                                        <p @click="state.check.name = ''" class="p_icon"><font-awesome-icon
+                                                class="U_icon " icon="fa-solid fa-user" /></p>
+                                        <h5 v-if="state.check.name != true"
+                                            class="d-flex align-items-center col-8 ml-2 mr-2">{{ state.user.name }}</h5>
+                                        <input type="text" v-if="state.check.name == true" v-model="state.form.name"
+                                            :placeholder=state.user.name id="name"
+                                            class="ml-2 mr-2 text-center col-8 form-control form-control-md" />
+                                        <p v-if="state.check.name != true" @click="state.check.name = true"
+                                            class="btn_edit"><font-awesome-icon class="edit_icon"
+                                                icon="fa-solid fa-pen-to-square" /></p>
+                                        <p v-if="state.check.name == true" @click=UpdateProfile() class="p_icon">
+                                            <font-awesome-icon class="U_icon check_icon" icon="fa-solid fa-check" />
+                                        </p>
                                     </div>
-
-                                    <div class="form-outline mb-4">
-                                        <label class="form-label" for="email">Your Email</label>
-                                        <input type="email" v-model="state.form.email" id="email"
-                                            class="form-control form-control-lg" />
-                                        <div class="input-errors" v-for="error of state.err.email.$invalid"
-                                            :key="error.$uid">
-                                            <div class="error-msg">{{ error }}</div>
-                                        </div>
-                                        <span class="text-danger">{{ state.email }}</span>
+                                </div>
+                                <hr>
+                                <!-- Email -->
+                                <div class="form-outline mb-4">
+                                    <div class="row ml-2">
+                                        <p @click="state.check.email = ''" class="p_icon"><font-awesome-icon
+                                                class="U_icon" icon="fa-solid fa-envelope" /></p>
+                                        <h5 v-if="state.check.email != true"
+                                            class="d-flex align-items-center ml-2 mr-2 col-8">{{
+                                                state.user.email.substring(0, 5)
+                                            }}@gmail.com</h5>
+                                        <input type="email" v-if="state.check.email == true" v-model="state.form.email"
+                                            :placeholder=state.user.email id="email"
+                                            class="ml-2 mr-2 text-center col-8 form-control form-control-md" />
+                                        <p v-if="state.check.email != true" @click="state.check.email = true"
+                                            class="btn_edit"><font-awesome-icon class="edit_icon"
+                                                icon="fa-solid fa-pen-to-square" /></p>
+                                        <p v-if="state.check.email == true" @click=UpdateProfile() class="p_icon">
+                                            <font-awesome-icon class="U_icon check_icon" icon="fa-solid fa-check" />
+                                        </p>
                                     </div>
-
-                                    <div class="form-outline mb-4">
-                                        <label class="form-label" for="pass">Password</label>
-                                        <input type="password" v-model="state.form.password" id="pass"
-                                            class="form-control form-control-lg" />
-                                        <span class="text-danger">{{ state.pass }}</span>
+                                    <div class="input-errors" v-for="error of state.err.email.$invalid"
+                                        :key="error.$uid">
+                                        <div class="error-msg">{{ error }}</div>
                                     </div>
-
-                                    <div class="form-outline mb-4">
-                                        <label class="form-label" for="pass">Repeat your password</label>
-                                        <input type="password" v-model="state.form.rptpassword" id="pass2"
-                                            class="form-control form-control-lg" />
+                                </div>
+                                <hr>
+                                <!-- Password -->
+                                <div class="form-outline mb-4">
+                                    <div class="row ml-2">
+                                        <p @click="state.check.password = ''" class="p_icon"><font-awesome-icon
+                                                class="U_icon" icon="fa-solid fa-key" />
+                                        </p>
+                                        <h5 v-if="state.check.password != true"
+                                            class="d-flex align-items-center ml-2 mr-2 col-8">**********</h5>
+                                        <input type="password" v-if="state.check.password == true"
+                                            v-model="state.form.password" placeholder="**********" id="password"
+                                            class="ml-2 mr-2 text-center col-8 form-control form-control-md" />
+                                        <p v-if="state.check.password != true" @click="state.check.password = true"
+                                            class="btn_edit"><font-awesome-icon class="edit_icon"
+                                                icon="fa-solid fa-pen-to-square" /></p>
+                                        <p v-if="state.check.password == true" @click=UpdateProfile() class="p_icon">
+                                            <font-awesome-icon class="U_icon check_icon" icon="fa-solid fa-check" />
+                                        </p>
                                     </div>
-
-                                    <div class="d-flex justify-content-center">
-                                        <button
-                                            v-if="state.err.name.$invalid == true || state.err.email.$invalid == true || state.err.password.$invalid == true || state.err.rptpassword.$invalid == true"
-                                            type="button"
-                                            class="btn btn-success btn-block btn-lg gradient-custom-4 text-body"
-                                            disabled>Updated User
+                                </div>
+                                <hr>
+                                <!-- Img -->
+                                <div class="form-outline mb-4">
+                                    <div class="row ml-2">
+                                        <p @click="state.check.img = ''" class="p_icon"><img :src=state.user.img
+                                                alt="avatar" class="rounded img-fluid" style="width: 35px;"></p>
+                                        <h5 v-if="state.check.img != true"
+                                            class="d-flex align-items-center ml-2 mr-2 col-8">http://{{
+                                                state.user.name.substring(0, 6)
+                                            }}.png</h5>
+                                        <input type="text" v-if="state.check.img == true" v-model="state.form.img"
+                                            placeholder="http//url_imagen.png" id="img"
+                                            class="ml-2 mr-2 text-center col-8 form-control form-control-md" />
+                                        <p v-if="state.check.img != true" @click="state.check.img = true"
+                                            class="btn_edit"><font-awesome-icon class="edit_icon"
+                                                icon="fa-solid fa-pen-to-square" /></p>
+                                        <p v-if="state.check.img == true" @click=UpdateProfile() class="p_icon">
+                                            <font-awesome-icon class="U_icon check_icon" icon="fa-solid fa-check" />
+                                        </p>
+                                    </div>
+                                </div>
+                                <hr>
+                                <!-- Telegram -->
+                                <div class="form-outline mb-4">
+                                    <div class="row ml-1">
+                                        <button type="button" class="btn_tele">
+                                            <img @click="telegram" class="img_tele"
+                                                src="https://i.postimg.cc/L5J3J8kf/telegram.png" alt="og_tel"
+                                                v-b-tooltip.hover placement="right" variant="info"
+                                                title="Do you want to activate notifications by telegram? ¡Click on the icon!">
+                                        </button>
+                                        <input v-if="state.check.chat_id == true" type="text" readonly
+                                            v-model="state.form.chat_id" id="chat_id"
+                                            class="ml-2 mr-1 text-center col-8 form-control form-control-md" />
+                                        <button v-if="state.check.chat_id == true" type="button" class="btn_nube">
+                                            <img @click="saveChatId" class="img_nube"
+                                                src="https://i.postimg.cc/13pY6Fzs/nube.png" alt="og_tel"
+                                                v-b-tooltip.hover placement="right" variant="info"
+                                                title="Click me for Coppy, Save and Redirect">
                                         </button>
                                     </div>
-                                </form>
-
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-8">
+                    <div class="card mb-4">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <p class="mb-0">Full Name</p>
+                                </div>
+                                <div class="col-sm-9">
+                                    <p class="text-muted mb-0">{{ state.user.name }} Esteve Ferre</p>
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <p class="mb-0">Email</p>
+                                </div>
+                                <div class="col-sm-9">
+                                    <p class="text-muted mb-0">{{ state.user.email }}</p>
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <p class="mb-0">Phone</p>
+                                </div>
+                                <div class="col-sm-9">
+                                    <p class="text-muted mb-0">+34 678345678</p>
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <p class="mb-0">Address</p>
+                                </div>
+                                <div class="col-sm-9">
+                                    <p class="text-muted mb-0">Avd. España Nº29</p>
+                                </div>
                             </div>
                         </div>
                     </div>
+
                 </div>
             </div>
         </div>
@@ -64,11 +165,13 @@
 </template>
 
 <script>
-import { reactive,computed } from 'vue';
+import { reactive, computed } from 'vue';
 import { useVuelidate } from '@vuelidate/core'
-import { required, email } from '@vuelidate/validators'
+import { email } from '@vuelidate/validators'
 import { useStore } from 'vuex';
 import Constant from '../../Constant';
+import { createToaster } from "@meforma/vue-toaster";
+const toaster = createToaster();
 
 export default {
     setup() {
@@ -78,47 +181,132 @@ export default {
                 name: "",
                 email: "",
                 password: "",
-                rptpassword: "",
-                adminserver: false,
+                img: "",
+                chat_id: "",
             },
-            err: {
+            check: {
                 name: "",
                 email: "",
                 password: "",
-                rptpassword: "",
+                img: "",
+                chat_id: "",
             },
-            pass: "",
-            email: "",
+            err: {
+                email: "",
+            },
             user: computed(() => store.getters["user/getUser"]),
         })
-
-
         const rules = {
-            name: { required },
-            email: { required, email },
-            password: { required },
-            rptpassword: { required }
+            email: { email }
         }
-
-
 
         state.err = useVuelidate(rules, state.form);
-        const register = () => {
-            if (state.form.password != state.form.rptpassword) {
-                state.pass = "Is not the same password";
-            } else {
-                state.pass = "";
-                if (state.form.adminserver) {
-                    store.dispatch("user/" + Constant.USER_REGISTER_ADMIN, state.form);
-                } else {
-                    store.dispatch("user/" + Constant.USER_REGISTER, state.form);
-                }
-            }
+
+        if (state.err.email.$model != "") {
+            toaster.error("Email is ivalid", { position: "bottom", duration: 5000, dismissible: true });
+        } else {
+            state.err.email = "";
         }
-        return { state, register };
+
+
+        const UpdateProfile = () => {
+            state.check.name = false;
+            state.check.email = false;
+            state.check.password = false;
+            state.check.img = false;
+            store.dispatch("user/" + Constant.USER_UPDATE, state.form);
+
+
+        }
+        const telegram = () => {
+            const chatId = generateChatId();
+            state.form.chat_id = chatId;
+        }
+        const generateChatId = () => {
+            state.check.chat_id = true;
+            var characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+            var result = "";
+            for (var i = 0; i < 10; i++) {
+                result += characters.charAt(Math.floor(Math.random() * characters.length));
+            }
+            return result;
+        }
+
+        const saveChatId = async () => {
+            state.check.chat_id = "";
+            await navigator.clipboard.writeText(state.form.chat_id);
+            store.dispatch("user/" + Constant.USER_UPDATE, state.form);
+            window.open("https://web.telegram.org/k/#@Sanvicbot", "_blank");
+
+        }
+        return { state, UpdateProfile, telegram, generateChatId, saveChatId }
+
+
     }
 }
 </script>
 <style>
+.img_profile {
+    width: 150px;
+}
 
+.img_tele {
+    width: 35px;
+}
+
+.img_nube {
+    width: 32px;
+    border-radius: 4px;
+}
+
+.btn_nube {
+    border: 0px;
+    width: auto;
+    max-width: 35px;
+    background-color: black;
+    border-radius: 4px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.btn_tele {
+    border: 0px;
+    width: auto;
+    max-width: 35px;
+    background-color: transparent;
+}
+
+.U_icon {
+    width: 35px;
+    color: white;
+}
+
+.p_icon {
+    background-color: black;
+    width: 35px;
+    height: 35px;
+    display: flex;
+    align-items: center;
+    border-radius: 4px;
+}
+
+.btn_edit {
+    background-color: transparent;
+    width: 35px;
+    height: 35px;
+    display: flex;
+    align-items: center;
+    border: 0px;
+    font-size: x-large;
+}
+
+.edit_icon {
+    color: black;
+}
+
+.check_icon:hover {
+    font-size: x-large;
+    color: green;
+}
 </style>

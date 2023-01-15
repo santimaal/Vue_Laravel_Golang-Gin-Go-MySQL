@@ -11,10 +11,14 @@ export const useGetNotisAdmin = async() => {
     return noti;
 };
 
-export const useGetNotisClient = async() => {
+export const useGetNotisClient = async () => {
     const noti = ref([])
     await UserService.getNotificationsClient()
         .then(res => {
+            res.data.forEach(noti => {
+                let date = new Date(noti.dateini)
+                noti.dateini= date.getDate() + '-' + (date.getMonth() + 1) + '-' + date.getFullYear() + " at " + date.getHours() + "h"
+            });
             noti.value = res.data
         })
         .catch(error => console.error(error))

@@ -35,7 +35,7 @@ func main() {
 	}
 
 	go func() {
-		bot.Handle(tele.OnText, func(c tele.Context) error {
+		bot.Handle(tele.OnText, func(c tele.Context) (err error) {
 			var (
 				user = c.Sender()
 				text = c.Text()

@@ -4,7 +4,6 @@ import (
 	"fmt"
 	"net/http"
 	"os"
-
 	"github.com/gin-gonic/gin"
 	tgbotapi "github.com/go-telegram-bot-api/telegram-bot-api/v5"
 )
@@ -33,11 +32,8 @@ func UserLogin(c *gin.Context) {
 		c.JSON(http.StatusInternalServerError, "Email or password is not correct")
 	} else {
 		UpdateContextUserModel(c, usr.Id)
-		// c.Set("my_user_id", user.Id)
-		// c.Set("my_user_model", user)
 		serializer := UserSerializer{c, usr}
 		c.JSON(http.StatusOK, serializer.Response())
-		// c.JSON(http.StatusOK, usr)
 	}
 }
 
@@ -66,6 +62,23 @@ func GetUserByID(c *gin.Context) {
 func ComproveCode(code string, usrID int64) bool {
 	var c *gin.Context
 	return ComproveCodeService(c, code, usrID)
+}
+
+func UserUpdate(c *gin.Context) {
+	bool := UserUpdateService(c)
+	if !bool {
+		c.JSON(http.StatusInternalServerError, "Error Updated User")
+	} else {
+		id, _ := c.Get("my_user_id")
+		idUser, _ := id.(uint)
+		user, err := GetUserServiceByID(c, uint(idUser))
+		if err != nil {
+			c.JSON(http.StatusNotFound, "User doesn't exist")
+		} else {
+			serializer := UserSerializer{c, user}
+			c.JSON(http.StatusOK, serializer.Response())
+		}
+	}
 }
 
 func SendTel(c *gin.Context) {
