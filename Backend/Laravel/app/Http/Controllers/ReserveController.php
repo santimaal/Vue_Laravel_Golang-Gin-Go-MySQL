@@ -15,6 +15,11 @@ class ReserveController extends Controller
         return response()->json(DB::select("CALL getReservesAdmin()"));
     }
 
+    public function getReservesOrByP()
+    {
+        return response()->json(Reserve::where("dateini", ">=", \Carbon\Carbon::today())->orderByRaw("CASE WHEN is_confirmed = 'pending' THEN 0 ELSE 1 END, is_confirmed, dateini")->get());
+    }
+
     public function store(StoreReserveRequest $request)
     {
         return ReserveResource::make(Reserve::create($request->validated()));

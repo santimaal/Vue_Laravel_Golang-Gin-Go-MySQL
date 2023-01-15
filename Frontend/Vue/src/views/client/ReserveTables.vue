@@ -24,7 +24,8 @@
   </div>
 
   <!-- Modal -->
-  <div class="modal fade" id="reservetable" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
+  <div class="modal fade" id="reservetable" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true"
+    v-if="state.modal">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
@@ -61,6 +62,7 @@ import search from "../../components/client/Search.vue";
 import { useTableFilters } from "../../composables/table/useFilters";
 import { useGHours, useAddReserve } from "../../composables/reserve/useReserve";
 import { useRoute, useRouter } from "vue-router";
+import { createToaster } from "@meforma/vue-toaster";
 
 export default {
   mounted() {
@@ -77,6 +79,7 @@ export default {
     const store = useStore();
     const router = useRouter();
     const currentRoute = useRoute();
+    const toaster = createToaster();
 
     store.dispatch("table/" + Constant.INITIALIZE_TABLE);
     if (store.state.thematic.thematiclist.length == 0) {
@@ -84,6 +87,7 @@ export default {
     }
 
     const state = reactive({
+      modal: true,
       hours: [],
       clicked: 0,
       show_tablelist: computed(() =>
@@ -97,6 +101,11 @@ export default {
       ),
       loadspinner: true
     });
+
+    setTimeout(() => {
+      state.modal = false
+    }, 1);
+
     state.total_pages = computed(() => Math.ceil(state.save_tablelist.length / 6))
 
     const ApplyFilters = (filter) => {
@@ -157,20 +166,25 @@ export default {
       state.hours = useGHours({ dateini: fecha.toISOString(), id: state.clicked })
     }
 
-    const checkuser = () => {
+    const checkuser = async () => {
       if (!localStorage.getItem('token')) {
         router.push({ name: 'login' })
       }
+      if (await !store.getters["user/getUser"].is_active) {
+        toaster.success("Usuario deshabilitado", { position: "top-right", duration: 5000, dismissible: true });
+      } else {
+        state.modal = true
+      }
     }
 
-    const addReserva = (date, hour, id) => {  
+    const addReserva = (date, hour, id) => {
       let time = "T"
       let newhour = parseInt(hour) - 1
       if (newhour == -1) {
         newhour = 23
       }
-      if (newhour<10) {
-        time+="0"
+      if (newhour < 10) {
+        time += "0"
       }
       useAddReserve({ dateini: date + time + newhour + ":00:00Z", id_table: id })
     }

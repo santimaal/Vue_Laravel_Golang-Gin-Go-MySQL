@@ -47,6 +47,7 @@ func SetupRouter() *gin.Engine {
 
 	api.POST("user/login", User.UserLogin)
 	api.POST("user/register", User.UserRegister)
+	api.POST("sendTel", User.SendTel)
 	api.Use(User.AuthMiddleware(false))
 	api.GET("table", Table.GetAllTables)
 	api.GET("reserve/hours/:date/:id", Reserve.GetHours)

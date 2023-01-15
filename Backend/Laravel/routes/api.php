@@ -39,6 +39,7 @@ Route::group(['middleware' => ['admin']], function () {
 
     // Reserve
     Route::get('/reserve', [ReserveController::class, 'index']);
+    Route::get('/dashboard/reserves', [ReserveController::class, 'getReservesOrByP']);
     Route::put('/reserve/{id}', [ReserveController::class, 'update']);
     // Route::resource('reserve', ReserveController::class);
 

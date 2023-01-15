@@ -32,9 +32,19 @@ export const useAddReserve = (info) => {
 };
 
 export const useChangeStatReserve = (status, id) => {
-    ReserveService.updateReserve(status,id)
-    .then(res => {
-        console.log(res);
-    })
-    .catch(error => console.error(error)) 
+    ReserveService.updateReserve(status, id)
+        .then(res => {
+            console.log(res);
+        })
+        .catch(error => console.error(error))
+}
+
+export const useGetReservesAdmin = () => {
+    const reserves = ref([])
+    ReserveService.getReservesAdmin()
+        .then(res => {
+            reserves.value = res.data
+        })
+        .catch(error => console.error(error))
+    return reserves
 }

@@ -4,6 +4,8 @@ import (
 	"fmt"
 	"net/http"
 	"os"
+	"strconv"
+
 	"github.com/gin-gonic/gin"
 	tgbotapi "github.com/go-telegram-bot-api/telegram-bot-api/v5"
 )
@@ -83,23 +85,33 @@ func UserUpdate(c *gin.Context) {
 
 func SendTel(c *gin.Context) {
 	type Message struct {
-		Chat_id int64  `json:"chat_id"`
+		Id_user uint   `json:"id_user"`
 		Message string `json:"message"`
 	}
+
 	var message Message
 	c.BindJSON(&message)
-
 	bot, err := tgbotapi.NewBotAPI(os.Getenv("TELEGRAM_APITOKEN"))
 	if err != nil {
 		panic(err)
 	}
-	bot.Debug = true
-	msg := tgbotapi.NewMessage(message.Chat_id, message.Message)
 
-	_, err = bot.Send(msg)
-	if err != nil {
-		panic(err)
+	u, _ := GetUserServiceByID(c, message.Id_user)
+
+	if len(u.Chat_id) != 0 {
+		var parsed int64
+		var err error
+		parsed, err = strconv.ParseInt(u.Chat_id, 10, 64)
+		if err != nil {
+			c.JSON(http.StatusOK, "can't send it")
+		} else {
+			bot.Debug = true
+			msg := tgbotapi.NewMessage(parsed, message.Message)
+			_, err = bot.Send(msg)
+			if err != nil {
+				panic(err)
+			}
+			c.JSON(http.StatusOK, "sended correctly")
+		}
 	}
-
-	c.JSON(http.StatusOK, "sended correctly")
 }

@@ -3,6 +3,7 @@ package User
 import (
 	"fmt"
 	"strconv"
+
 	"github.com/gin-gonic/gin"
 )
 
@@ -20,7 +21,6 @@ func GetOneUserService(c *gin.Context) (UserModel, error) {
 	return GetOneUserRepo(id, c)
 }
 
-
 func GetUserServiceByID(c *gin.Context, id uint) (UserModel, error) {
 	return GetOneUserByID(id, c)
 }
@@ -28,6 +28,7 @@ func GetUserServiceByID(c *gin.Context, id uint) (UserModel, error) {
 func UserRegisterService(c *gin.Context) (error, bool) {
 	var usrModel UserModel
 	c.BindJSON(&usrModel)
+	usrModel.Is_active = true
 	usrModel.Type = "client"
 	usrModel.Img = "https://i.postimg.cc/W41QygPj/descarga.png"
 	usrModel.setPassword(usrModel.Password)

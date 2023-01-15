@@ -23,6 +23,7 @@ class RegisterUserRequest extends FormRequest
             "type" => 'optional',
             "email" => 'required|string|email|max:100|unique:users',
             "img" => 'optional',
+            "chat_id" => 'optional',
         ];
     }
 

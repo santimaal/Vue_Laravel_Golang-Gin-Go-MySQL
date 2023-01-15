@@ -44,7 +44,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 /* thead tr {
     background-color: black !important;
     color: white;

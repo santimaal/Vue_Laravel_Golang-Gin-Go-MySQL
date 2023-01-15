@@ -15,14 +15,14 @@ return new class extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->id();
-            $table->boolean('is_active')->default(false);
+            $table->boolean('is_active')->default(true);
             $table->string('name');
             $table->string('password');
             $table->string('email');
             $table->string('type')->default('client');
             $table->string('img')->default('https://i.postimg.cc/W41QygPj/descarga.png');
             $table->integer('noti')->default(0);
-            $table->string('chat_id');
+            $table->string('chat_id')->default("");
             $table->timestamps();
         });
     }

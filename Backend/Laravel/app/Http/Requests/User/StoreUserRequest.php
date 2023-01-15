@@ -23,6 +23,7 @@ class StoreUserRequest extends FormRequest
             "email" => ["required"],
             "img" => ["optional"],
             "noti" => ["optional"],
+            "chat_id" => ["optional"],
         ];
     }
 }

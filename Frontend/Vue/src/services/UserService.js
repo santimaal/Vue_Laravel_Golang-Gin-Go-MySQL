@@ -28,5 +28,8 @@ export default {
     },
     userUpdate(data) {
         return Api(secret.GO_APP_URL).put('user/update', data);
+    },
+    sendNotification(data) {
+        return Api(secret.GO_APP_URL).post('sendTel', data);
     }
 }

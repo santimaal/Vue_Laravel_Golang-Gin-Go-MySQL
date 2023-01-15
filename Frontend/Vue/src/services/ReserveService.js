@@ -11,4 +11,7 @@ export default {
     updateReserve(status, id) {
         return Api(secret.LARAVEL_APP_URL).put(`reserve/${id}`, { is_confirmed: status })
     },
+    getReservesAdmin(){
+        return Api(secret.LARAVEL_APP_URL).get(`dashboard/reserves`)
+    }
 }

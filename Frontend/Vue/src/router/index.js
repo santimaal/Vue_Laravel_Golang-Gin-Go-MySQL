@@ -8,6 +8,7 @@ const routes = [
   { path: "/updateTable/:id", name: "updateTable", component: () => import('../views/admin/Table/UpdateTable') },
   { path: "/athematic", name: "admin_thematic", component: () => import('../views/admin/Thematic/Thematic') },
   { path: "/addthematic", name: "admin_addthematic", component: () => import('../views/admin/Thematic/AddThematic') },
+  { path: "/areserve", name: "admin_reserve", component: () => import('../views/admin/Reserve/Reserve') },
   { path: "/register", name: "register", component: () => import('../views/login/Register') },
   { path: "/login", name: "login", component: () => import('../views/login/Login') },
   { path: "/profile", name: "profile", component: () => import('../views/profile/SetProfile') },

@@ -18,9 +18,9 @@
                 <div class="dropdown-item text-white">
                     {{ noti.name }} {{ noti.dateini }}
                     <button type="button" class="btn btn-outline-success border-radius"
-                        @click="setReserve('accepted', noti.id)">V</button>
+                        @click="setReserve('accepted', noti.id, noti)">V</button>
                     <button type="button" class="btn btn-outline-danger border-radius"
-                        @click="setReserve('denied', noti.id)">X</button>
+                        @click="setReserve('denied', noti.id, noti)">X</button>
                 </div>
             </li>
         </ul>
@@ -29,7 +29,7 @@
 <script>
 import { reactive, computed } from 'vue';
 import { useStore } from 'vuex';
-import { useGetNotisAdmin } from '../../composables/notifications/useNotifications'
+import { useGetNotisAdmin, useSendNotification } from '../../composables/notifications/useNotifications'
 import { useChangeStatReserve } from '../../composables/reserve/useReserve'
 
 
@@ -46,7 +46,10 @@ export default {
             state.notification = await useGetNotisAdmin()
         }
 
-        const setReserve = async (status, id) => {
+        const setReserve = async (status, id, noti) => {
+            let date = new Date(noti.dateini)
+            let message = date.getDate() + '-' + (date.getMonth() + 1) + '-' + date.getFullYear() + " at " + date.getHours() + "h " + status
+            useSendNotification({ id_user: noti.id_user, message: message });
             await useChangeStatReserve(status, id)
         }
         return { state, getNotis, setReserve }
