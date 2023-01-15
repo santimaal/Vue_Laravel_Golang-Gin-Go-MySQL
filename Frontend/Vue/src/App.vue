@@ -15,10 +15,10 @@ import { useStore } from "vuex";
 const store = useStore();
 
 if (localStorage.getItem('token')) {
-  store.dispatch("user/" + Constant.GET_PROFILE, "client");
-}else if (localStorage.getItem('token_admin')) {
-  store.dispatch("user/" + Constant.GET_PROFILE, "admin");
+  store.dispatch("user/" + Constant.GET_PROFILE);
 }
+
+
 </script>
 
 <style>

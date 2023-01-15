@@ -28,37 +28,16 @@ export const user = {
         noti: payload.noti,
         chat_id: payload.chat_id
       };
+      if (!payload.redirect){
+        router.push({ name: 'home' });
+      }
     },
     [Constant.USER_REGISTER]: (state, payload) => {
       toaster.success("User " + payload.name.toUpperCase() + " has successfully registered", { position: "top-right", duration: 5000, dismissible: true });
       router.push({ name: 'login' });
     },
-    [Constant.USER_LOGIN]: (state, payload) => {
-      localStorage.setItem("token", payload.token);
-      state.user = {
-        is_active: payload.is_active,
-        name: payload.name,
-        email: payload.email,
-        img: payload.img,
-        type: 'client',
-        noti: payload.noti,
-        chat_id: payload.chat_id
-      };
-      router.push({ name: 'home' });
-    },
-    [Constant.USER_LOGIN_ADMIN]: (state, payload) => {
-      localStorage.setItem("token_admin", payload.authorisation.token);
-      state.user = {
-        is_active: payload.user.is_active,
-        name: payload.user.name,
-        email: payload.user.email,
-        img: payload.user.img,
-        type: 'admin',
-        noti: payload.user.noti
-      };
-      router.push({ name: 'home' });
-    },
     [Constant.LOGOUT]: (state) => {
+      toaster.success("User " + state.user.name.toUpperCase() + " has log out successfully", { position: "top-right", duration: 5000, dismissible: true });
       state.user = {
         is_active: "",
         name: "",
@@ -71,24 +50,15 @@ export const user = {
     },
   },
   actions: {
-    [Constant.GET_PROFILE]: (store, payload ) => {
-      if (payload == "admin") {
-        UserService.getProfile_Admin()
+    [Constant.GET_PROFILE]: (store) => {
+      
+      UserService.getProfile()
         .then(function (res) {
           store.commit(Constant.SET_USER, res.data);
         })
         .catch(function (error) {
           console.log(error);
         });
-      }else {
-        UserService.getProfile()
-        .then(function (res) {
-          store.commit(Constant.SET_USER, res.data);
-        })
-        .catch(function (error) {
-          console.log(error);
-        });
-      }
      
     },
     [Constant.USER_REGISTER]: (store, payload) => {
@@ -109,13 +79,15 @@ export const user = {
     [Constant.USER_LOGIN]: (store, payload) => {
       UserService.userLogin(payload)
         .then(function (res) {
+          localStorage.setItem("token", res.data.token);
           if (res.data.type == "admin") {
             toaster.info("Comprobando Credenciales Admin...", { position: "top-right", duration: 3000, dismissible: true });
             UserService.userLoginAdmin(payload)
               .then(function (res) {
                 setTimeout(function () {
                   toaster.success("Admin " + res.data.user.name.toUpperCase() + " loged successfully loged", { position: "top-right", duration: 5000, dismissible: true });
-                  store.commit(Constant.USER_LOGIN_ADMIN, res.data);
+                  localStorage.setItem("token_admin", res.data.authorisation.token);
+                  store.commit(Constant.SET_USER, res.data.user);
                 }, 2000);
               })
               .catch(function (error) {
@@ -123,8 +95,7 @@ export const user = {
                 toaster.error("Error login Admin", { position: "bottom", duration: 5000, dismissible: true });
               });
           } else {
-            console.log(res.data);
-            store.commit(Constant.USER_LOGIN, res.data);
+            store.commit(Constant.SET_USER, res.data);
             toaster.success(res.data.name.toUpperCase() + " loged successfully", { position: "top-right", duration: 5000, dismissible: true });
           }
         })
@@ -158,6 +129,7 @@ export const user = {
         });
     },
     [Constant.LOGOUT]: (store) => {
+      console.log("SOY EL LOGOUT");
       localStorage.removeItem("token");
       localStorage.removeItem("token_admin");
       store.commit(Constant.LOGOUT);
@@ -174,6 +146,7 @@ export const user = {
       
       UserService.userUpdate(newForm)
       .then(function (res) {
+        res.data.redirect = "no";
         store.commit(Constant.SET_USER, res.data);
         toaster.success("Updated correctly!", { position: "bottom", duration: 5000, dismissible: true });
 
