@@ -1,6 +1,8 @@
 import { ref } from 'vue';
 import ReserveService from '../../services/ReserveService';
 import { createToaster } from "@meforma/vue-toaster";
+import UserService from '../../services/UserService';
+
 const toaster = createToaster();
 
 export const useGHours = (date) => {
@@ -47,4 +49,19 @@ export const useGetReservesAdmin = () => {
         })
         .catch(error => console.error(error))
     return reserves
+}
+
+
+export const useGetReserveClient = async () => {
+        const reserva = ref([])
+        await UserService.getMyReserves()
+            .then(res => {
+                res.data.forEach(reserva => {
+                    let date = new Date(reserva.dateini)
+                    reserva.dateini= date.getDate() + '-' + (date.getMonth() + 1) + '-' + date.getFullYear() + " at " + date.getHours() + "h"
+                });
+                reserva.value = res.data
+            })
+            .catch(error => console.error(error))
+        return reserva;
 }

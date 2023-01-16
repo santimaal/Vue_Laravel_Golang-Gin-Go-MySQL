@@ -35,6 +35,11 @@ func GetReserveByUserRepo(u User.UserModel, c *gin.Context) (reserve []ReserveMo
 	return reserve, err
 }
 
+func GetMyReservesRepo(u User.UserModel, c *gin.Context) (reserve []ReserveModel, err error) {
+	err = Config.DB.Where("id_user = ?", u.Id).Order("updated_at desc").Find(&reserve).Error
+	return reserve, err
+}
+
 func CreateReserveRepo(r *ReserveModel, c *gin.Context) (ReserveModel, error) {
 	err := Config.DB.Create(r).Error
 	return *r, err

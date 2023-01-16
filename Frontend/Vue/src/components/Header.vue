@@ -19,7 +19,7 @@
             <a class="dropdown-item" href="#"><router-link class="nav-link button" to="/atable">Table</router-link></a>
             <a class="dropdown-item" href="#"><router-link class="nav-link button" to="/athematic">Thematic</router-link></a>
             <a class="dropdown-item" href="#"><router-link class="nav-link button" to="/athematic">User</router-link></a>
-            <a class="dropdown-item" href="#"><router-link class="nav-link button" to="/athematic">Reserve</router-link></a>
+            <a class="dropdown-item" href="#"><router-link class="nav-link button" to="/areserve">Reserve</router-link></a>
           </div>
         </li>
         <li class="nav-item" v-if="state.auth == ''">
@@ -38,7 +38,7 @@
           <Notifications></Notifications>
         </li>
         <li class="nav-item" v-if="state.auth != ''">
-          <a class="nav-link button" @click="logout"><font-awesome-icon class="logout_icon"
+          <a class="nav-link " @click="logout"><font-awesome-icon class="logout_icon"
               icon="fa-solid fa-right-from-bracket" /></a>
         </li>
       </ul>
@@ -104,7 +104,12 @@ nav {
         z-index: 100;
 
         .logout_icon {
-          height: 20px;
+          height: 27px;
+          color: lightgray;
+          &:hover {
+            color: rgb(227, 177, 177);
+            font-size: xx-large;
+          }
         }
 
       }

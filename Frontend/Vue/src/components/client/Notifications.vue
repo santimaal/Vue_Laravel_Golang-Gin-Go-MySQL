@@ -9,7 +9,7 @@
                 {{ state.notis }}
             </span>
         </div>
-        <!-- <a class="dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-expanded="false">A</a> -->
+        
         <ul class="dropdown-menu mt-5 noti">
             <li v-if="state.notification.length == 0">
                 <div class="ml-1 text-white">No notifications yet</div>

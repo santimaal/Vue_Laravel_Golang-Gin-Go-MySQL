@@ -58,6 +58,7 @@ func SetupRouter() *gin.Engine {
 	api.GET("thematic/infinite", Thematic.GetThematicsInfinity)
 	api.Use(User.AuthMiddleware(true))
 	api.GET("reserve", Reserve.GetReserveByUser)
+	api.GET("reserve/myreserve", Reserve.GetMyReserves)
 	api.POST("reserve/add", Reserve.CreateReserve)
 	api.GET("user/profile", User.GetProfile)
 	api.GET("user/:id", User.GetUserByID)

@@ -171,7 +171,7 @@ export default {
         router.push({ name: 'login' })
       }
       if (await !store.getters["user/getUser"].is_active) {
-        toaster.success("Usuario deshabilitado", { position: "top-right", duration: 5000, dismissible: true });
+        toaster.info("Usuario deshabilitado", { position: "top-right", duration: 5000, dismissible: true });
       } else {
         state.modal = true
       }

@@ -28,7 +28,7 @@ export const user = {
         noti: payload.noti,
         chat_id: payload.chat_id
       };
-      if (!payload.redirect){
+      if (payload.redirect){
         router.push({ name: 'home' });
       }
     },
@@ -87,6 +87,7 @@ export const user = {
                 setTimeout(function () {
                   toaster.success("Admin " + res.data.user.name.toUpperCase() + " loged successfully loged", { position: "top-right", duration: 5000, dismissible: true });
                   localStorage.setItem("token_admin", res.data.authorisation.token);
+                  res.data.user.redirect = "true";
                   store.commit(Constant.SET_USER, res.data.user);
                 }, 2000);
               })
@@ -95,6 +96,7 @@ export const user = {
                 toaster.error("Error login Admin", { position: "bottom", duration: 5000, dismissible: true });
               });
           } else {
+            res.data.redirect = "true";
             store.commit(Constant.SET_USER, res.data);
             toaster.success(res.data.name.toUpperCase() + " loged successfully", { position: "top-right", duration: 5000, dismissible: true });
           }
@@ -129,7 +131,6 @@ export const user = {
         });
     },
     [Constant.LOGOUT]: (store) => {
-      console.log("SOY EL LOGOUT");
       localStorage.removeItem("token");
       localStorage.removeItem("token_admin");
       store.commit(Constant.LOGOUT);
@@ -146,7 +147,6 @@ export const user = {
       
       UserService.userUpdate(newForm)
       .then(function (res) {
-        res.data.redirect = "no";
         store.commit(Constant.SET_USER, res.data);
         toaster.success("Updated correctly!", { position: "bottom", duration: 5000, dismissible: true });
 

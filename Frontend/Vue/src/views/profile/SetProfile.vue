@@ -119,45 +119,9 @@
                 </div>
                 <div class="col-lg-8">
                     <div class="card mb-4">
-                        <div class="card-body">
-                            <div class="row">
-                                <div class="col-sm-3">
-                                    <p class="mb-0">Full Name</p>
-                                </div>
-                                <div class="col-sm-9">
-                                    <p class="text-muted mb-0">{{ state.user.name }} Esteve Ferre</p>
-                                </div>
-                            </div>
-                            <hr>
-                            <div class="row">
-                                <div class="col-sm-3">
-                                    <p class="mb-0">Email</p>
-                                </div>
-                                <div class="col-sm-9">
-                                    <p class="text-muted mb-0">{{ state.user.email }}</p>
-                                </div>
-                            </div>
-                            <hr>
-                            <div class="row">
-                                <div class="col-sm-3">
-                                    <p class="mb-0">Phone</p>
-                                </div>
-                                <div class="col-sm-9">
-                                    <p class="text-muted mb-0">+34 678345678</p>
-                                </div>
-                            </div>
-                            <hr>
-                            <div class="row">
-                                <div class="col-sm-3">
-                                    <p class="mb-0">Address</p>
-                                </div>
-                                <div class="col-sm-9">
-                                    <p class="text-muted mb-0">Avd. España Nº29</p>
-                                </div>
-                            </div>
-                        </div>
+                        <h1 class="title">My Reserves</h1>
+                        <ListReserves></ListReserves>
                     </div>
-
                 </div>
             </div>
         </div>
@@ -171,6 +135,8 @@ import { email } from '@vuelidate/validators'
 import { useStore } from 'vuex';
 import Constant from '../../Constant';
 import { createToaster } from "@meforma/vue-toaster";
+import ListReserves from "../../components/client/List_MyReserves.vue";
+
 const toaster = createToaster();
 
 export default {
@@ -236,16 +202,17 @@ export default {
             state.check.chat_id = "";
             await navigator.clipboard.writeText(state.form.chat_id);
             store.dispatch("user/" + Constant.USER_UPDATE, state.form);
-            window.open("https://web.telegram.org/k/#@Sanvicbot", "_blank");
+            window.open("https://web.telegram.org/z/#5944160111", "_blank");
 
         }
-        return { state, UpdateProfile, telegram, generateChatId, saveChatId }
-
-
-    }
+        return { state, UpdateProfile, telegram, generateChatId, saveChatId, ListReserves }
+    },
+    components: { ListReserves },
 }
 </script>
 <style>
+@import url("https://fonts.googleapis.com/css2?family=Lobster&display=swap");
+
 .img_profile {
     width: 150px;
 }
@@ -308,5 +275,11 @@ export default {
 .check_icon:hover {
     font-size: x-large;
     color: green;
+}
+
+.title{
+    font-family: "Lobster", cursive;
+    text-align: center;
+    text-decoration: underline;
 }
 </style>
