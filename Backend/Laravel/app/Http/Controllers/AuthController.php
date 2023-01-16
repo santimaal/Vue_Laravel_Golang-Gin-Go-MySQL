@@ -84,6 +84,18 @@ class AuthController extends Controller
         return response()->json($user_serialize);
     }
 
+     // GET CLIENT USERS
+     public function GetUsersClient(){
+         $user_serialize = User::select()->where('type', 'client')->get();
+         unset($user_serialize->password);
+         return response()->json($user_serialize);
+    }
+
+     // UPDATE STATUS USER
+     public function UpdateStateUser($id, $status){
+        return response()->json(User::where('id', $id)->update(['is_active' => $status]));
+    }
+
     // GET ALL USER
     public function index()
     {

@@ -19,7 +19,6 @@ Route::get('/table/{id}', [TableController::class, 'show']);
 // User
 Route::post('user/register', [AuthController::class, 'register']);
 Route::post('user/login', [AuthController::class, 'login']);
-Route::get('user/profile', [AuthController::class, 'GetProfile']);
 
 // Unique Users ADMIN
 Route::group(['middleware' => ['admin']], function () {
@@ -45,6 +44,11 @@ Route::group(['middleware' => ['admin']], function () {
 
     //Users
     Route::get('/user/isAdmin', [AuthController::class, 'isAdmin']);
+    Route::get('user/profile', [AuthController::class, 'GetProfile']);
+	Route::get('/user/GetUsersClient', [AuthController::class, 'GetUsersClient']);
+    Route::put('/user/UpdateStateUser/{id}/{status}', [AuthController::class, 'UpdateStateUser']);
+
+    
 
     // Route::resource('user', AuthController::class);
 });

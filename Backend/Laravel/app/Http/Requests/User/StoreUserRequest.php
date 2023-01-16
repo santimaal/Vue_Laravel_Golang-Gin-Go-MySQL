@@ -17,10 +17,10 @@ class StoreUserRequest extends FormRequest
     {
         return [
             "is_active" => ["optional"],
-            "name" => ["required"],
-            "password" => ["required"],
+            "name" => ["optional"],
+            "password" => ["optional"],
             "type" => ["optional"],
-            "email" => ["required"],
+            "email" => ["optional"],
             "img" => ["optional"],
             "noti" => ["optional"],
             "chat_id" => ["optional"],

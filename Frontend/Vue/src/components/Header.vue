@@ -18,7 +18,7 @@
           <div class="dropdown-menu">
             <a class="dropdown-item" href="#"><router-link class="nav-link button" to="/atable">Table</router-link></a>
             <a class="dropdown-item" href="#"><router-link class="nav-link button" to="/athematic">Thematic</router-link></a>
-            <a class="dropdown-item" href="#"><router-link class="nav-link button" to="/athematic">User</router-link></a>
+            <a class="dropdown-item" href="#"><router-link class="nav-link button" to="/auser">User</router-link></a>
             <a class="dropdown-item" href="#"><router-link class="nav-link button" to="/areserve">Reserve</router-link></a>
           </div>
         </li>

@@ -51,7 +51,6 @@ export default {
 
     state.myreserves.then(resolvedValue => {
       state.reservas = resolvedValue._rawValue;
-      console.log(state.reservas);
     });
 
     return { state }
@@ -59,7 +58,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 .my-custom-scrollbar {
   position: relative;
   height: 600px;

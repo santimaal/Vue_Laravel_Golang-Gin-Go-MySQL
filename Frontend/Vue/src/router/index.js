@@ -15,6 +15,7 @@ const routes = [
   { path: "/atable", name: "admin_table", component: () => import('../views/admin/Table/Table'),  beforeEnter: authGuard.authGuardAdmin, meta: { requiresAuth: true } },
   { path: "/athematic", name: "admin_thematic", component: () => import('../views/admin/Thematic/Thematic'), beforeEnter: authGuard.authGuardAdmin, meta: { requiresAuth: true } },
   { path: "/areserve", name: "admin_reserve", component: () => import('../views/admin/Reserve/Reserve'), beforeEnter: authGuard.authGuardAdmin, meta: { requiresAuth: true } },
+  { path: "/auser", name: "admin_user", component: () => import('../views/admin/Users/ListUser'), beforeEnter: authGuard.authGuardAdmin, meta: { requiresAuth: true } },
   { path: "/:catchAll(.*)", component: () => import('../views/Home') },
 
 ];
