@@ -113,4 +113,8 @@ class AuthController extends Controller
     {
         return response()->json(User::where('id', $id)->delete());
     }
+
+    public function isAdmin() {
+        return response()->json("admin");
+    }
 }

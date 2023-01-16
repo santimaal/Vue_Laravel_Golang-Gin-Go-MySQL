@@ -40,13 +40,18 @@ func main() {
 				user = c.Sender()
 				text = c.Text()
 			)
-			fmt.Println(user.ID)
-			bool := User.ComproveCode(text, user.ID)
-			if bool {
-				msg, _ := bot.Send(user, "User connected correctly")
-				c.Send(msg)
+			fmt.Println(user.FirstName)
+			if text != "/start" {
+				bool := User.ComproveCode(text, user.ID)
+				if bool {
+					msg, _ := bot.Send(user, "User connected correctly")
+					c.Send(msg)
+				} else {
+					msg, _ := bot.Send(user, "Telegram code is not correct")
+					c.Send(msg)
+				}
 			} else {
-				msg, _ := bot.Send(user, "Telegram code is not correct")
+				msg, _ := bot.Send(user, "Hello "+user.FirstName+"!! Send me your telegram token")
 				c.Send(msg)
 			}
 			return err

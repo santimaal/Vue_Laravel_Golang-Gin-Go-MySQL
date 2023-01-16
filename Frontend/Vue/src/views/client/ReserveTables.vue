@@ -34,17 +34,17 @@
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
-        <div class="modal-body">
-          <input type="date" ref="fechaInput" v-model="dateselected" v-on:change="getHours(dateselected)" />
-          <select name="" id="" v-model="hour">
-            <option v-for="h in state.hours" :key="h" :value="h">{{ h }}</option>
+        <div class="modal-body row d-flex justify-content-around">
+          <input type="date" :min="state.minmodal" class="form-control col-5" v-model="dateselected"
+            v-on:change="getHours(dateselected)" />
+          <select name="" id="" v-model="hour" class="form-control col-5">
+            <option v-for="h in state.hours" :key="h" :value="h">{{ h }}:00</option>
           </select>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
           <button type="button" class="btn btn-primary" data-dismiss="modal"
-            @click="addReserva(dateselected, hour, state.clicked)">Save
-            changes</button>
+            @click="addReserva(dateselected, hour, state.clicked)">Reserve Now!!</button>
         </div>
       </div>
     </div>
@@ -66,9 +66,6 @@ import { createToaster } from "@meforma/vue-toaster";
 
 export default {
   mounted() {
-    const hoy = new Date()
-    this.$refs.fechaInput.min = `${hoy.getFullYear()}-${String(hoy.getMonth() + 1).padStart(2, '0')}-${String(hoy.getDate() + 1).padStart(2, '0')}`
-
     setTimeout(() => {
       if (this.state.save_tablelist.length == 0) {
         this.state.loadspinner = false;
@@ -89,6 +86,7 @@ export default {
     const state = reactive({
       modal: true,
       hours: [],
+      minmodal: null,
       clicked: 0,
       show_tablelist: computed(() =>
         store.getters["table/getTable"].slice(0, 6)
@@ -173,6 +171,8 @@ export default {
       if (await !store.getters["user/getUser"].is_active) {
         toaster.info("Usuario deshabilitado", { position: "top-right", duration: 5000, dismissible: true });
       } else {
+        const hoy = new Date()
+        state.minmodal = `${hoy.getFullYear()}-${String(hoy.getMonth() + 1).padStart(2, '0')}-${String(hoy.getDate() + 1).padStart(2, '0')}`
         state.modal = true
       }
     }

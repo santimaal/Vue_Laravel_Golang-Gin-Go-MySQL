@@ -46,6 +46,6 @@ func CreateReserveRepo(r *ReserveModel, c *gin.Context) (ReserveModel, error) {
 }
 
 func GetHoursRepo(t time.Time, id string, c *gin.Context) (r []ReserveModel, err error) {
-	err = Config.DB.Where("id_table = ? AND dateini BETWEEN ? AND ?", id, t, t.AddDate(0, 0, 1)).Find(&r).Error
+	err = Config.DB.Where("id_table = ? AND is_confirmed <> 'denied' AND dateini BETWEEN ? AND ?", id, t, t.AddDate(0, 0, 1)).Find(&r).Error
 	return r, err
 }

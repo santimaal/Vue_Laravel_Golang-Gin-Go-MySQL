@@ -44,5 +44,7 @@ Route::group(['middleware' => ['admin']], function () {
     // Route::resource('reserve', ReserveController::class);
 
     //Users
-    Route::resource('user', AuthController::class);
+    Route::get('/user/isAdmin', [AuthController::class, 'isAdmin']);
+
+    // Route::resource('user', AuthController::class);
 });

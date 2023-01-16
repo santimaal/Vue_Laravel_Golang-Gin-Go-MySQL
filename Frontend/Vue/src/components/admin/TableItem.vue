@@ -11,7 +11,6 @@
             </div>
         </td>
         <td colspan="2">
-            <button type="button" class="btn btn-primary m-1" @click="changeStatus(tableitem)">Status</button>
             <button class="btn btn-primary m-1" @click.stop="editTable(tableitem.id)">Edit</button>
             <button class="btn btn-primary m-1" @click.stop="deleteTable(tableitem.id)">Delete</button>
         </td>
@@ -35,10 +34,6 @@ export default {
         const checked = (done) => {
             return { "list-group-item": true, "list-group-item-success": done };
         }
-        const changeStatus = (tableitem) => {
-            tableitem.is_active = tableitem.is_active == false ? true : false;
-            store.dispatch("table/" + Constant.UPDATE_TABLE, { tableitem: tableitem });
-        }
         const deleteTable = (id) => {
             store.dispatch("table/" + Constant.DELETE_TABLE, { id });
         }
@@ -55,7 +50,7 @@ export default {
             thematic: store.state.thematic.thematiclist
             // thematic: ThematicService.getAllThematic().data
         })
-        return { deleteTable, editTable, checked, changeStatus, state }
+        return { deleteTable, editTable, checked, state }
     }
 }
 </script>

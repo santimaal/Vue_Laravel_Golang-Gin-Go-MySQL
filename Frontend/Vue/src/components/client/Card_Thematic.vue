@@ -36,7 +36,7 @@ export default {
 
     const redirectReserve = (id) => {
       console.log("Click en la Theamtica " + id);
-      let search = { id_thematic: id };
+      let search = { id_thematic: id, location: "" };
 
       router.push({
         name: "client_table",

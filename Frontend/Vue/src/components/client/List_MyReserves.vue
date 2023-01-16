@@ -11,15 +11,24 @@
           <th scope="col">Satus</th>
         </tr>
       </thead>
-      <tbody>
-        <tr v-for="reserve in state.reservas" :key="reserve.id" >
-          <th scope="row"><img class="img_reserve" src="https://architecturesideas.com/wp-content/uploads/2020/10/Guide-to-Restaurant-Tables-5.jpg" alt=""></th>
-          <td>Table {{ reserve.id_table }}</td> 
+      <tbody v-if="state.reservas.length != 0">
+        <tr v-for="reserve in state.reservas" :key="reserve.id">
+          <th scope="row"><img class="img_reserve"
+              src="https://architecturesideas.com/wp-content/uploads/2020/10/Guide-to-Restaurant-Tables-5.jpg" alt="">
+          </th>
+          <td>Table {{ reserve.id_table }}</td>
           <td>{{ reserve.dateini.split(' ')[0] }}</td>
-          <td>{{ reserve.dateini.split(' ')[2].split('h')[0]}}:00</td>
-          <td  v-if="reserve.is_confirmed == 'accepted'"><font-awesome-icon class="bg-green" icon="fa-solid fa-check"/></td>
-          <td  v-if="reserve.is_confirmed == 'pending'"><font-awesome-icon class="bg-blue" icon="fa-solid fa-arrows-rotate"/></td>
-          <td  v-if="reserve.is_confirmed == 'denied'"><font-awesome-icon class="bg-red" icon="fa-solid fa-x"/></td>
+          <td>{{ reserve.dateini.split(' ')[2].split('h')[0] }}:00</td>
+          <td v-if="reserve.is_confirmed == 'accepted'"><font-awesome-icon class="bg-green" icon="fa-solid fa-check" />
+          </td>
+          <td v-if="reserve.is_confirmed == 'pending'"><font-awesome-icon class="bg-blue"
+              icon="fa-solid fa-arrows-rotate" /></td>
+          <td v-if="reserve.is_confirmed == 'denied'"><font-awesome-icon class="bg-red" icon="fa-solid fa-x" /></td>
+        </tr>
+      </tbody>
+      <tbody v-else>
+        <tr>
+          <td colspan="5" class="text-center"><b>No Reserves Yet</b></td>
         </tr>
       </tbody>
     </table>
@@ -39,12 +48,12 @@ export default {
       myreserves: useGetReserveClient(),
       reservas: []
     })
-  
+
     state.myreserves.then(resolvedValue => {
-     state.reservas = resolvedValue._rawValue;
-     console.log(state.reservas);
+      state.reservas = resolvedValue._rawValue;
+      console.log(state.reservas);
     });
-    
+
     return { state }
   }
 }
@@ -60,26 +69,30 @@ export default {
 .table-wrapper-scroll-y {
   display: block;
 }
+
 .bg-green {
- color: lightgreen !important;
- background-color: black;
- font-size: x-large;
- border-radius: 50%;
+  color: lightgreen !important;
+  background-color: black;
+  font-size: x-large;
+  border-radius: 50%;
 }
+
 .bg-red {
   color: lightcoral !important;
   background-color: black;
   font-size: x-large;
 }
+
 .bg-blue {
   color: lightblue !important;
   background-color: black;
   font-size: x-large;
   border-radius: 20%;
 }
-.img_reserve{
+
+.img_reserve {
   width: 50px;
-  background-color:transparent;
+  background-color: transparent;
   border: 0px solid black;
   border-radius: 10px;
 }

@@ -1,5 +1,5 @@
 <template>
-    <div class="row justify-content-center rod_filters">
+    <div class="d-flex justify-content-center rod_filters">
         <div class="col-8">
             <form class="filters justify-content-around rounded p-3 m-2">
                 <div class="row justify-content-around">

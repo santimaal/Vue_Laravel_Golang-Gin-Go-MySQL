@@ -34,5 +34,8 @@ export default {
     },
     sendNotification(data) {
         return Api(secret.GO_APP_URL).post('sendTel', data);
-    }
+    },
+    isAdmin() {
+        return Api(secret.LARAVEL_APP_URL).get('user/isAdmin');
+    },//Profile
 }
