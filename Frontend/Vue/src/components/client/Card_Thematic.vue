@@ -35,7 +35,6 @@ export default {
     const router = useRouter();
 
     const redirectReserve = (id) => {
-      console.log("Click en la Theamtica " + id);
       let search = { id_thematic: id, location: "" };
 
       router.push({

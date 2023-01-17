@@ -38,7 +38,6 @@ export default {
             store.dispatch("table/" + Constant.DELETE_TABLE, { id });
         }
         const editTable = (id) => {
-            console.log(props.tableitem);
             store.dispatch("table/" + Constant.INITIALIZE_TABLE, { tableitem: { ...props.tableitem } });
             router.push({ name: 'updateTable', params: { id } })
         }
