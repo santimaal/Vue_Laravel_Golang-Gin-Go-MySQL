@@ -62,11 +62,10 @@ export default {
         const addTable = () => {
             try {
                 if (state.table.is_active.indexOf("'")) {
-                    console.log("sii");
                     state.table.is_active = state.table.is_active == 'false' ? false : true
                 }
             } catch {
-                console.log("all good");
+                console.log("error");
             }
             store.dispatch("table/" + Constant.ADD_TABLE, { table: state.table })
             router.push({ name: "admin_table" });

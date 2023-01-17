@@ -50,9 +50,8 @@ export default {
 
         const addThematic = () => {
             if (state.thematic.name == "" || state.thematic.location == "" || state.thematic.img == "") {
-                console.log("todo mal");
+                console.log("err");
             } else {
-                console.log("buen")
                 store.dispatch("thematic/" + Constant.ADD_THEMATIC, { thematic: state.thematic })
                 router.push({ name: "admin_thematic" });
             }

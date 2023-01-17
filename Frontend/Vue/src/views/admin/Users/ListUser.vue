@@ -59,7 +59,6 @@ export default {
         const setUser = async (status, id) => {
             await useChangeStatUser(status, id)
             state.users = state.users.map(item => {
-                console.log(id);
                 if (item.id == id) {
                     item.is_active = status;
                 }

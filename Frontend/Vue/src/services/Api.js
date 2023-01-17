@@ -24,7 +24,6 @@ export default (URL) => {
     axiosInstance.interceptors.response.use(
         (response) => response,
         (error) => {
-            console.log(error)
             if (error.response.status === 401) {
                 store.dispatch('user/'+Constant.LOGOUT);
                 toaster.error("You don't have permission LOGOUT!");

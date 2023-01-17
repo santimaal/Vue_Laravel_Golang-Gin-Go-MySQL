@@ -48,7 +48,6 @@ export const thematic = {
                 });
         },
         [Constant.UPDATE_THEMATIC]: (store, payload) => {
-            console.log(payload.thematicitem.id);
             ThematicService.updateThematic(payload.thematicitem, payload.thematicitem.id)
                 .then(function (res) {
                     console.log(res);
@@ -61,7 +60,6 @@ export const thematic = {
         [Constant.INITIALIZE_THEMATIC]: (store /* payload */) => {
             ThematicService.getAllThematic()
                 .then(function (res) {
-                    // console.log(res.data);
                     store.commit(Constant.INITIALIZE_THEMATIC, res.data);
                 })
                 .catch(function (error) {
@@ -73,18 +71,5 @@ export const thematic = {
         getThematic(state) {
             return state.thematiclist;
         },
-        // getOrder(state) {
-        //     if (state.tablelist) {
-        //         var orders = state.tablelist.filter(function (element) {
-        //             return element.order != null;
-        //         }).map(function (element) {
-        //             return element.order;
-
-        //         })
-        //         console.log(orders);
-        //         return orders;
-        //     }
-        //     return;
-        // },
     },
 }

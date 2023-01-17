@@ -31,7 +31,6 @@ export const table = {
         [Constant.ADD_TABLE]: async (store, payload) => {
             await TableService.createTable(payload.table)
                 .then(function (res) {
-                    console.log(res.data.data);
                     store.commit(Constant.ADD_TABLE, res.data.data);
                 })
                 .catch(function (error) {
@@ -53,7 +52,6 @@ export const table = {
                 });
         },
         [Constant.UPDATE_TABLE]: async (store, payload) => {
-            console.log(payload.tableitem.id);
             await TableService.updateTable(payload.tableitem, payload.tableitem.id)
                 .then(function (res) {
                     console.log(res);
@@ -64,12 +62,9 @@ export const table = {
                 });
         },
         [Constant.INITIALIZE_ONETABLE]: async (store, payload) => {
-            console.log(payload);
             await TableService.getTableById(payload.id)
                 .then(function (res) {
-                    console.log(res.data);
                     return res.data
-                   
                 })
                 .catch(function (error) {
                     console.log(error);
