@@ -1,29 +1,33 @@
 <template>
-  <!-- <div class="container">
-      <div class="row"> -->
-  <div class="col p-3">
-    <h2>Update thematic: {{ state.thematicitemlocal.id }}</h2>
-  </div>
-  <div class="row">
-    <div class="col">
-      <div class="form-group">
-        <label htmlFor="todo">Name :</label>
-        <input type="text" class="form-control" v-model="state.thematicitemlocal.name" />
-      </div>
-      <div class="form-group">
-        <label htmlFor="desc">Location :</label>
-        <input type="text" class="form-control" v-model="state.thematicitemlocal.location" />
-      </div>
-      <div class="form-group">
-        <label htmlFor="desc">Img : </label>&nbsp;
-        <input type="text" class="form-control" v-model="state.thematicitemlocal.img" />
-      </div>
-      <div class="form-group">
-        <button type="button" class="btn btn-primary m-1" @click="updateThematic">Update</button>
-        <router-link to="/athematic"><button type="button" class="btn btn-primary m-1">Cancel</button></router-link>
+  <div class="all_list">
+    <div class="d-flex justify-content-center align-items-center">
+      <div class="d-flex flex-column mt-5">
+        <div class="div_border">
+          <h1 class="text-center mt-2 title">Update Thematic</h1>
+          <div class="pl-5 pr-5 pb-4 pt-3">
+            <div class="form-group">
+              <label htmlFor="todo">Name :</label>
+              <input type="text" class="form-control" v-model="state.thematicitemlocal.name" />
+            </div>
+            <div class="form-group">
+              <label htmlFor="desc">Location :</label>
+              <input type="text" class="form-control" v-model="state.thematicitemlocal.location" />
+            </div>
+            <div class="form-group mb-4">
+              <label htmlFor="desc">Img : </label>&nbsp;
+              <input type="text" class="form-control" v-model="state.thematicitemlocal.img" />
+            </div>
+            <div class="d-flex justify-content-center">
+              <button type="button" class="btn btn-outline-success mr-2" @click="updateThematic">Update</button>
+              <router-link to="/athematic"><button type="button"
+                  class="btn btn-outline-danger ml-2">Cancel</button></router-link>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
+
 </template>
   
 <script>
@@ -44,7 +48,7 @@ export default {
     });
 
     if (store.state.thematic.thematiclist.length != 0) {
-      state.thematicitemlocal =  store.state.thematic.thematiclist.find(item => item.id == currentRoute.params.id);
+      state.thematicitemlocal = store.state.thematic.thematiclist.find(item => item.id == currentRoute.params.id);
     } else {
       ThematicService.getThematicById(currentRoute.params.id).then(data => {
         state.thematicitemlocal = data.data;
@@ -64,5 +68,20 @@ export default {
 </script>
   
 <style>
+@import url("https://fonts.googleapis.com/css2?family=Lobster&display=swap");
 
+.all_list {
+    height: 81vh !important;
+}
+
+.div_border {
+    border: 2px solid black;
+    background-color: white;
+    border-radius: 5px;
+}
+
+.title {
+    text-decoration: underline;
+    font-family: "Lobster", cursive;
+}
 </style>

@@ -73,7 +73,7 @@ export default {
 </script>
 <style scoped>
 .mytable {
-    border: 5px black solid;
+    background-color: white;
 }
 
 .img_profile {

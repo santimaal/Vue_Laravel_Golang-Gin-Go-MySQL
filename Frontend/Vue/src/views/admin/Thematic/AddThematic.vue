@@ -1,16 +1,36 @@
 <template>
-    <form>
-        <h1>Create Thematic</h1>
-        Name <input type="text" v-model="state.thematic.name" required />
-        <br><br>
-        Location <input type="text" v-model="state.thematic.location" required>
-        <br><br>
-        Img <input type="text" v-model="state.thematic.img" required>
-        <br><br>
-        <!-- <button type="submit" @click="addThematic">Add</button> -->
-        <button type="button" @click="addThematic">Add</button>
-        <router-link to="athematic"><button>Cancel</button></router-link>
-    </form>
+    <div class="all_list">
+        <div class="d-flex justify-content-center align-items-center">
+            <div class="d-flex flex-column mt-5">
+                <div class="div_border">
+                    <h1 class="text-center mt-2 title">Create Thematic</h1>
+                    <div class="pl-5 pr-5 pb-4 pt-2">
+                        <form>
+                            <div class="mb-4">
+                                <label> Name:</label><br>
+                                <input type="text" v-model="state.thematic.name" required />
+                            </div>
+                            <div class="mb-4">
+                                <label>Location:</label><br>
+                                <input type="text" v-model="state.thematic.location" required>
+                            </div>
+                            <div class="mb-4">
+                                <label>Img:</label><br>
+                                <input type="text" v-model="state.thematic.img" required>
+                            </div>
+
+                            <div class="d-flex justify-content-center">
+                                <button type="button" class="btn btn-outline-success mr-2"
+                                    @click="addThematic">Add</button>
+                                <router-link to="athematic"><button
+                                        class="btn btn-outline-danger ml-2">Cancel</button></router-link>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
 </template>
 
@@ -45,6 +65,21 @@ export default {
 
 </script>
 
-<style>
+<style scoped>
+@import url("https://fonts.googleapis.com/css2?family=Lobster&display=swap");
 
+.all_list {
+    height: 81vh !important;
+}
+
+.div_border {
+    border: 2px solid black;
+    background-color: white;
+    border-radius: 5px;
+}
+
+.title {
+    text-decoration: underline;
+    font-family: "Lobster", cursive;
+}
 </style>

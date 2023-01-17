@@ -1,40 +1,42 @@
 <template>
-    <div class="m-4">
-        <div class="row">
-            <div class="col p-3">
-                <h2>Update Table</h2>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col">
-                <div class="form-group">
-                    <label>Status Table:</label>
-                    <select v-model="state.tableitemlocal.is_active" class="m-3">
-                        <option value="true">Reserved</option>
-                        <option value="false">No Reserved</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label>Capacity :</label>
-                    <input type="number" class="m-3 .col-md-1" v-model="state.tableitemlocal.capacity" />
-                </div>
-                <div class="form-group">
-                    <label>Location :</label>
-                    <select v-model="state.tableitemlocal.location" class="m-3">
-                        <option value="outside">Outside</option>
-                        <option value="inside">Inside</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label>Thematic : </label>
-                    <select v-model="state.tableitemlocal.id_thematic" class="m-3">
-                        <option v-for="(item, id) in state.thematiclist" :key="id" :value="item.id">{{ item.name }}
-                        </option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <button type="button" class="btn btn-primary m-1" @click="updateTable">Update</button>
-                    <router-link to="/atable"><button class="btn btn-primary m-1">Cancel</button></router-link>
+    <div class="all_list">
+        <div class="d-flex justify-content-center align-items-center">
+            <div class="d-flex flex-column mt-5">
+                <div class="div_border">
+                    <h1 class="text-center mt-2 title">Update Table</h1>
+                    <div class="pl-5 pr-5 pb-4 pt-2">
+                        <div class="form-group">
+                            <label>Status Table:</label>
+                            <select v-model="state.tableitemlocal.is_active" class="m-3">
+                                <option value="true">Reserved</option>
+                                <option value="false">No Reserved</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Capacity :</label>
+                            <input type="number" class="m-3 .col-md-1" v-model="state.tableitemlocal.capacity" />
+                        </div>
+                        <div class="form-group">
+                            <label>Location :</label>
+                            <select v-model="state.tableitemlocal.location" class="m-3">
+                                <option value="outside">Outside</option>
+                                <option value="inside">Inside</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Thematic: </label>
+                            <select v-model="state.tableitemlocal.id_thematic" class="m-3">
+                                <option v-for="(item, id) in state.thematiclist" :key="id" :value="item.id">{{
+                                    item.name
+                                }}
+                                </option>
+                            </select>
+                        </div>
+                        <div class="d-flex justify-content-center">
+                            <button type="button" class="btn btn-outline-success mr-2" @click="updateTable">Update</button>
+                            <router-link to="/atable"><button class="btn btn-outline-danger ml-2">Cancel</button></router-link>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -81,6 +83,21 @@ export default {
 }
 </script>
   
-<style>
+<style scoped>
+@import url("https://fonts.googleapis.com/css2?family=Lobster&display=swap");
 
+.all_list {
+    height: 81vh !important;
+}
+
+.div_border {
+    border: 2px solid black;
+    background-color: white;
+    border-radius: 5px;
+}
+
+.title {
+    text-decoration: underline;
+    font-family: "Lobster", cursive;
+}
 </style>

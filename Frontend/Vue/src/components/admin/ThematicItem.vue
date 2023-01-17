@@ -1,12 +1,13 @@
 <template>
+<div></div>
   <tr>
     <th scope="row">{{ thematicitem.id }}</th>
     <td>{{ thematicitem.name }}</td>
     <td>{{ thematicitem.location }}</td>
-    <td> <img class="img" :src="thematicitem.img" alt=""></td>
+    <td> <img class="img rounded-circle img-fluid" :src="thematicitem.img" alt=""></td>
     <td colspan="2"> 
-      <button class="btn btn-primary m-1" @click.stop="editThematic(thematicitem.id)">Edit</button>
-      <button class="btn btn-primary m-1" @click.stop="deleteThematic(thematicitem.id)">Delete</button>
+      <button class="btn btn-outline-primary m-1" @click.stop="editThematic(thematicitem.id)">Edit</button>
+      <button class="btn btn-outline-danger m-1" @click.stop="deleteThematic(thematicitem.id)">Delete</button>
     </td>
   </tr>
 </template>
@@ -49,7 +50,7 @@ export default {
 }
 
 .img {
-  max-width: 20%;
+  width: 80px;
 }
 td{
     text-align: center;

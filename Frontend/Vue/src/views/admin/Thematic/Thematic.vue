@@ -1,21 +1,23 @@
 <template>
-    <table class="table">
-        <thead class="thead-dark">
-            <tr>
-                <th class="title" colspan="5">Dashboard Thematics</th>
-            </tr>
-            <tr>
-                <th scope="col">Id:</th>
-                <th scope="col">Name</th>
-                <th scope="col">Location</th>
-                <th scope="col">Img</th>
-                <th scope="col"> <router-link to="addthematic"><button>Add</button></router-link></th>
-            </tr>
-        </thead>
-        <tbody>
-            <ThematicItem_admin v-for="thematicitem in state.thematiclist" :key="thematicitem.id" :thematicitem="thematicitem" />
-        </tbody>
-    </table>
+    <div class="mt-4 mb-5">
+        <div class="d-flex justify-content-center mt-3">
+            <table class="table table-striped col-10 text-center">
+                <thead class="thead-dark">
+                    <tr>
+                        <th scope="col">Id:</th>
+                        <th scope="col">Name</th>
+                        <th scope="col">Location</th>
+                        <th scope="col">Img</th>
+                        <th scope="col"> <router-link to="addthematic"><button class="btn btn-outline-warning">Add</button></router-link></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <ThematicItem_admin v-for="thematicitem in state.thematiclist" :key="thematicitem.id"
+                        :thematicitem="thematicitem" />
+                </tbody>
+            </table>
+        </div>
+    </div>
 </template>
 
 <script>
@@ -45,15 +47,13 @@ th {
 }
 
 .table {
-    background-color: antiquewhite;
-    /* width: 80%;
-    float: right; */
-    margin-right: 2%;
-    margin-top: 1%;
+    background-color: white;
 }
+
 .title {
     background-color: black !important;
     font-size: xx-large;
     border-bottom: 2px solid lightblue !important;
 }
+
 </style>

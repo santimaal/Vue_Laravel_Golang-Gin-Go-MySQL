@@ -11,8 +11,8 @@
             </div>
         </td>
         <td colspan="2">
-            <button class="btn btn-primary m-1" @click.stop="editTable(tableitem.id)">Edit</button>
-            <button class="btn btn-primary m-1" @click.stop="deleteTable(tableitem.id)">Delete</button>
+            <button class="btn btn-outline-primary m-1" @click.stop="editTable(tableitem.id)">Edit</button>
+            <button class="btn btn-outline-danger m-1" @click.stop="deleteTable(tableitem.id)">Delete</button>
         </td>
     </tr>
 </template>
